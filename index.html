@@ -45,7 +45,7 @@
     a { color: inherit; }
 
     .app {
-      width: min(1220px, calc(100% - 28px));
+      width: min(1120px, calc(100% - 28px));
       margin: 0 auto;
       padding: 14px 0 34px;
     }
@@ -329,7 +329,7 @@
 
     .panel {
       border: 1px solid var(--line);
-      border-radius: 18px;
+      border-radius: 24px;
       background: rgba(255, 255, 255, 0.9);
       box-shadow: var(--shadow);
       overflow: hidden;
@@ -802,28 +802,236 @@
 
     .set-list {
       display: grid;
-      gap: 10px;
-      padding: 14px;
+      gap: 14px;
+      padding: 16px;
     }
 
     .set-button {
+      --card-bg: #fde2df;
+      --card-base: rgba(244, 114, 108, 0.18);
+      --card-accent: #7c3aed;
+      --card-accent-two: #f59e0b;
+      position: relative;
       width: 100%;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: white;
+      min-height: 178px;
+      padding: 24px 230px 18px 24px;
+      border: 0;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 21% 22%, rgba(255, 255, 255, 0.58) 0 7px, transparent 8px),
+        radial-gradient(circle at 30% 46%, rgba(255, 163, 163, 0.45) 0 8px, transparent 9px),
+        radial-gradient(circle at 56% 20%, rgba(255, 255, 255, 0.5) 0 6px, transparent 7px),
+        var(--card-bg);
       text-align: left;
       line-height: 1.45;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
+      overflow: hidden;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .set-button:nth-child(2) {
+      --card-bg: #fdecc9;
+      --card-base: rgba(245, 158, 11, 0.2);
+      --card-accent: #22c55e;
+      --card-accent-two: #f97316;
+    }
+
+    .set-button:nth-child(3) {
+      --card-bg: #ffd7e8;
+      --card-base: rgba(236, 72, 153, 0.16);
+      --card-accent: #ec4899;
+      --card-accent-two: #2563eb;
+    }
+
+    .set-button:nth-child(4) {
+      --card-bg: #fee2e2;
+      --card-base: rgba(248, 113, 113, 0.16);
+      --card-accent: #f97316;
+      --card-accent-two: #0ea5e9;
+    }
+
+    .set-button:nth-child(5) {
+      --card-bg: #d9fbe8;
+      --card-base: rgba(16, 185, 129, 0.18);
+      --card-accent: #0ea5e9;
+      --card-accent-two: #84cc16;
+    }
+
+    .set-button::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 42px;
+      background: var(--card-base);
+    }
+
+    .set-button:hover,
+    .set-button:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 42px rgba(15, 23, 42, 0.15);
+      outline: none;
     }
 
     .set-button.active {
-      border-color: var(--teal);
-      background: #ecfdf5;
+      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.18), 0 20px 42px rgba(15, 23, 42, 0.15);
     }
 
-    .set-button strong {
+    .course-title {
       display: block;
-      margin-bottom: 4px;
+      position: relative;
+      z-index: 2;
+      margin: 0 0 8px;
+      color: #111827;
+      font-size: clamp(1.55rem, 4vw, 2.2rem);
+      line-height: 1.08;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .course-period {
+      position: relative;
+      z-index: 2;
+      display: block;
+      color: #111827;
+      font-size: 1.08rem;
+      font-weight: 500;
+    }
+
+    .course-count {
+      position: absolute;
+      z-index: 2;
+      left: 24px;
+      bottom: 17px;
+      color: #111827;
+      font-weight: 800;
+    }
+
+    .course-menu {
+      position: absolute;
+      z-index: 5;
+      top: 18px;
+      right: 20px;
+      color: #111827;
+      font-size: 1.5rem;
+      line-height: 1;
+      letter-spacing: 2px;
+    }
+
+    .course-illustration {
+      position: absolute;
+      right: 22px;
+      bottom: 22px;
+      width: 190px;
+      height: 128px;
+      z-index: 1;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      transform: rotate(7deg);
+      box-shadow: 0 10px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    .blob.paper {
+      right: 14px;
+      top: 8px;
+      width: 78px;
+      height: 94px;
+      border-radius: 10px;
+    }
+
+    .blob.screen {
+      right: 92px;
+      top: 26px;
+      width: 72px;
+      height: 88px;
+      background: var(--card-accent);
+      transform: rotate(-9deg);
+    }
+
+    .blob.circle {
+      right: 0;
+      bottom: 0;
+      width: 74px;
+      height: 74px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.42);
+    }
+
+    .screen::before {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      top: 13px;
+      height: 22px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .screen::after {
+      content: "";
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      height: 40px;
+      background:
+        radial-gradient(circle at 6px 6px, rgba(255,255,255,0.65) 0 4px, transparent 5px),
+        radial-gradient(circle at 24px 6px, rgba(255,255,255,0.65) 0 4px, transparent 5px),
+        radial-gradient(circle at 42px 6px, rgba(255,255,255,0.65) 0 4px, transparent 5px),
+        radial-gradient(circle at 6px 24px, rgba(255,255,255,0.65) 0 4px, transparent 5px),
+        radial-gradient(circle at 24px 24px, rgba(255,255,255,0.65) 0 4px, transparent 5px),
+        radial-gradient(circle at 42px 24px, rgba(255,255,255,0.65) 0 4px, transparent 5px);
+    }
+
+    .paper::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 26px;
+      height: 42px;
+      border: 4px solid var(--card-accent-two);
+      border-left: 0;
+      border-bottom: 0;
+      transform: rotate(16deg);
+    }
+
+    .care-symbol {
+      position: absolute;
+      right: 70px;
+      bottom: 0;
+      width: 70px;
+      height: 70px;
+      border-radius: 999px;
+      background: var(--card-accent-two);
+    }
+
+    .care-symbol::before,
+    .care-symbol::after {
+      content: "";
+      position: absolute;
+      background: #fff;
+      border-radius: 999px;
+    }
+
+    .care-symbol::before {
+      width: 18px;
+      height: 46px;
+      left: 26px;
+      top: 12px;
+    }
+
+    .care-symbol::after {
+      width: 46px;
+      height: 18px;
+      left: 12px;
+      top: 26px;
     }
 
     @media (max-width: 960px) {
@@ -1128,7 +1336,36 @@
       }
 
       .set-button {
-        padding: 13px;
+        min-height: 154px;
+        padding: 19px 150px 16px 18px;
+        border-radius: 20px;
+      }
+
+      .course-title {
+        font-size: 1.6rem;
+      }
+
+      .course-period {
+        font-size: 0.98rem;
+      }
+
+      .course-count {
+        left: 18px;
+        bottom: 14px;
+      }
+
+      .course-menu {
+        top: 13px;
+        right: 14px;
+      }
+
+      .course-illustration {
+        right: 10px;
+        bottom: 20px;
+        width: 136px;
+        height: 98px;
+        transform: scale(0.82);
+        transform-origin: right bottom;
       }
     }
   </style>
@@ -2273,7 +2510,18 @@
         const button = document.createElement("button");
         button.type = "button";
         button.className = `set-button${index === state.setIndex ? " active" : ""}`;
-        button.innerHTML = `<strong>${getSetName(set, index)}</strong><span class="muted">${getSetFocus(set)} · ${set.questions.length} ${currentLang === "np" ? "प्रश्न" : "questions"}</span>`;
+        button.innerHTML = `
+          <span class="course-menu" aria-hidden="true">•••</span>
+          <span class="course-title">${getSetName(set, index).replace(/^Set \\d+:\\s*/, "").replace(/^सेट \\d+:\\s*/, "")}</span>
+          <span class="course-period">${currentLang === "np" ? `सेट ${index + 1}` : `Mock Set ${index + 1}`}</span>
+          <span class="course-count">${set.questions.length} ${currentLang === "np" ? "प्रश्न" : "questions"}</span>
+          <span class="course-illustration" aria-hidden="true">
+            <span class="blob circle"></span>
+            <span class="blob screen"></span>
+            <span class="blob paper"></span>
+            <span class="care-symbol"></span>
+          </span>
+        `;
         button.addEventListener("click", () => {
           state.setIndex = index;
           el.setSelect.value = String(index);
