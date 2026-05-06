@@ -1,0 +1,2511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SSW Japan nursing care mock test app with 5 practice sets, study materials, care Japanese, and review mode.">
+  <meta name="theme-color" content="#0f766e">
+  <title>SSW Nursing Care Mock Test</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #64748b;
+      --line: #d7e0ea;
+      --paper: #f6fbf9;
+      --surface: #ffffff;
+      --soft: #eef8f5;
+      --teal: #0f766e;
+      --teal-dark: #115e59;
+      --lime: #84cc16;
+      --purple: #7c3aed;
+      --blue: #2563eb;
+      --orange: #ea580c;
+      --red: #b42318;
+      --green: #067647;
+      --shadow: 0 18px 42px rgba(15, 23, 42, 0.1);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Inter", "Noto Sans", "Noto Sans Devanagari", "Noto Sans JP", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, rgba(15, 118, 110, 0.1), rgba(124, 58, 237, 0.07), rgba(132, 204, 22, 0.08)),
+        linear-gradient(90deg, rgba(15, 118, 110, 0.05) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(15, 118, 110, 0.04) 1px, transparent 1px),
+        var(--paper);
+      background-size: auto, 72px 72px, 72px 72px;
+    }
+
+    button, select { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
+
+    .app {
+      width: min(1220px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 14px 0 34px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .quick-nav {
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 0 0 12px;
+      padding: 8px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .bottom-nav {
+      display: none;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .dash-card {
+      min-height: 108px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow);
+    }
+
+    .dash-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .dash-card strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.4rem;
+      line-height: 1.1;
+    }
+
+    .dash-card:nth-child(1) strong { color: var(--teal); }
+    .dash-card:nth-child(2) strong { color: var(--purple); }
+    .dash-card:nth-child(3) strong { color: var(--blue); }
+    .dash-card:nth-child(4) strong { color: var(--orange); }
+
+    .timer {
+      display: none;
+      width: max-content;
+      margin-top: 7px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: #fff7ed;
+      color: #9a3412;
+      font-size: 0.8rem;
+      font-weight: 950;
+    }
+
+    .timer.show {
+      display: inline-flex;
+    }
+
+    .mission-card {
+      display: grid;
+      grid-template-columns: minmax(0, 0.82fr) minmax(320px, 1.18fr);
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .mission-card h2 {
+      margin: 0;
+      font-size: clamp(1.35rem, 3vw, 2rem);
+      line-height: 1.1;
+    }
+
+    .mission-card p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-weight: 750;
+    }
+
+    .lesson-path {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .path-step {
+      min-height: 114px;
+      padding: 14px;
+      border-radius: 18px;
+      background: #ecfdf5;
+      border: 1px solid #bbf7d0;
+    }
+
+    .path-step:nth-child(2) {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+
+    .path-step:nth-child(3) {
+      background: #fff7ed;
+      border-color: #fed7aa;
+    }
+
+    .path-node {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 10px;
+      border-radius: 999px;
+      background: var(--teal);
+      color: white;
+      font-weight: 950;
+    }
+
+    .path-step:nth-child(2) .path-node { background: var(--blue); }
+    .path-step:nth-child(3) .path-node { background: var(--orange); }
+
+    .path-step strong {
+      display: block;
+      line-height: 1.25;
+    }
+
+    .path-step small {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      line-height: 1.35;
+      font-weight: 750;
+    }
+
+    .quick-nav a {
+      display: grid;
+      place-items: center;
+      min-height: 42px;
+      border-radius: 12px;
+      color: var(--teal-dark);
+      font-size: 0.9rem;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .quick-nav a:first-child {
+      background: var(--teal);
+      color: white;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mark {
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--teal);
+      color: white;
+      font-weight: 950;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      line-height: 1.2;
+    }
+
+    .brand p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .language-toggle {
+      display: inline-grid;
+      grid-template-columns: repeat(2, minmax(74px, 1fr));
+      min-height: 46px;
+      padding: 4px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #eef8f5;
+    }
+
+    .lang-option {
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.84rem;
+      font-weight: 950;
+      cursor: pointer;
+    }
+
+    .lang-option.active {
+      background: #fff;
+      color: var(--teal-dark);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.1);
+    }
+
+    .select, .button {
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0 14px;
+      background: var(--surface);
+      color: var(--ink);
+      font-weight: 800;
+      touch-action: manipulation;
+    }
+
+    .button.primary {
+      border-color: var(--teal);
+      background: var(--teal);
+      color: white;
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.52;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .button:hover, .select:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+    }
+
+    .hero,
+    .learning-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .intro {
+      min-height: 470px;
+      padding: 28px;
+      background:
+        linear-gradient(145deg, rgba(15, 118, 110, 0.98), rgba(37, 99, 235, 0.9), rgba(124, 58, 237, 0.76)),
+        var(--teal);
+      color: white;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .chip {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      font-weight: 900;
+      font-size: 0.82rem;
+    }
+
+    .intro h2 {
+      margin: 0;
+      max-width: 620px;
+      font-size: clamp(2rem, 5vw, 4.3rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .intro p {
+      max-width: 620px;
+      color: rgba(255, 255, 255, 0.84);
+      line-height: 1.72;
+      font-size: 1rem;
+    }
+
+    .exam-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .exam-card {
+      min-height: 100px;
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+    }
+
+    .exam-card span {
+      display: block;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.78rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .exam-card strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.2rem;
+    }
+
+    .quiz-head, .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .quiz-head h2, .section-head h2 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-weight: 750;
+    }
+
+    .progress {
+      height: 12px;
+      background: #e2e8f0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal), var(--blue), var(--orange));
+      transition: width 240ms ease;
+    }
+
+    .question-wrap {
+      padding: 22px;
+    }
+
+    .domain {
+      display: inline-flex;
+      margin-bottom: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #e0f2fe;
+      color: #075985;
+      font-size: 0.78rem;
+      font-weight: 950;
+    }
+
+    .question {
+      margin: 0 0 16px;
+      font-size: 1.25rem;
+      line-height: 1.45;
+    }
+
+    .nepali-helper {
+      display: none;
+      margin: -4px 0 16px;
+      padding: 12px;
+      border: 1px solid #bbf7d0;
+      border-radius: 14px;
+      background: #f0fdf4;
+      color: #166534;
+      line-height: 1.55;
+      font-weight: 800;
+    }
+
+    .nepali-helper.show {
+      display: block;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 15px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      color: var(--ink);
+      text-align: left;
+      font-weight: 780;
+      line-height: 1.35;
+      touch-action: manipulation;
+    }
+
+    .option:hover:not(:disabled) {
+      border-color: var(--teal);
+      background: #f0fdfa;
+    }
+
+    .option.correct {
+      border-color: var(--green);
+      background: #dcfce7;
+      color: var(--green);
+    }
+
+    .option.incorrect {
+      border-color: var(--red);
+      background: #fee2e2;
+      color: var(--red);
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      line-height: 1.55;
+    }
+
+    .feedback.show { display: block; }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .actions .button { flex: 1; }
+
+    .results {
+      display: none;
+      padding: 28px 22px;
+      text-align: center;
+    }
+
+    .results.show { display: block; }
+
+    .score {
+      margin: 10px 0;
+      color: var(--teal);
+      font-size: clamp(3rem, 10vw, 5.8rem);
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .review-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+      text-align: left;
+    }
+
+    .review-item {
+      padding: 13px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #f8fafc;
+    }
+
+    .materials {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 18px;
+    }
+
+    .readiness {
+      margin-bottom: 18px;
+    }
+
+    .readiness-body {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 14px;
+      padding: 16px;
+    }
+
+    .readiness-score {
+      display: grid;
+      place-items: center;
+      min-height: 180px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, var(--teal), var(--blue));
+      color: #fff;
+      text-align: center;
+    }
+
+    .readiness-score strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: clamp(2.4rem, 8vw, 4.4rem);
+      line-height: 1;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+    }
+
+    .check-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      color: #475569;
+      line-height: 1.45;
+      font-weight: 750;
+    }
+
+    .check-item span {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: #dcfce7;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 950;
+    }
+
+    .learning-grid {
+      grid-template-columns: minmax(360px, 1.08fr) minmax(0, 0.92fr);
+    }
+
+    .vocab-tools {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 180px;
+      gap: 10px;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .input {
+      min-height: 44px;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0 13px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 750;
+      outline: none;
+    }
+
+    .input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+    }
+
+    .vocab-list {
+      display: grid;
+      gap: 10px;
+      max-height: 580px;
+      overflow: auto;
+      padding: 14px;
+    }
+
+    .vocab-card {
+      display: grid;
+      grid-template-columns: minmax(90px, 0.5fr) minmax(120px, 0.8fr) minmax(150px, 1fr);
+      gap: 12px;
+      align-items: center;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+    }
+
+    .vocab-card strong {
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 1.08rem;
+    }
+
+    .vocab-card small {
+      display: block;
+      color: var(--muted);
+      margin-top: 3px;
+      line-height: 1.35;
+    }
+
+    .tag {
+      display: inline-flex;
+      width: max-content;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #e0f2fe;
+      color: #075985;
+      font-size: 0.72rem;
+      font-weight: 950;
+    }
+
+    .flashcard {
+      display: grid;
+      place-items: center;
+      min-height: 300px;
+      margin: 18px;
+      padding: 24px;
+      border-radius: 22px;
+      background: linear-gradient(145deg, #ffffff, #ecfdf5);
+      border: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .flash-front {
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: clamp(2.5rem, 10vw, 5.2rem);
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .flash-kana {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      font-weight: 850;
+    }
+
+    .flash-answer {
+      display: none;
+      margin-top: 18px;
+      color: #334155;
+      font-size: 1.15rem;
+      line-height: 1.5;
+      font-weight: 850;
+    }
+
+    .flash-answer.show {
+      display: block;
+    }
+
+    .np-line {
+      color: var(--teal-dark);
+      font-weight: 850;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tab {
+      min-height: 38px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: white;
+      font-weight: 850;
+    }
+
+    .tab.active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: white;
+    }
+
+    .study-body {
+      padding: 20px;
+    }
+
+    .study-body h3 {
+      margin: 0 0 10px;
+    }
+
+    .study-body p, .study-body li {
+      color: #475569;
+      line-height: 1.65;
+    }
+
+    .study-body ul {
+      padding-left: 20px;
+    }
+
+    .term-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .term {
+      display: grid;
+      grid-template-columns: minmax(110px, 0.7fr) minmax(150px, 1fr) minmax(150px, 1fr);
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .term strong {
+      font-family: "Noto Sans JP", sans-serif;
+    }
+
+    .set-list {
+      display: grid;
+      gap: 10px;
+      padding: 14px;
+    }
+
+    .set-button {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: white;
+      text-align: left;
+      line-height: 1.45;
+    }
+
+    .set-button.active {
+      border-color: var(--teal);
+      background: #ecfdf5;
+    }
+
+    .set-button strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 960px) {
+      .hero, .materials, .learning-grid, .readiness-body, .mission-card {
+        grid-template-columns: 1fr;
+      }
+
+      .intro {
+        min-height: auto;
+      }
+
+      .quiz-panel {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      body {
+        background-size: auto, 44px 44px, 44px 44px;
+      }
+
+      .app {
+        width: min(100% - 14px, 1220px);
+        padding: 8px 0 96px;
+      }
+
+      .quick-nav {
+        display: none;
+      }
+
+      .bottom-nav {
+        position: fixed;
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        z-index: 40;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        padding: 7px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 18px 42px rgba(15, 23, 42, 0.18);
+        backdrop-filter: blur(16px);
+      }
+
+      .bottom-nav a {
+        display: grid;
+        place-items: center;
+        min-height: 46px;
+        border-radius: 13px;
+        color: var(--muted);
+        font-size: 0.78rem;
+        font-weight: 950;
+        text-decoration: none;
+      }
+
+      .bottom-nav a:first-child {
+        background: var(--teal);
+        color: #fff;
+      }
+
+      .topbar, .quiz-head, .section-head {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .topbar {
+        padding: 12px;
+        margin-bottom: 10px;
+        border-radius: 16px;
+      }
+
+      .brand {
+        align-items: flex-start;
+      }
+
+      .mark {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        flex: 0 0 auto;
+      }
+
+      .brand h1 {
+        font-size: 1rem;
+      }
+
+      .brand p {
+        font-size: 0.82rem;
+        line-height: 1.35;
+      }
+
+      .toolbar, .actions, .exam-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .language-toggle {
+        width: 100%;
+      }
+
+      .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .mission-card {
+        gap: 12px;
+        margin-bottom: 12px;
+        padding: 12px;
+        border-radius: 16px;
+      }
+
+      .lesson-path {
+        grid-template-columns: 1fr;
+      }
+
+      .path-step {
+        min-height: auto;
+        display: grid;
+        grid-template-columns: 40px 1fr;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .path-node {
+        margin-bottom: 0;
+      }
+
+      .dash-card {
+        min-height: 86px;
+        padding: 12px;
+        border-radius: 15px;
+      }
+
+      .dash-card strong {
+        font-size: 1.1rem;
+      }
+
+      .select, .button {
+        width: 100%;
+      }
+
+      .panel {
+        border-radius: 16px;
+      }
+
+      .hero, .materials {
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+
+      .intro {
+        padding: 18px;
+      }
+
+      .chip-row {
+        gap: 7px;
+        margin-bottom: 14px;
+      }
+
+      .chip {
+        padding: 7px 9px;
+        font-size: 0.74rem;
+      }
+
+      .intro h2 {
+        font-size: clamp(1.55rem, 10vw, 2.35rem);
+        line-height: 1.04;
+      }
+
+      .intro p {
+        font-size: 0.92rem;
+        line-height: 1.55;
+      }
+
+      .exam-grid {
+        gap: 8px;
+        margin-top: 14px;
+      }
+
+      .exam-card {
+        min-height: auto;
+        padding: 12px;
+      }
+
+      .exam-card strong {
+        margin-top: 6px;
+        font-size: 1rem;
+      }
+
+      .quiz-head, .section-head {
+        padding: 14px;
+      }
+
+      .quiz-head {
+        position: sticky;
+        top: 8px;
+        z-index: 10;
+      }
+
+      .readiness {
+        margin-bottom: 12px;
+      }
+
+      .readiness-body {
+        padding: 10px;
+      }
+
+      .readiness-score {
+        min-height: 130px;
+      }
+
+      .question-wrap {
+        padding: 16px;
+      }
+
+      .domain {
+        margin-bottom: 10px;
+      }
+
+      .question {
+        font-size: 1.08rem;
+      }
+
+      .options {
+        gap: 9px;
+      }
+
+      .option {
+        min-height: 60px;
+        padding: 14px;
+        font-size: 0.98rem;
+      }
+
+      .actions {
+        position: sticky;
+        bottom: 8px;
+        z-index: 12;
+        margin: 16px -8px -8px;
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.94);
+        box-shadow: 0 14px 30px rgba(15, 23, 42, 0.16);
+        backdrop-filter: blur(12px);
+      }
+
+      .tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 10px;
+        scrollbar-width: none;
+      }
+
+      .tabs::-webkit-scrollbar {
+        display: none;
+      }
+
+      .tab {
+        flex: 0 0 auto;
+      }
+
+      .study-body {
+        padding: 16px;
+      }
+
+      .vocab-tools {
+        grid-template-columns: 1fr;
+        padding: 10px;
+      }
+
+      .vocab-list {
+        max-height: 520px;
+        padding: 10px;
+      }
+
+      .vocab-card {
+        grid-template-columns: 1fr;
+        gap: 7px;
+      }
+
+      .flashcard {
+        min-height: 250px;
+        margin: 12px;
+        padding: 20px;
+      }
+
+      .flash-front {
+        font-size: clamp(2.2rem, 16vw, 4rem);
+      }
+
+      .term {
+        grid-template-columns: 1fr;
+      }
+
+      .set-list {
+        padding: 10px;
+      }
+
+      .set-button {
+        padding: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="mark">SSW</div>
+        <div>
+          <h1 id="brandTitle">Japan SSW Nursing Care Mock Test</h1>
+          <p id="brandSubtitle">5 practice sets with study notes, care Japanese, and review mode</p>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="language-toggle" role="group" aria-label="Language mode">
+          <button class="lang-option active" id="englishModeBtn" type="button">English</button>
+          <button class="lang-option" id="nepaliModeBtn" type="button">नेपाली</button>
+        </div>
+        <select class="select" id="setSelect" aria-label="Choose mock test set"></select>
+        <button class="button" id="reviewMistakesBtn" type="button">Review Mistakes</button>
+        <button class="button" id="fullExamBtn" type="button">Full Exam 45Q</button>
+        <button class="button primary" id="restartBtn" type="button">Start Set</button>
+      </div>
+    </header>
+
+    <nav class="quick-nav" aria-label="Quick navigation">
+      <a href="#practice" id="quickPractice">Practice</a>
+      <a href="#vocabulary" id="quickVocab">Vocab</a>
+      <a href="#sets" id="quickSets">Sets</a>
+      <a href="#study" id="quickStudy">Study</a>
+    </nav>
+
+    <nav class="bottom-nav" aria-label="Mobile navigation">
+      <a href="#practice" id="bottomTest">Test</a>
+      <a href="#vocabulary" id="bottomVocab">Vocab</a>
+      <a href="#flashcards" id="bottomCards">Cards</a>
+      <a href="#study" id="bottomStudy">Study</a>
+    </nav>
+
+    <section class="dashboard" aria-label="Learning dashboard">
+      <div class="dash-card"><span id="dashSetsLabel">Mock sets</span><strong id="dashSetsValue">5 sets</strong></div>
+      <div class="dash-card"><span id="dashVocabLabel">Vocabulary</span><strong><span id="vocabTotal">499</span> <span id="dashVocabUnit">words</span></strong></div>
+      <div class="dash-card"><span id="dashCardsLabel">Flashcards</span><strong><span id="knownCount">0</span> <span id="dashCardsUnit">known</span></strong></div>
+      <div class="dash-card"><span id="dashExamLabel">Exam mode</span><strong id="dashExamValue">45Q / 60m</strong></div>
+    </section>
+
+    <section class="mission-card" aria-label="Today's study path">
+      <div>
+        <h2 id="missionTitle">Today’s pass path</h2>
+        <p id="missionText">Study in short loops: test, fix mistakes, then strengthen care vocabulary.</p>
+      </div>
+      <div class="lesson-path">
+        <div class="path-step">
+          <div class="path-node">1</div>
+          <div><strong id="pathStepOne">Take one mock set</strong><small id="pathStepOneSub">15 focused questions</small></div>
+        </div>
+        <div class="path-step">
+          <div class="path-node">2</div>
+          <div><strong id="pathStepTwo">Review mistakes</strong><small id="pathStepTwoSub">Do not skip explanations</small></div>
+        </div>
+        <div class="path-step">
+          <div class="path-node">3</div>
+          <div><strong id="pathStepThree">Learn 20 cards</strong><small id="pathStepThreeSub">Mark only true known words</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero" id="practice">
+      <section class="intro panel">
+        <div class="chip-row">
+          <span class="chip">CBT Style</span>
+          <span class="chip">Nursing Care Skills</span>
+          <span class="chip">Care Japanese</span>
+        </div>
+        <h2 id="introTitle">Practice like a real care worker, not only a test taker.</h2>
+        <p id="introCopy">
+          Use the mock sets to train exam knowledge and workplace judgment: dignity,
+          independence support, safety, communication, dementia care, infection control,
+          body mechanics, and reporting.
+        </p>
+        <div class="exam-grid">
+          <div class="exam-card"><span>Skills test</span><strong>45 questions / 60 min</strong></div>
+          <div class="exam-card"><span>Japanese care test</span><strong>15 questions / 30 min</strong></div>
+          <div class="exam-card"><span>Official skills domains</span><strong>Care basics, body, communication, physical care</strong></div>
+          <div class="exam-card"><span>App practice</span><strong>5 sets / 75 questions</strong></div>
+        </div>
+      </section>
+
+      <section class="panel quiz-panel">
+        <div id="quizView">
+          <div class="quiz-head">
+            <div>
+              <h2 id="quizTitle">Mock Test Set 1</h2>
+              <div class="muted"><span id="questionNumber">1</span>/<span id="questionTotal">15</span> questions</div>
+              <div class="timer" id="timerText">60:00</div>
+            </div>
+            <div class="muted">Score: <span id="scoreText">0</span></div>
+          </div>
+          <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="question-wrap">
+            <span class="domain" id="domainLabel">Fundamentals</span>
+            <h2 class="question" id="questionText"></h2>
+            <div class="nepali-helper" id="nepaliHelper"></div>
+            <div class="options" id="options"></div>
+            <div class="feedback" id="feedback"></div>
+            <div class="actions">
+              <button class="button" id="showAnswerBtn" type="button">Show Answer</button>
+              <button class="button primary" id="nextBtn" type="button">Next</button>
+            </div>
+          </div>
+        </div>
+        <div class="results" id="resultsView">
+          <div class="muted">Set complete</div>
+          <div class="score" id="finalScore">0%</div>
+          <p id="resultMessage" class="muted"></p>
+          <div class="actions">
+            <button class="button" id="mistakeOnlyBtn" type="button">Practice Mistakes</button>
+            <button class="button primary" id="againBtn" type="button">Try Again</button>
+          </div>
+          <div class="review-list" id="reviewList"></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel readiness" aria-label="Exam readiness plan">
+      <div class="section-head">
+        <h2>Pass-Focused Readiness Plan</h2>
+        <span class="muted">Use this before booking the exam</span>
+      </div>
+      <div class="readiness-body">
+        <div class="readiness-score">
+          <div>
+            <strong id="readinessScore">0%</strong>
+            <span>readiness estimate</span>
+          </div>
+        </div>
+        <div class="checklist">
+          <div class="check-item"><span>1</span>Complete all 5 mock sets and review every explanation.</div>
+          <div class="check-item"><span>2</span>Use Practice Mistakes until repeated weak questions become correct.</div>
+          <div class="check-item"><span>3</span>Study at least 300 vocabulary cards, then mark known words honestly.</div>
+          <div class="check-item"><span>4</span>Take Full Exam 45Q mode and aim for 80%+ before booking.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="learning-grid" id="vocabulary">
+      <section class="panel">
+        <div class="section-head">
+          <h2>499 SSW Care Vocabulary</h2>
+          <span class="muted"><span id="vocabShown">499</span> shown</span>
+        </div>
+        <div class="vocab-tools">
+          <input class="input" id="vocabSearch" type="search" placeholder="Search Japanese, kana, romaji, meaning..." aria-label="Search vocabulary">
+          <select class="select" id="vocabCategory" aria-label="Vocabulary category">
+            <option value="All">All categories</option>
+          </select>
+        </div>
+        <div class="vocab-list" id="vocabList"></div>
+      </section>
+
+      <section class="panel" id="flashcards">
+        <div class="section-head">
+          <h2>Flashcard Practice</h2>
+          <span class="muted"><span id="flashIndex">1</span>/<span id="flashTotal">499</span></span>
+        </div>
+        <div class="flashcard" id="flashcard">
+          <div>
+            <div class="tag" id="flashCategory">Core care</div>
+            <div class="flash-front" id="flashFront">介護</div>
+            <div class="flash-kana" id="flashKana">かいご · kaigo</div>
+            <div class="flash-answer" id="flashAnswer">nursing care</div>
+          </div>
+        </div>
+        <div class="actions" style="padding: 0 18px 18px; margin-top: 0;">
+          <button class="button" id="flipCardBtn" type="button">Show Meaning</button>
+          <button class="button" id="hardCardBtn" type="button">Still Learning</button>
+          <button class="button primary" id="knowCardBtn" type="button">Know It</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="materials">
+      <section class="panel" id="sets">
+        <div class="section-head">
+          <h2>Mock Test Sets</h2>
+          <span class="muted">Select a set and start</span>
+        </div>
+        <div class="set-list" id="setList"></div>
+      </section>
+
+      <section class="panel" id="study">
+        <div class="section-head">
+          <h2>Complete Study Materials</h2>
+          <span class="muted">Read before and after practice</span>
+        </div>
+        <div class="tabs" id="tabs"></div>
+        <div class="study-body" id="studyBody"></div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const mockSets = [
+      {
+        name: "Set 1: Foundations and Safety",
+        focus: "Basic care principles, safety, infection prevention",
+        questions: [
+          q("Fundamentals", "What is the most important attitude when supporting a resident with daily living?", ["Doing everything quickly", "Respecting dignity and independence", "Making decisions without asking", "Finishing tasks without conversation"], 1, "Care should protect dignity and support the person's remaining abilities."),
+          q("Fundamentals", "A resident can button the top half of a shirt but needs help with the lower buttons. What should you do?", ["Do all buttons for the resident", "Let the resident do what they can and assist only where needed", "Tell the resident to hurry", "Skip changing clothes"], 1, "Independence support means assisting only the parts that are difficult."),
+          q("Communication", "Before touching a resident's body for care, the caregiver should first:", ["Start immediately", "Explain the care and ask for consent", "Ask another resident", "Turn on the TV"], 1, "Explanation and consent reduce anxiety and protect rights."),
+          q("Physical care", "When assisting transfer from bed to wheelchair, what should be checked first?", ["The weather", "Wheelchair brakes and footrests", "The lunch menu", "The resident's favorite song"], 1, "Brake safety and footrest position help prevent falls."),
+          q("Mind and body", "A sudden change in consciousness, fever, or severe pain should be:", ["Ignored until tomorrow", "Reported immediately to a nurse or supervisor", "Handled only by the caregiver", "Written only after work"], 1, "Sudden abnormal signs require prompt reporting."),
+          q("Infection control", "The most basic infection prevention action is:", ["Wearing perfume", "Hand hygiene before and after care", "Speaking loudly", "Opening all windows only"], 1, "Hand hygiene is the foundation of infection prevention."),
+          q("Physical care", "For body mechanics, the caregiver should:", ["Twist the waist while lifting", "Keep the load close and use the legs", "Stand far from the resident", "Lift with straight knees"], 1, "Good body mechanics reduce injury risk."),
+          q("Communication", "A resident says, 'I don't want to bathe today.' The best first response is:", ["Force bathing", "Ask the reason and listen calmly", "Ignore the resident", "Scold the resident"], 1, "Listening helps identify fear, pain, fatigue, or preference."),
+          q("Practical", "If the floor is wet near the bathroom, the caregiver should:", ["Walk around it", "Clean it or report it immediately", "Wait until someone falls", "Cover it with paper"], 1, "Environmental hazards should be handled quickly."),
+          q("Care Japanese", "What does 介助 (かいじょ / kaijo) mean?", ["Assistance", "Medicine", "Meal", "Pain"], 0, "介助 means assistance or support in care."),
+          q("Physical care", "During meal assistance, the safest posture is usually:", ["Lying flat", "Sitting upright as much as possible", "Head tilted backward", "Walking while eating"], 1, "Upright posture reduces choking and aspiration risk."),
+          q("Fundamentals", "Personal information about a resident should be:", ["Shared with friends", "Posted online", "Kept confidential", "Discussed in public areas"], 2, "Confidentiality is a core professional responsibility."),
+          q("Mind and body", "Why is dehydration dangerous for older adults?", ["It only causes hunger", "It can cause confusion, fever, constipation, and worse health", "It improves sleep", "It prevents falls"], 1, "Older adults can become dehydrated easily and symptoms may be serious."),
+          q("Practical", "If a resident almost falls but does not hit the floor, you should:", ["Do nothing because there was no fall", "Report and record it as a near miss", "Blame the resident", "Hide it"], 1, "Near misses help the team prevent future accidents."),
+          q("Care Japanese", "ナースコール means:", ["Nurse call button", "Wheelchair", "Chopsticks", "Bath towel"], 0, "ナースコール is the nurse call system used by residents.")
+        ]
+      },
+      {
+        name: "Set 2: Dementia and Communication",
+        focus: "Dementia care, anxiety reduction, respectful words",
+        questions: [
+          q("Mind and body", "A resident with dementia repeatedly asks the same question. The best response is:", ["Say 'I already told you'", "Answer calmly and reassure", "Ignore completely", "Laugh at the resident"], 1, "Repeated questions often come from anxiety or memory difficulty."),
+          q("Communication", "When speaking with a resident who has hearing difficulty, you should:", ["Speak from behind", "Face the resident and speak clearly", "Shout angrily", "Use only gestures without explanation"], 1, "Facing the person supports lip reading and attention."),
+          q("Dementia care", "A resident says, 'I must go home,' even though they live in the facility. First you should:", ["Argue that this is home", "Accept the feeling and ask about their concern", "Lock the door without speaking", "Tell them they are wrong"], 1, "Validation and emotional support are useful in dementia care."),
+          q("Communication", "Which phrase is polite before starting care?", ["いまからお手伝いします。よろしいですか。", "早くして。", "だめです。", "静かにして。"], 0, "This means 'I will help you now. Is that alright?'"),
+          q("Fundamentals", "Person-centered care means:", ["Same care for everyone", "Care based on the person's life history, wishes, and abilities", "Only medical treatment", "Caregiver convenience first"], 1, "Care should fit the individual person."),
+          q("Practical", "A resident becomes angry during changing clothes. What is best?", ["Continue quickly by force", "Stop, keep safety, and try to understand the cause", "Argue loudly", "Leave the resident half dressed all day"], 1, "Pain, shame, cold, or fear may cause refusal."),
+          q("Mind and body", "Delirium is often:", ["A sudden confused state that may need medical attention", "Always normal aging", "A sign of good sleep", "A type of exercise"], 0, "Sudden confusion can be caused by infection, dehydration, medicine, or illness."),
+          q("Communication", "Closed questions are useful when:", ["You need a simple yes/no confirmation", "You want a long life story", "You are not listening", "You want to confuse the resident"], 0, "Closed questions can help when the resident is tired or confused."),
+          q("Care Japanese", "痛いですか (いたいですか) means:", ["Are you cold?", "Does it hurt?", "Are you hungry?", "Can you stand?"], 1, "痛い means painful."),
+          q("Physical care", "For a resident with visual impairment, the caregiver should:", ["Move furniture without telling them", "Explain surroundings and guide safely", "Pull quickly from behind", "Leave obstacles in the walkway"], 1, "Clear explanation and safe guidance reduce fear and accidents."),
+          q("Dementia care", "Wandering behavior should be understood as:", ["Always bad behavior", "A behavior with possible reasons such as anxiety, habit, or need", "A reason for punishment", "Something to ignore forever"], 1, "Behavior has meaning and should be assessed."),
+          q("Practical", "If a resident refuses food, the caregiver should first:", ["Force feeding", "Check reason such as pain, nausea, preference, or swallowing difficulty", "Throw food away and say nothing", "Hide medicine in food without instruction"], 1, "Refusal can signal health or preference issues."),
+          q("Communication", "Good reporting to staff should include:", ["Only your opinion", "Facts, time, situation, action taken, and result", "Rumors", "Nothing unless asked"], 1, "Clear factual reporting supports team care."),
+          q("Fundamentals", "Abuse prevention includes:", ["Respectful language and no physical or psychological harm", "Threatening residents", "Ignoring call bells", "Using restraints freely"], 0, "Care must protect residents from abuse and neglect."),
+          q("Care Japanese", "申し送り (もうしおくり) means:", ["Shift handover/report", "Bathing", "Dentures", "Laundry"], 0, "申し送り is handover between staff.")
+        ]
+      },
+      {
+        name: "Set 3: Physical Care",
+        focus: "Meals, bathing, excretion, mobility, sleep",
+        questions: [
+          q("Physical care", "Before meal assistance, what should be confirmed?", ["Only the TV channel", "Diet type, posture, swallowing condition, and alertness", "Caregiver's lunch", "Room temperature only"], 1, "Meal safety depends on diet form, posture, and swallowing ability."),
+          q("Physical care", "Oral care is important because it:", ["Only makes teeth white", "Prevents infection, pneumonia risk, and discomfort", "Is optional for all residents", "Replaces meals"], 1, "Oral bacteria can affect general health and aspiration pneumonia risk."),
+          q("Physical care", "When assisting bathing, water temperature should be:", ["Checked and adjusted safely", "As hot as possible", "As cold as possible", "Ignored"], 0, "Temperature checks prevent burns and discomfort."),
+          q("Physical care", "During toileting support, privacy means:", ["Leaving the door open", "Covering the body and closing curtains or doors", "Talking loudly about excretion", "Inviting others to watch"], 1, "Excretion care requires dignity and privacy."),
+          q("Mind and body", "Constipation can be related to:", ["Low fluid intake, low activity, medication, and diet", "Too much respect", "Clear speech", "Clean clothes"], 0, "Constipation has many care-related risk factors."),
+          q("Physical care", "When changing position in bed, a purpose is to:", ["Prevent pressure injuries and improve comfort", "Wake the resident without reason", "Use more sheets", "Make work faster only"], 0, "Position changes reduce pressure and support comfort."),
+          q("Practical", "A red area on the sacrum that does not fade should be:", ["Massaged strongly", "Reported as possible pressure injury", "Ignored", "Covered tightly"], 1, "Persistent redness may be early pressure injury."),
+          q("Physical care", "Before standing assistance, the caregiver should check:", ["Footwear, dizziness, brakes, and standing ability", "Only hair style", "Only the weather", "Nothing"], 0, "Standing support requires safety checks."),
+          q("Care Japanese", "車いす (くるまいす) means:", ["Wheelchair", "Walker", "Bed", "Bathroom"], 0, "車いす is wheelchair."),
+          q("Physical care", "A resident coughs repeatedly while drinking water. You should:", ["Continue quickly", "Stop assistance and report possible swallowing problem", "Tell them to drink more", "Lay them flat"], 1, "Coughing can indicate aspiration risk."),
+          q("Physical care", "For sleep support, good care includes:", ["Respecting routine and reducing noise/light when possible", "Waking everyone every hour without reason", "Serving coffee at midnight", "Keeping lights bright always"], 0, "Sleep routines and environment matter."),
+          q("Practical", "If a resident has diarrhea, important care includes:", ["Hydration observation, skin care, and reporting", "No reporting", "Only changing clothes", "Giving medicine independently"], 0, "Diarrhea can cause dehydration and skin problems."),
+          q("Fundamentals", "A care plan is used to:", ["Guide consistent support based on assessed needs", "Replace all communication", "Hide information", "Make residents obey"], 0, "Care plans help staff provide consistent individualized care."),
+          q("Care Japanese", "入浴 (にゅうよく) means:", ["Bathing", "Meal", "Transfer", "Sleep"], 0, "入浴 means bathing."),
+          q("Physical care", "When using a walker, the environment should be:", ["Clear of obstacles and well lit", "Slippery", "Dark", "Crowded with cords"], 0, "Safe environment supports mobility.")
+        ]
+      },
+      {
+        name: "Set 4: Emergency and Teamwork",
+        focus: "Observation, reporting, accident response, records",
+        questions: [
+          q("Emergency", "If a resident is found on the floor after a fall, first you should:", ["Move them quickly to bed", "Check consciousness and safety, call staff, and do not move unnecessarily", "Give food", "Leave quietly"], 1, "Unnecessary movement after a fall may worsen injury."),
+          q("Emergency", "Signs that require urgent report include:", ["Severe shortness of breath", "A normal greeting", "Choosing tea", "Smiling"], 0, "Breathing difficulty is urgent."),
+          q("Records", "Care records should be:", ["Factual, clear, and timely", "Emotional and vague", "Written days later", "Changed to hide mistakes"], 0, "Records are professional documents for team care."),
+          q("Teamwork", "If you are unsure about a procedure, you should:", ["Guess", "Ask a supervisor or nurse before acting", "Do it secretly", "Avoid all work"], 1, "Asking prevents unsafe care."),
+          q("Infection control", "Gloves are needed for contact with:", ["Blood, body fluids, excretion, or contaminated items", "Clean paper only", "A closed window", "A clock"], 0, "Standard precautions guide glove use."),
+          q("Infection control", "After removing gloves, you should:", ["Perform hand hygiene", "Touch your face", "Use the same gloves again", "Skip washing"], 0, "Gloves do not replace hand hygiene."),
+          q("Emergency", "If food is stuck and the resident cannot cough or speak, this may be:", ["Choking emergency", "Normal sleep", "Good appetite", "A skin problem"], 0, "Airway obstruction is an emergency."),
+          q("Communication", "SBAR-style reporting includes:", ["Situation, background, assessment, recommendation", "Song, bath, activity, recreation", "Sleep, breakfast, anger, room", "Only recommendation"], 0, "Structured reporting improves clarity."),
+          q("Practical", "If a medication is dropped on the floor, a caregiver should:", ["Give it anyway", "Report and follow facility procedure", "Hide it", "Replace it with another medicine"], 1, "Medication incidents must be reported and handled by procedure."),
+          q("Fundamentals", "Why are restraints avoided?", ["They may violate dignity and cause physical or mental harm", "They are always comfortable", "They improve independence", "They are entertainment"], 0, "Restraints are highly restricted and can harm residents."),
+          q("Care Japanese", "報告 (ほうこく) means:", ["Report", "Bath", "Wheelchair", "Pain"], 0, "報告 means reporting."),
+          q("Emergency", "A resident has signs of heat illness. First care includes:", ["Move to cool place, observe, hydrate if safe, and report", "Use a hot blanket", "Encourage exercise", "Ignore"], 0, "Heat illness can become serious quickly."),
+          q("Records", "Which is the most objective record?", ["Resident was lazy", "At 10:10, resident refused lunch and said 'I feel nauseous'", "Resident is difficult", "Bad mood"], 1, "Objective records use facts and direct quotes."),
+          q("Teamwork", "Information from family can help care because it may show:", ["Life history, habits, preferences, and usual behavior", "Only money", "Staff salary", "Exam scores"], 0, "Family information supports person-centered care."),
+          q("Practical", "If a resident's condition is different from usual, you should:", ["Notice, record, and report the change", "Wait for a week", "Tell another resident", "Ignore if busy"], 0, "Early detection of change is key in care.")
+        ]
+      },
+      {
+        name: "Set 5: Final Mixed Review",
+        focus: "Mixed exam-style review across all domains",
+        questions: [
+          q("Fundamentals", "The goal of long-term care is closest to:", ["Supporting daily life and independence", "Doing everything for the person", "Only cleaning rooms", "Only giving medicine"], 0, "Nursing care supports the person's life, dignity, and independence."),
+          q("Communication", "When a resident speaks slowly, the caregiver should:", ["Interrupt often", "Wait and listen", "Finish every sentence", "Leave immediately"], 1, "Waiting shows respect and supports communication."),
+          q("Physical care", "Before using a lift or assistive device, the caregiver should:", ["Use it without training", "Check procedure, equipment, and resident condition", "Let the resident operate it alone", "Ignore brakes"], 1, "Assistive devices require correct procedure and safety checks."),
+          q("Mind and body", "Aging may affect skin because it becomes:", ["More fragile and dry", "Always stronger", "Unable to feel pain", "The same for everyone"], 0, "Older skin is often fragile and needs careful care."),
+          q("Dementia care", "A familiar routine can help a person with dementia because it:", ["May reduce confusion and anxiety", "Always causes anger", "Removes all need for care", "Prevents communication"], 0, "Routines can provide security."),
+          q("Infection control", "Cough etiquette includes:", ["Covering coughs and performing hand hygiene", "Coughing toward residents", "Sharing tissues", "No mask when instructed"], 0, "Cough etiquette reduces spread."),
+          q("Practical", "A resident says they feel dizzy when standing. You should:", ["Continue walking quickly", "Stop, support sitting, observe, and report", "Ignore", "Give a bath"], 1, "Dizziness increases fall risk and may indicate health problems."),
+          q("Care Japanese", "食事介助 (しょくじかいじょ) means:", ["Meal assistance", "Bath assistance", "Transfer assistance", "Cleaning"], 0, "食事 is meal and 介助 is assistance."),
+          q("Records", "Why should incidents be recorded?", ["To blame someone only", "To share facts and prevent recurrence", "To hide problems", "To entertain staff"], 1, "Incident records support prevention and team learning."),
+          q("Physical care", "For dignity during changing clothes, you should:", ["Expose the resident fully", "Cover the body as much as possible and explain each step", "Invite visitors", "Laugh at the body"], 1, "Privacy and explanation protect dignity."),
+          q("Mind and body", "Reduced mobility can increase risk of:", ["Pressure injuries, constipation, and muscle weakness", "Better balance always", "No health problems", "Improved swallowing automatically"], 0, "Immobility affects many body systems."),
+          q("Communication", "Non-verbal signs of pain may include:", ["Facial grimacing, guarding, restlessness", "Only smiling", "Perfect sleep always", "No movement ever"], 0, "Pain may be shown through behavior, especially when speech is difficult."),
+          q("Emergency", "If a resident has chest pain, you should:", ["Report immediately and follow emergency procedure", "Wait until next week", "Give your own medicine", "Tell them to sleep only"], 0, "Chest pain can be urgent."),
+          q("Fundamentals", "The caregiver's role with medical procedures is to:", ["Perform any medical treatment independently", "Work within role and report to medical professionals", "Ignore nurses", "Decide all medication"], 1, "Care workers must act within scope and cooperate with medical staff."),
+          q("Care Japanese", "排泄 (はいせつ) means:", ["Excretion/toileting", "Recreation", "Family", "Transfer"], 0, "排泄 refers to excretion or toileting care.")
+        ]
+      }
+    ];
+
+    const studyMaterials = [
+      {
+        title: "Exam Guide",
+        html: `
+          <h3>Official Exam Shape</h3>
+          <p>The SSW nursing care skills test is a CBT exam with 45 questions in 60 minutes. It covers fundamentals of care, mechanisms of mind and body, communication skills, physical care, and practical questions.</p>
+          <ul>
+            <li>Skills written exam: 40 questions</li>
+            <li>Skills practical CBT questions: 5 questions</li>
+            <li>Nursing care Japanese language test: 15 questions in 30 minutes</li>
+            <li>Use this app for practice; always check the latest official Prometric and MHLW pages before booking.</li>
+          </ul>
+        `
+      },
+      {
+        title: "Care Basics",
+        html: `
+          <h3>Core Principles</h3>
+          <ul>
+            <li>Dignity: speak respectfully, protect privacy, explain care before touching.</li>
+            <li>Independence: support what the person can still do, and assist only what is difficult.</li>
+            <li>Person-centered care: learn life history, preferences, culture, routine, and abilities.</li>
+            <li>Confidentiality: do not share resident information outside work or in public spaces.</li>
+            <li>Safety: prevent falls, burns, choking, infection, pressure injuries, and abuse.</li>
+          </ul>
+        `
+      },
+      {
+        title: "Physical Care",
+        html: `
+          <h3>Daily Care Checklist</h3>
+          <ul>
+            <li>Meals: check posture, swallowing, diet type, pace, and alertness.</li>
+            <li>Bathing: check consent, privacy, water temperature, skin condition, and fall risk.</li>
+            <li>Excretion: protect dignity, observe urine/stool changes, support hydration and skin care.</li>
+            <li>Mobility: check brakes, footwear, dizziness, environment, and body mechanics.</li>
+            <li>Bed care: reposition, observe pressure areas, keep sheets dry and smooth.</li>
+          </ul>
+        `
+      },
+      {
+        title: "Communication",
+        html: `
+          <h3>Useful Care Communication</h3>
+          <ul>
+            <li>Listen first when a resident refuses care.</li>
+            <li>Use short, clear sentences and confirm understanding.</li>
+            <li>For dementia, respond to feelings, not only facts.</li>
+            <li>Report changes using facts: time, situation, observation, action, and result.</li>
+            <li>Use polite Japanese: いまからお手伝いします。よろしいですか。</li>
+          </ul>
+        `
+      },
+      {
+        title: "Vocabulary",
+        html: `
+          <h3>Care Japanese Terms</h3>
+          <div class="term-grid">
+            ${[
+              ["介護", "かいご", "nursing care"],
+              ["介助", "かいじょ", "assistance"],
+              ["食事介助", "しょくじかいじょ", "meal assistance"],
+              ["入浴介助", "にゅうよくかいじょ", "bathing assistance"],
+              ["排泄", "はいせつ", "excretion/toileting"],
+              ["移乗", "いじょう", "transfer"],
+              ["車いす", "くるまいす", "wheelchair"],
+              ["認知症", "にんちしょう", "dementia"],
+              ["転倒", "てんとう", "fall"],
+              ["報告", "ほうこく", "report"],
+              ["記録", "きろく", "record"],
+              ["申し送り", "もうしおくり", "handover"]
+            ].map(([jp, kana, en]) => `<div class="term"><strong>${jp}</strong><span>${kana}</span><span>${en}</span></div>`).join("")}
+          </div>
+        `
+      }
+    ];
+
+    const studyMaterialNp = {
+      "Exam Guide": {
+        title: "परीक्षा गाइड",
+        html: `
+          <h3>आधिकारिक परीक्षा रूप</h3>
+          <p>SSW nursing care skills test CBT परीक्षा हो। Skills test मा 45 प्रश्न र 60 मिनेट हुन्छ। Nursing care Japanese test मा 15 प्रश्न र 30 मिनेट हुन्छ।</p>
+          <ul>
+            <li>केयर आधार, मन/शरीर, संवाद, शारीरिक केयर र व्यवहारिक निर्णय अभ्यास गर्नुहोस्।</li>
+            <li>Full Exam 45Q mode प्रयोग गरेर वास्तविक समय अभ्यास गर्नुहोस्।</li>
+            <li>बुकिङ गर्नु अघि MHLW र Prometric को नयाँ सूचना हेर्नुहोस्।</li>
+          </ul>
+        `
+      },
+      "Care Basics": {
+        title: "केयर आधार",
+        html: `
+          <h3>मुख्य सिद्धान्त</h3>
+          <ul>
+            <li>मर्यादा: आदरपूर्वक बोल्ने, गोपनीयता बचाउने, छुनु अघि बुझाउने।</li>
+            <li>आत्मनिर्भरता: व्यक्तिले गर्न सक्ने भाग आफैं गर्न दिनु।</li>
+            <li>व्यक्ति-केन्द्रित केयर: बानी, रुचि, जीवन इतिहास र क्षमता बुझ्नु।</li>
+            <li>सुरक्षा: लड्ने, पोल्ने, घाँटी अड्किने, संक्रमण र बेडसोर रोक्नु।</li>
+          </ul>
+        `
+      },
+      "Physical Care": {
+        title: "शारीरिक केयर",
+        html: `
+          <h3>दैनिक केयर चेकलिस्ट</h3>
+          <ul>
+            <li>खाना: आसन, निल्ने अवस्था, खाना प्रकार र होसियारी जाँच।</li>
+            <li>नुहाउने: सहमति, गोपनीयता, पानी तापक्रम र लड्ने जोखिम।</li>
+            <li>शौच: मर्यादा, छाला, पानी सेवन र दिसा/पिसाब परिवर्तन हेर्ने।</li>
+            <li>हिँडडुल: ब्रेक, जुत्ता, चक्कर, बाटो र शरीरको सही प्रयोग।</li>
+          </ul>
+        `
+      },
+      "Communication": {
+        title: "संवाद",
+        html: `
+          <h3>केयर संवाद</h3>
+          <ul>
+            <li>नकार्दा पहिले कारण सोधेर शान्त भएर सुन्नुहोस्।</li>
+            <li>छोटो र स्पष्ट वाक्य प्रयोग गर्नुहोस्।</li>
+            <li>डिमेन्सियामा तथ्य मात्र होइन, भावना पनि स्वीकार्नुहोस्।</li>
+            <li>रिपोर्ट गर्दा समय, अवस्था, देखिएको कुरा, गरेको काम र परिणाम भन्नुहोस्।</li>
+          </ul>
+        `
+      },
+      "Vocabulary": {
+        title: "शब्दावली",
+        html: `
+          <h3>केयर जापानी शब्द</h3>
+          <p>Vocabulary tab मा 499 शब्द छन्। Search गरेर जापानी, kana, romaji, English वा category बाट खोज्न सकिन्छ। Flashcard मा Know It थिचेपछि progress बढ्छ।</p>
+        `
+      }
+    };
+
+    studyMaterials.forEach((material) => {
+      if (studyMaterialNp[material.title]) {
+        material.titleNp = studyMaterialNp[material.title].title;
+        material.htmlNp = studyMaterialNp[material.title].html;
+      }
+    });
+
+    const vocabulary = buildVocabulary();
+    const knownVocabulary = new Set(JSON.parse(localStorage.getItem("sswKnownVocabulary") || "[]"));
+    const vocabState = {
+      flashIndex: 0,
+      answerVisible: false
+    };
+    let currentLang = localStorage.getItem("sswLanguageMode") || "en";
+
+    const uiText = {
+      en: {
+        brandTitle: "Japan SSW Nursing Care Mock Test",
+        brandSubtitle: "5 practice sets with study notes, care Japanese, and review mode",
+        quickPractice: "Practice",
+        quickVocab: "Vocab",
+        quickSets: "Sets",
+        quickStudy: "Study",
+        bottomTest: "Test",
+        bottomVocab: "Vocab",
+        bottomCards: "Cards",
+        bottomStudy: "Study",
+        dashSetsLabel: "Mock sets",
+        dashSetsValue: "5 sets",
+        dashVocabLabel: "Vocabulary",
+        dashVocabUnit: "words",
+        dashCardsLabel: "Flashcards",
+        dashCardsUnit: "known",
+        dashExamLabel: "Exam mode",
+        dashExamValue: "45Q / 60m",
+        missionTitle: "Today’s pass path",
+        missionText: "Study in short loops: test, fix mistakes, then strengthen care vocabulary.",
+        pathStepOne: "Take one mock set",
+        pathStepOneSub: "15 focused questions",
+        pathStepTwo: "Review mistakes",
+        pathStepTwoSub: "Do not skip explanations",
+        pathStepThree: "Learn 20 cards",
+        pathStepThreeSub: "Mark only true known words",
+        introTitle: "Practice like a real care worker, not only a test taker.",
+        introCopy: "Use the mock sets to train exam knowledge and workplace judgment: dignity, independence support, safety, communication, dementia care, infection control, body mechanics, and reporting.",
+        restart: "Start Set",
+        fullExam: "Full Exam 45Q",
+        showAnswer: "Show Answer",
+        next: "Next",
+        finish: "Finish",
+        flipShow: "Show Meaning",
+        flipHide: "Hide Meaning",
+        hard: "Still Learning",
+        know: "Know It",
+        noMistakesYet: "No Mistakes Yet",
+        noMistakes: "No Mistakes",
+        reviewMistakes: "Review Mistakes",
+        practiceMistakes: "Practice Mistakes",
+        chooseFirst: "Choose an answer or show the answer before moving on.",
+        correct: "Correct",
+        reviewThis: "Review this"
+      },
+      np: {
+        brandTitle: "जापान SSW केयर मोक टेस्ट",
+        brandSubtitle: "मोक सेट, अध्ययन नोट, केयर जापानी र गल्ती समीक्षा",
+        quickPractice: "अभ्यास",
+        quickVocab: "शब्द",
+        quickSets: "सेट",
+        quickStudy: "अध्ययन",
+        bottomTest: "टेस्ट",
+        bottomVocab: "शब्द",
+        bottomCards: "कार्ड",
+        bottomStudy: "पढाइ",
+        dashSetsLabel: "मोक सेट",
+        dashSetsValue: "५ सेट",
+        dashVocabLabel: "शब्दावली",
+        dashVocabUnit: "शब्द",
+        dashCardsLabel: "फ्ल्यासकार्ड",
+        dashCardsUnit: "जानेको",
+        dashExamLabel: "परीक्षा मोड",
+        dashExamValue: "४५ प्रश्न / ६० मिनेट",
+        missionTitle: "आजको पास गर्ने बाटो",
+        missionText: "छोटो अभ्यास गर: टेस्ट, गल्ती सुधार, अनि केयर शब्दावली बलियो बनाऊ।",
+        pathStepOne: "एक मोक सेट गर",
+        pathStepOneSub: "१५ केन्द्रित प्रश्न",
+        pathStepTwo: "गल्ती समीक्षा गर",
+        pathStepTwoSub: "व्याख्या नछोड",
+        pathStepThree: "२० कार्ड सिक",
+        pathStepThreeSub: "साँच्चै जानेको मात्र चिन्ह लगाऊ",
+        introTitle: "परीक्षार्थी मात्र होइन, केयर वर्कर जस्तै अभ्यास गर।",
+        introCopy: "मर्यादा, आत्मनिर्भरता, सुरक्षा, संवाद, डिमेन्सिया केयर, संक्रमण रोकथाम, शरीरको सही प्रयोग र रिपोर्टिङ अभ्यास गर।",
+        restart: "सेट सुरु गर",
+        fullExam: "पूरा परीक्षा ४५Q",
+        showAnswer: "उत्तर देखाऊ",
+        next: "अर्को",
+        finish: "समाप्त",
+        flipShow: "अर्थ देखाऊ",
+        flipHide: "अर्थ लुकाऊ",
+        hard: "अझै सिक्दै",
+        know: "जानेँ",
+        noMistakesYet: "अहिले गल्ती छैन",
+        noMistakes: "गल्ती छैन",
+        reviewMistakes: "गल्ती समीक्षा",
+        practiceMistakes: "गल्ती अभ्यास",
+        chooseFirst: "अर्को जानु अघि उत्तर छान्नुहोस् वा उत्तर देखाउनुहोस्।",
+        correct: "सही",
+        reviewThis: "यो फेरि पढ्नुहोस्"
+      }
+    };
+
+    const domainNp = {
+      "Fundamentals": "आधारभूत केयर",
+      "Communication": "संवाद",
+      "Physical care": "शारीरिक केयर",
+      "Mind and body": "मन र शरीर",
+      "Infection control": "संक्रमण रोकथाम",
+      "Practical": "व्यावहारिक निर्णय",
+      "Care Japanese": "केयर जापानी",
+      "Dementia care": "डिमेन्सिया केयर",
+      "Emergency": "आपतकालीन अवस्था",
+      "Records": "रेकर्ड",
+      "Teamwork": "टीमवर्क"
+    };
+
+    const domainHelpNp = {
+      "Fundamentals": "मुख्य कुरा: मर्यादा, गोपनीयता र आत्मनिर्भरता समर्थन।",
+      "Communication": "मुख्य कुरा: शान्त भएर सुन्नु, बुझाउनु र सहमति लिनु।",
+      "Physical care": "मुख्य कुरा: सुरक्षा, गोपनीयता, सही आसन र दुर्घटना रोकथाम।",
+      "Mind and body": "मुख्य कुरा: सामान्यभन्दा फरक लक्षण छिटो देखेर रिपोर्ट गर्नु।",
+      "Infection control": "मुख्य कुरा: हात सफा, पन्जा, मास्क र संक्रमण फैलिन नदिनु।",
+      "Practical": "मुख्य कुरा: जोखिम देखेपछि तुरुन्त सुरक्षित कार्य गर्नु।",
+      "Care Japanese": "मुख्य कुरा: जापानी केयर शब्दको अर्थ सम्झनु।",
+      "Dementia care": "मुख्य कुरा: भावना स्वीकारेर आश्वस्त पार्नु।",
+      "Emergency": "मुख्य कुरा: सुरक्षित राखेर तुरुन्त रिपोर्ट गर्नु।",
+      "Records": "मुख्य कुरा: तथ्य, समय, अवस्था र गरिएको काम लेख्नु।",
+      "Teamwork": "मुख्य कुरा: रिपोर्ट, सम्पर्क र सल्लाह स्पष्ट गर्नु।"
+    };
+
+    const meaningNp = {
+      "nursing care": "केयर/हेरचाह",
+      "assistance": "सहायता",
+      "independence support": "आत्मनिर्भरता सहयोग",
+      "dignity": "मर्यादा",
+      "service user": "सेवा प्रयोगकर्ता",
+      "resident": "बासिन्दा",
+      "older adult": "वृद्ध व्यक्ति",
+      "family": "परिवार",
+      "personal information": "व्यक्तिगत जानकारी",
+      "confidentiality": "गोपनीयता",
+      "care plan": "केयर योजना",
+      "assessment": "मूल्याङ्कन",
+      "monitoring": "निगरानी",
+      "life history": "जीवन इतिहास",
+      "the person themself": "स्वयं व्यक्ति",
+      "consent": "सहमति",
+      "explanation": "व्याख्या",
+      "active listening": "ध्यान दिएर सुन्ने",
+      "verbal prompting": "बोलेर सम्झाउने",
+      "report": "रिपोर्ट",
+      "contact": "सम्पर्क",
+      "consultation": "सल्लाह",
+      "record": "रेकर्ड",
+      "handover": "ड्युटी हस्तान्तरण",
+      "observation": "अवलोकन",
+      "confirmation": "पुष्टि",
+      "meal": "खाना",
+      "fluids": "पानी/तरल पदार्थ",
+      "oral care": "मुख सफाइ",
+      "bathing": "नुहाउने",
+      "excretion/toileting": "शौच/मूत्र सहयोग",
+      "changing clothes": "कपडा फेर्ने",
+      "movement": "हिँडडुल",
+      "transfer": "स्थानान्तरण",
+      "walking": "हिँड्ने",
+      "position change": "शरीरको अवस्था परिवर्तन",
+      "cleanliness": "सफाइ",
+      "sleep": "निद्रा",
+      "taking medicine": "औषधि सेवन",
+      "wheelchair": "ह्वीलचेयर",
+      "walker": "वाकर",
+      "cane": "लठ्ठी",
+      "bed": "बेड",
+      "handrail": "ह्यान्डरेल",
+      "nurse call": "नर्स कल",
+      "lift": "लिफ्ट",
+      "thermometer": "तापक्रम नाप्ने",
+      "blood pressure monitor": "ब्लड प्रेसर मिटर",
+      "dementia": "डिमेन्सिया",
+      "delirium": "अचानक भ्रम",
+      "anxiety": "चिन्ता",
+      "wandering": "भौँतारिनु",
+      "dehydration": "पानीको कमी",
+      "constipation": "कब्जियत",
+      "diarrhea": "पखाला",
+      "fever": "ज्वरो",
+      "cough": "खोकी",
+      "sputum": "खकार",
+      "pain": "दुखाइ",
+      "dizziness": "चक्कर",
+      "fall": "लड्नु",
+      "fall from height": "उचाइबाट खस्नु",
+      "aspiration": "खाना/पानी सास नलीमा जानु",
+      "choking": "घाँटी अड्किनु",
+      "pressure injury": "बेडसोर",
+      "infection": "संक्रमण",
+      "handwashing": "हात धुने",
+      "disinfection": "कीटाणु नाश",
+      "gloves": "पन्जा",
+      "mask": "मास्क",
+      "fluid intake": "पानी सेवन",
+      "oral cavity": "मुखभित्र",
+      "tooth brushing": "दाँत माझ्ने",
+      "dentures": "नक्कली दाँत",
+      "bed bath": "बेडमै सफाइ",
+      "hair washing": "कपाल धुने",
+      "urination": "पिसाब",
+      "bowel movement": "दिसा",
+      "diaper": "डायपर",
+      "toilet": "शौचालय",
+      "standing position": "उभिएको अवस्था",
+      "sitting position": "बसेको अवस्था",
+      "lying position": "सुतेको अवस्था",
+      "body position": "शरीरको अवस्था",
+      "rest": "आराम",
+      "skin": "छाला",
+      "breathing": "सास फेर्ने",
+      "blood pressure": "रक्तचाप",
+      "pulse": "नाडी",
+      "body temperature": "शरीर तापक्रम",
+      "recording": "रेकर्ड गर्ने",
+      "reporting": "रिपोर्ट गर्ने",
+      "preparation": "तयारी",
+      "cleanup": "सफा/समेट्ने",
+      "watchful support": "निगरानी सहयोग",
+      "prevention": "रोकथाम",
+      "practice": "अभ्यास"
+    };
+
+    function vt(jp, kana, romaji, en, category) {
+      return { jp, kana, romaji, en, category };
+    }
+
+    function buildVocabulary() {
+      const base = [
+        vt("介護", "かいご", "kaigo", "nursing care", "Core care"),
+        vt("介助", "かいじょ", "kaijo", "assistance", "Core care"),
+        vt("自立支援", "じりつしえん", "jiritsu shien", "independence support", "Core care"),
+        vt("尊厳", "そんげん", "songen", "dignity", "Core care"),
+        vt("利用者", "りようしゃ", "riyosha", "service user", "Core care"),
+        vt("入居者", "にゅうきょしゃ", "nyukyosya", "resident", "Core care"),
+        vt("高齢者", "こうれいしゃ", "koreisha", "older adult", "Core care"),
+        vt("家族", "かぞく", "kazoku", "family", "Core care"),
+        vt("個人情報", "こじんじょうほう", "kojin joho", "personal information", "Core care"),
+        vt("秘密保持", "ひみつほじ", "himitsu hoji", "confidentiality", "Core care"),
+        vt("介護計画", "かいごけいかく", "kaigo keikaku", "care plan", "Core care"),
+        vt("アセスメント", "あせすめんと", "asesumento", "assessment", "Core care"),
+        vt("モニタリング", "もにたりんぐ", "monitaringu", "monitoring", "Core care"),
+        vt("生活歴", "せいかつれき", "seikatsu reki", "life history", "Core care"),
+        vt("本人", "ほんにん", "honnin", "the person themself", "Core care"),
+        vt("同意", "どうい", "doi", "consent", "Core care"),
+        vt("説明", "せつめい", "setsumei", "explanation", "Communication"),
+        vt("傾聴", "けいちょう", "keicho", "active listening", "Communication"),
+        vt("声かけ", "こえかけ", "koekake", "verbal prompting", "Communication"),
+        vt("報告", "ほうこく", "hokoku", "report", "Teamwork"),
+        vt("連絡", "れんらく", "renraku", "contact", "Teamwork"),
+        vt("相談", "そうだん", "sodan", "consultation", "Teamwork"),
+        vt("記録", "きろく", "kiroku", "record", "Teamwork"),
+        vt("申し送り", "もうしおくり", "moshiokuri", "handover", "Teamwork"),
+        vt("観察", "かんさつ", "kansatsu", "observation", "Teamwork"),
+        vt("確認", "かくにん", "kakunin", "confirmation", "Teamwork"),
+        vt("食事", "しょくじ", "shokuji", "meal", "Physical care"),
+        vt("水分", "すいぶん", "suibun", "fluids", "Physical care"),
+        vt("口腔ケア", "こうくうけあ", "koku kea", "oral care", "Physical care"),
+        vt("入浴", "にゅうよく", "nyuyoku", "bathing", "Physical care"),
+        vt("排泄", "はいせつ", "haisetsu", "excretion/toileting", "Physical care"),
+        vt("更衣", "こうい", "koi", "changing clothes", "Physical care"),
+        vt("移動", "いどう", "ido", "movement", "Physical care"),
+        vt("移乗", "いじょう", "ijo", "transfer", "Physical care"),
+        vt("歩行", "ほこう", "hoko", "walking", "Physical care"),
+        vt("体位変換", "たいいへんかん", "taii henkan", "position change", "Physical care"),
+        vt("清潔", "せいけつ", "seiketsu", "cleanliness", "Physical care"),
+        vt("睡眠", "すいみん", "suimin", "sleep", "Physical care"),
+        vt("服薬", "ふくやく", "fukuyaku", "taking medicine", "Physical care"),
+        vt("車いす", "くるまいす", "kurumaisu", "wheelchair", "Equipment"),
+        vt("歩行器", "ほこうき", "hokoki", "walker", "Equipment"),
+        vt("杖", "つえ", "tsue", "cane", "Equipment"),
+        vt("ベッド", "べっど", "beddo", "bed", "Equipment"),
+        vt("手すり", "てすり", "tesuri", "handrail", "Equipment"),
+        vt("ナースコール", "なーすこーる", "nasu koru", "nurse call", "Equipment"),
+        vt("リフト", "りふと", "rifuto", "lift", "Equipment"),
+        vt("体温計", "たいおんけい", "taionkei", "thermometer", "Equipment"),
+        vt("血圧計", "けつあつけい", "ketsuatsukei", "blood pressure monitor", "Equipment"),
+        vt("認知症", "にんちしょう", "ninchisho", "dementia", "Mind and body"),
+        vt("せん妄", "せんもう", "senmo", "delirium", "Mind and body"),
+        vt("不安", "ふあん", "fuan", "anxiety", "Mind and body"),
+        vt("徘徊", "はいかい", "haikai", "wandering", "Mind and body"),
+        vt("脱水", "だっすい", "dassui", "dehydration", "Mind and body"),
+        vt("便秘", "べんぴ", "benpi", "constipation", "Mind and body"),
+        vt("下痢", "げり", "geri", "diarrhea", "Mind and body"),
+        vt("発熱", "はつねつ", "hatsunetsu", "fever", "Mind and body"),
+        vt("咳", "せき", "seki", "cough", "Mind and body"),
+        vt("痰", "たん", "tan", "sputum", "Mind and body"),
+        vt("痛み", "いたみ", "itami", "pain", "Mind and body"),
+        vt("めまい", "めまい", "memai", "dizziness", "Mind and body"),
+        vt("転倒", "てんとう", "tento", "fall", "Safety"),
+        vt("転落", "てんらく", "tenraku", "fall from height", "Safety"),
+        vt("誤嚥", "ごえん", "goen", "aspiration", "Safety"),
+        vt("窒息", "ちっそく", "chissoku", "choking", "Safety"),
+        vt("褥瘡", "じょくそう", "jokuso", "pressure injury", "Safety"),
+        vt("感染", "かんせん", "kansen", "infection", "Safety"),
+        vt("手洗い", "てあらい", "tearai", "handwashing", "Safety"),
+        vt("消毒", "しょうどく", "shodoku", "disinfection", "Safety"),
+        vt("手袋", "てぶくろ", "tebukuro", "gloves", "Safety"),
+        vt("マスク", "ますく", "masuku", "mask", "Safety")
+      ];
+
+      const topics = [
+        ["食事", "しょくじ", "shokuji", "meal", "Physical care"],
+        ["水分", "すいぶん", "suibun", "fluid intake", "Physical care"],
+        ["口腔", "こうくう", "koku", "oral cavity", "Physical care"],
+        ["歯磨き", "はみがき", "hamigaki", "tooth brushing", "Physical care"],
+        ["義歯", "ぎし", "gishi", "dentures", "Physical care"],
+        ["入浴", "にゅうよく", "nyuyoku", "bathing", "Physical care"],
+        ["清拭", "せいしき", "seishiki", "bed bath", "Physical care"],
+        ["洗髪", "せんぱつ", "senpatsu", "hair washing", "Physical care"],
+        ["更衣", "こうい", "koi", "changing clothes", "Physical care"],
+        ["排泄", "はいせつ", "haisetsu", "excretion", "Physical care"],
+        ["排尿", "はいにょう", "hainyo", "urination", "Physical care"],
+        ["排便", "はいべん", "haiben", "bowel movement", "Physical care"],
+        ["おむつ", "おむつ", "omutsu", "diaper", "Physical care"],
+        ["トイレ", "といれ", "toire", "toilet", "Physical care"],
+        ["移動", "いどう", "ido", "movement", "Mobility"],
+        ["移乗", "いじょう", "ijo", "transfer", "Mobility"],
+        ["歩行", "ほこう", "hoko", "walking", "Mobility"],
+        ["立位", "りつい", "ritsui", "standing position", "Mobility"],
+        ["座位", "ざい", "zai", "sitting position", "Mobility"],
+        ["臥位", "がい", "gai", "lying position", "Mobility"],
+        ["体位", "たいい", "taii", "body position", "Mobility"],
+        ["睡眠", "すいみん", "suimin", "sleep", "Daily life"],
+        ["休息", "きゅうそく", "kyusoku", "rest", "Daily life"],
+        ["服薬", "ふくやく", "fukuyaku", "medication taking", "Daily life"],
+        ["皮膚", "ひふ", "hifu", "skin", "Observation"],
+        ["褥瘡", "じょくそう", "jokuso", "pressure injury", "Observation"],
+        ["発熱", "はつねつ", "hatsunetsu", "fever", "Observation"],
+        ["咳", "せき", "seki", "cough", "Observation"],
+        ["痰", "たん", "tan", "sputum", "Observation"],
+        ["呼吸", "こきゅう", "kokyu", "breathing", "Observation"],
+        ["血圧", "けつあつ", "ketsuatsu", "blood pressure", "Observation"],
+        ["脈拍", "みゃくはく", "myakuhaku", "pulse", "Observation"],
+        ["体温", "たいおん", "taion", "body temperature", "Observation"],
+        ["痛み", "いたみ", "itami", "pain", "Observation"],
+        ["めまい", "めまい", "memai", "dizziness", "Observation"],
+        ["転倒", "てんとう", "tento", "fall", "Safety"],
+        ["認知症", "にんちしょう", "ninchisho", "dementia", "Dementia"],
+        ["不安", "ふあん", "fuan", "anxiety", "Dementia"],
+        ["徘徊", "はいかい", "haikai", "wandering", "Dementia"],
+        ["ナースコール", "なーすこーる", "nasu koru", "nurse call", "Equipment"],
+        ["車いす", "くるまいす", "kurumaisu", "wheelchair", "Equipment"],
+        ["歩行器", "ほこうき", "hokoki", "walker", "Equipment"],
+        ["手すり", "てすり", "tesuri", "handrail", "Equipment"],
+        ["記録", "きろく", "kiroku", "record", "Teamwork"],
+        ["報告", "ほうこく", "hokoku", "report", "Teamwork"],
+        ["申し送り", "もうしおくり", "moshiokuri", "handover", "Teamwork"],
+        ["感染", "かんせん", "kansen", "infection", "Safety"],
+        ["手洗い", "てあらい", "tearai", "handwashing", "Safety"],
+        ["手袋", "てぶくろ", "tebukuro", "gloves", "Safety"],
+        ["マスク", "ますく", "masuku", "mask", "Safety"]
+      ];
+
+      const actions = [
+        ["介助", "かいじょ", "kaijo", "assistance"],
+        ["観察", "かんさつ", "kansatsu", "observation"],
+        ["確認", "かくにん", "kakunin", "confirmation"],
+        ["記録", "きろく", "kiroku", "recording"],
+        ["報告", "ほうこく", "hokoku", "reporting"],
+        ["準備", "じゅんび", "junbi", "preparation"],
+        ["片付け", "かたづけ", "katazuke", "cleanup"],
+        ["見守り", "みまもり", "mimamori", "watchful support"],
+        ["声かけ", "こえかけ", "koekake", "verbal prompting"],
+        ["説明", "せつめい", "setsumei", "explanation"],
+        ["予防", "よぼう", "yobo", "prevention"],
+        ["練習", "れんしゅう", "renshu", "practice"],
+        ["相談", "そうだん", "sodan", "consultation"]
+      ];
+
+      const generated = [];
+      topics.forEach(([jp, kana, romaji, en, category]) => {
+        actions.forEach(([actionJp, actionKana, actionRomaji, actionEn]) => {
+          generated.push(vt(`${jp}${actionJp}`, `${kana}${actionKana}`, `${romaji} ${actionRomaji}`, `${en} ${actionEn}`, category));
+        });
+      });
+
+      const seen = new Set();
+      return [...base, ...generated]
+        .filter((item) => {
+          const key = `${item.jp}-${item.en}`;
+          if (seen.has(key)) return false;
+          seen.add(key);
+          return true;
+        })
+        .slice(0, 499)
+        .map((item, index) => ({ ...item, id: index + 1 }));
+    }
+
+    function q(domain, text, options, answer, explanation) {
+      return { domain, text, options, answer, explanation };
+    }
+
+    const state = {
+      setIndex: 0,
+      questions: [],
+      current: 0,
+      correct: 0,
+      answered: false,
+      mistakes: [],
+      lastMistakes: [],
+      examMode: false,
+      timerId: null,
+      timeRemaining: 0,
+      bestExamScore: Number(localStorage.getItem("sswBestExamScore") || "0")
+    };
+
+    const el = {
+      setSelect: document.getElementById("setSelect"),
+      setList: document.getElementById("setList"),
+      englishModeBtn: document.getElementById("englishModeBtn"),
+      nepaliModeBtn: document.getElementById("nepaliModeBtn"),
+      restartBtn: document.getElementById("restartBtn"),
+      reviewMistakesBtn: document.getElementById("reviewMistakesBtn"),
+      fullExamBtn: document.getElementById("fullExamBtn"),
+      quizView: document.getElementById("quizView"),
+      resultsView: document.getElementById("resultsView"),
+      quizTitle: document.getElementById("quizTitle"),
+      questionNumber: document.getElementById("questionNumber"),
+      questionTotal: document.getElementById("questionTotal"),
+      timerText: document.getElementById("timerText"),
+      scoreText: document.getElementById("scoreText"),
+      progressFill: document.getElementById("progressFill"),
+      domainLabel: document.getElementById("domainLabel"),
+      questionText: document.getElementById("questionText"),
+      nepaliHelper: document.getElementById("nepaliHelper"),
+      options: document.getElementById("options"),
+      feedback: document.getElementById("feedback"),
+      showAnswerBtn: document.getElementById("showAnswerBtn"),
+      nextBtn: document.getElementById("nextBtn"),
+      finalScore: document.getElementById("finalScore"),
+      resultMessage: document.getElementById("resultMessage"),
+      mistakeOnlyBtn: document.getElementById("mistakeOnlyBtn"),
+      againBtn: document.getElementById("againBtn"),
+      reviewList: document.getElementById("reviewList"),
+      tabs: document.getElementById("tabs"),
+      studyBody: document.getElementById("studyBody"),
+      vocabTotal: document.getElementById("vocabTotal"),
+      vocabShown: document.getElementById("vocabShown"),
+      vocabSearch: document.getElementById("vocabSearch"),
+      vocabCategory: document.getElementById("vocabCategory"),
+      vocabList: document.getElementById("vocabList"),
+      knownCount: document.getElementById("knownCount"),
+      flashIndex: document.getElementById("flashIndex"),
+      flashTotal: document.getElementById("flashTotal"),
+      flashCategory: document.getElementById("flashCategory"),
+      flashFront: document.getElementById("flashFront"),
+      flashKana: document.getElementById("flashKana"),
+      flashAnswer: document.getElementById("flashAnswer"),
+      flipCardBtn: document.getElementById("flipCardBtn"),
+      hardCardBtn: document.getElementById("hardCardBtn"),
+      knowCardBtn: document.getElementById("knowCardBtn"),
+      readinessScore: document.getElementById("readinessScore")
+    };
+
+    function shuffle(items) {
+      const copy = [...items];
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function startSet(customQuestions = null, options = {}) {
+      const set = mockSets[state.setIndex];
+      stopTimer();
+      state.examMode = options.examMode || false;
+      state.questions = customQuestions ? shuffle(customQuestions) : shuffle(set.questions);
+      state.current = 0;
+      state.correct = 0;
+      state.answered = false;
+      state.mistakes = [];
+      el.quizView.style.display = "block";
+      el.resultsView.classList.remove("show");
+      renderQuestion();
+      renderSetList();
+      updateMistakeButtons();
+      if (state.examMode) startTimer(60 * 60);
+      scrollToPractice();
+    }
+
+    function startFullExam() {
+      const examQuestions = shuffle(mockSets.flatMap((set) => set.questions)).slice(0, 45);
+      startSet(examQuestions, { examMode: true });
+    }
+
+    function startTimer(seconds) {
+      state.timeRemaining = seconds;
+      renderTimer();
+      state.timerId = setInterval(() => {
+        state.timeRemaining -= 1;
+        renderTimer();
+        if (state.timeRemaining <= 0) {
+          stopTimer();
+          showResults(true);
+        }
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (state.timerId) {
+        clearInterval(state.timerId);
+        state.timerId = null;
+      }
+      if (el.timerText) el.timerText.classList.remove("show");
+    }
+
+    function renderTimer() {
+      const minutes = Math.max(0, Math.floor(state.timeRemaining / 60));
+      const seconds = Math.max(0, state.timeRemaining % 60);
+      el.timerText.textContent = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+      el.timerText.classList.add("show");
+    }
+
+    function renderQuestion() {
+      const set = mockSets[state.setIndex];
+      const question = state.questions[state.current];
+      state.answered = false;
+      el.quizTitle.textContent = state.examMode
+        ? (currentLang === "np" ? "पूरा परीक्षा अभ्यास" : "Full Exam Simulation")
+        : getSetName(set, state.setIndex);
+      el.questionNumber.textContent = String(state.current + 1);
+      el.questionTotal.textContent = String(state.questions.length);
+      el.scoreText.textContent = `${state.correct}/${state.current}`;
+      el.progressFill.style.width = `${(state.current / state.questions.length) * 100}%`;
+      el.domainLabel.textContent = currentLang === "np" ? (domainNp[question.domain] || question.domain) : question.domain;
+      el.questionText.textContent = question.text;
+      el.nepaliHelper.classList.toggle("show", currentLang === "np");
+      el.nepaliHelper.textContent = `${domainNp[question.domain] || "केयर"}: ${domainHelpNp[question.domain] || "मुख्य कुरा ध्यान दिएर सही उत्तर छान्नुहोस्।"}`;
+      el.feedback.className = "feedback";
+      el.feedback.textContent = "";
+      el.nextBtn.textContent = state.current === state.questions.length - 1 ? t("finish") : t("next");
+      el.options.replaceChildren();
+
+      question.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "option";
+        button.textContent = option;
+        button.addEventListener("click", () => answer(index));
+        el.options.append(button);
+      });
+    }
+
+    function answer(selectedIndex, revealed = false) {
+      if (state.answered) return;
+      const question = state.questions[state.current];
+      const correct = selectedIndex === question.answer;
+      state.answered = true;
+
+      if (correct && !revealed) {
+        state.correct += 1;
+      } else {
+        state.mistakes.push(question);
+      }
+
+      [...el.options.children].forEach((button, index) => {
+        button.disabled = true;
+        if (index === question.answer) button.classList.add("correct");
+        if (index === selectedIndex && !correct) button.classList.add("incorrect");
+      });
+
+      el.feedback.className = "feedback show";
+      const explanation = currentLang === "np"
+        ? `${question.explanation}<br><span class="np-line">${domainHelpNp[question.domain] || "यो प्रश्न फेरि दोहोर्याएर अभ्यास गर्नुहोस्।"}</span>`
+        : question.explanation;
+      el.feedback.innerHTML = `<strong>${correct && !revealed ? t("correct") : t("reviewThis")}</strong><br>${explanation}`;
+      el.scoreText.textContent = `${state.correct}/${state.current + 1}`;
+    }
+
+    function nextQuestion() {
+      if (!state.answered) {
+        el.feedback.className = "feedback show";
+        el.feedback.textContent = t("chooseFirst");
+        return;
+      }
+
+      if (state.current < state.questions.length - 1) {
+        state.current += 1;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showAnswer() {
+      if (state.answered) return;
+      answer(-1, true);
+    }
+
+    function showResults(timeUp = false) {
+      if (timeUp) {
+        const unanswered = state.questions.slice(state.current).filter((question) => !state.mistakes.includes(question));
+        state.mistakes.push(...unanswered);
+      }
+      const percent = Math.round((state.correct / state.questions.length) * 100);
+      if (state.examMode && percent > state.bestExamScore) {
+        state.bestExamScore = percent;
+        localStorage.setItem("sswBestExamScore", String(percent));
+      }
+      state.lastMistakes = [...state.mistakes];
+      stopTimer();
+      el.progressFill.style.width = "100%";
+      el.quizView.style.display = "none";
+      el.resultsView.classList.add("show");
+      el.finalScore.textContent = `${percent}%`;
+      el.resultMessage.textContent = getResultMessage(percent, timeUp);
+      el.mistakeOnlyBtn.disabled = state.lastMistakes.length === 0;
+      el.mistakeOnlyBtn.textContent = state.lastMistakes.length === 0
+        ? t("noMistakes")
+        : `${t("practiceMistakes")} ${state.lastMistakes.length}`;
+      updateMistakeButtons();
+      updateReadinessScore();
+      renderReview();
+    }
+
+    function updateMistakeButtons() {
+      const hasMistakes = state.lastMistakes.length > 0;
+      el.reviewMistakesBtn.disabled = !hasMistakes;
+      el.reviewMistakesBtn.textContent = hasMistakes
+        ? `${t("reviewMistakes")} ${state.lastMistakes.length}`
+        : t("noMistakesYet");
+      el.mistakeOnlyBtn.disabled = !hasMistakes;
+    }
+
+    function scrollToPractice() {
+      const isSmallScreen = window.matchMedia("(max-width: 760px)").matches;
+      if (isSmallScreen) {
+        document.getElementById("practice").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    function renderReview() {
+      el.reviewList.replaceChildren();
+      const list = state.mistakes.length ? state.mistakes : [];
+      if (!list.length) {
+        const item = document.createElement("div");
+        item.className = "review-item";
+        item.textContent = "No mistakes in this round.";
+        el.reviewList.append(item);
+        return;
+      }
+
+      list.forEach((question) => {
+        const item = document.createElement("div");
+        item.className = "review-item";
+        item.innerHTML = `<strong>${question.domain}: ${question.text}</strong><span>Answer: ${question.options[question.answer]}</span><br><span>${question.explanation}</span>`;
+        el.reviewList.append(item);
+      });
+    }
+
+    function getResultMessage(percent, timeUp) {
+      if (currentLang === "np") {
+        if (timeUp) return "समय सकियो। गल्ती समीक्षा गरेर Full Exam mode फेरि गर्नुहोस्।";
+        if (percent >= 80) return "राम्रो नतिजा। व्याख्या पढेर अर्को सेट गर्नुहोस्।";
+        if (percent >= 60) return "आधार राम्रो छ। गल्ती अभ्यास गरेर कमजोर क्षेत्र दोहोर्याउनुहोस्।";
+        return "पहिले अध्ययन नोट पढ्नुहोस्, त्यसपछि mistake review सहित फेरि प्रयास गर्नुहोस्।";
+      }
+      if (timeUp) return "Time is up. Review mistakes, then retake Full Exam mode.";
+      if (percent >= 80) return "Strong result. Review explanations, then try another set.";
+      if (percent >= 60) return "Good base. Practice the mistakes and repeat weak domains.";
+      return "Focus on the study notes first, then retry with mistake review.";
+    }
+
+    function renderSetControls() {
+      el.setSelect.replaceChildren();
+      mockSets.forEach((set, index) => {
+        const option = document.createElement("option");
+        option.value = String(index);
+        option.textContent = getSetName(set, index);
+        el.setSelect.append(option);
+      });
+      el.setSelect.value = String(state.setIndex);
+      renderSetList();
+    }
+
+    function renderSetList() {
+      el.setList.replaceChildren();
+      mockSets.forEach((set, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `set-button${index === state.setIndex ? " active" : ""}`;
+        button.innerHTML = `<strong>${getSetName(set, index)}</strong><span class="muted">${getSetFocus(set)} · ${set.questions.length} ${currentLang === "np" ? "प्रश्न" : "questions"}</span>`;
+        button.addEventListener("click", () => {
+          state.setIndex = index;
+          el.setSelect.value = String(index);
+          startSet();
+        });
+        el.setList.append(button);
+      });
+    }
+
+    function getSetName(set, index) {
+      if (currentLang !== "np") return set.name;
+      return [
+        "सेट १: आधार र सुरक्षा",
+        "सेट २: डिमेन्सिया र संवाद",
+        "सेट ३: शारीरिक केयर",
+        "सेट ४: आपतकालीन र टीमवर्क",
+        "सेट ५: अन्तिम मिश्रित समीक्षा"
+      ][index] || set.name;
+    }
+
+    function getSetFocus(set) {
+      if (currentLang !== "np") return set.focus;
+      const focus = {
+        "Basic care principles, safety, infection prevention": "केयर आधार, सुरक्षा, संक्रमण रोकथाम",
+        "Dementia care, anxiety reduction, respectful words": "डिमेन्सिया केयर, चिन्ता घटाउने, आदरपूर्ण भाषा",
+        "Meals, bathing, excretion, mobility, sleep": "खाना, नुहाउने, शौच, हिँडडुल, निद्रा",
+        "Observation, reporting, accident response, records": "अवलोकन, रिपोर्ट, दुर्घटना प्रतिक्रिया, रेकर्ड",
+        "Mixed exam-style review across all domains": "सबै क्षेत्रको मिश्रित परीक्षा समीक्षा"
+      };
+      return focus[set.focus] || set.focus;
+    }
+
+    function renderStudyTabs() {
+      el.tabs.replaceChildren();
+      studyMaterials.forEach((material, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `tab${index === 0 ? " active" : ""}`;
+        button.textContent = currentLang === "np" && material.titleNp ? material.titleNp : material.title;
+        button.addEventListener("click", () => showStudy(index));
+        el.tabs.append(button);
+      });
+      showStudy(0);
+    }
+
+    function showStudy(index) {
+      [...el.tabs.children].forEach((tab, tabIndex) => {
+        tab.classList.toggle("active", tabIndex === index);
+      });
+      el.studyBody.innerHTML = currentLang === "np" && studyMaterials[index].htmlNp
+        ? studyMaterials[index].htmlNp
+        : studyMaterials[index].html;
+    }
+
+    function renderVocabularyControls() {
+      const categories = ["All", ...new Set(vocabulary.map((item) => item.category))];
+      el.vocabCategory.replaceChildren();
+      categories.forEach((category) => {
+        const option = document.createElement("option");
+        option.value = category;
+        option.textContent = category === "All"
+          ? (currentLang === "np" ? "सबै category" : "All categories")
+          : (currentLang === "np" ? (domainNp[category] || category) : category);
+        el.vocabCategory.append(option);
+      });
+      el.vocabTotal.textContent = String(vocabulary.length);
+      el.flashTotal.textContent = String(vocabulary.length);
+      updateKnownCount();
+    }
+
+    function getFilteredVocabulary() {
+      const search = el.vocabSearch.value.trim().toLowerCase();
+      const category = el.vocabCategory.value;
+      return vocabulary.filter((item) => {
+        const matchesCategory = category === "All" || item.category === category;
+        const text = `${item.jp} ${item.kana} ${item.romaji} ${item.en} ${item.category}`.toLowerCase();
+        return matchesCategory && text.includes(search);
+      });
+    }
+
+    function renderVocabulary() {
+      const filtered = getFilteredVocabulary();
+      el.vocabShown.textContent = String(filtered.length);
+      el.vocabList.replaceChildren();
+
+      if (!filtered.length) {
+        const empty = document.createElement("div");
+        empty.className = "review-item";
+        empty.textContent = "No vocabulary matched your search.";
+        el.vocabList.append(empty);
+        return;
+      }
+
+      filtered.forEach((item) => {
+        const card = document.createElement("div");
+        card.className = "vocab-card";
+        card.innerHTML = `
+          <div>
+            <strong>${item.jp}</strong>
+            <small>${item.kana}</small>
+          </div>
+          <div>
+            <span>${item.romaji}</span>
+            <small>${item.en}${currentLang === "np" ? `<br><span class="np-line">${toNepaliMeaning(item)}</span>` : ""}</small>
+          </div>
+          <div><span class="tag">${currentLang === "np" ? (domainNp[item.category] || item.category) : item.category}</span></div>
+        `;
+        card.addEventListener("click", () => {
+          vocabState.flashIndex = Math.max(0, vocabulary.findIndex((word) => word.id === item.id));
+          renderFlashcard(false);
+          document.getElementById("flashcards").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+        el.vocabList.append(card);
+      });
+    }
+
+    function renderFlashcard(showAnswer = false) {
+      const item = vocabulary[vocabState.flashIndex];
+      vocabState.answerVisible = showAnswer;
+      el.flashIndex.textContent = String(vocabState.flashIndex + 1);
+      el.flashCategory.textContent = currentLang === "np" ? (domainNp[item.category] || item.category) : item.category;
+      el.flashFront.textContent = item.jp;
+      el.flashKana.textContent = `${item.kana} · ${item.romaji}`;
+      el.flashAnswer.innerHTML = currentLang === "np"
+        ? `${item.en}<br><span class="np-line">${toNepaliMeaning(item)}</span>`
+        : item.en;
+      el.flashAnswer.classList.toggle("show", showAnswer);
+      el.flipCardBtn.textContent = showAnswer ? t("flipHide") : t("flipShow");
+    }
+
+    function nextFlashcard() {
+      vocabState.flashIndex = (vocabState.flashIndex + 1) % vocabulary.length;
+      renderFlashcard(false);
+    }
+
+    function updateKnownCount() {
+      el.knownCount.textContent = String(knownVocabulary.size);
+      localStorage.setItem("sswKnownVocabulary", JSON.stringify([...knownVocabulary]));
+      updateReadinessScore();
+    }
+
+    function updateReadinessScore() {
+      const vocabProgress = Math.min(40, Math.round((knownVocabulary.size / 300) * 40));
+      const examProgress = Math.min(45, Math.round((state.bestExamScore / 80) * 45));
+      const hasCompletedRound = state.questions.length > 0 && state.current > 0;
+      const mistakeProgress = hasCompletedRound
+        ? (state.lastMistakes.length === 0 ? 15 : Math.max(0, 15 - state.lastMistakes.length))
+        : 0;
+      const readiness = Math.max(0, Math.min(100, vocabProgress + examProgress + mistakeProgress));
+      el.readinessScore.textContent = `${readiness}%`;
+    }
+
+    function t(key) {
+      return (uiText[currentLang] && uiText[currentLang][key]) || uiText.en[key] || key;
+    }
+
+    function setStaticText(id, key) {
+      const target = document.getElementById(id);
+      if (target) target.textContent = t(key);
+    }
+
+    function toNepaliMeaning(item) {
+      if (meaningNp[item.en]) return meaningNp[item.en];
+      const parts = item.en.split(" ");
+      if (parts.length >= 2) {
+        const last = parts[parts.length - 1];
+        const topic = parts.slice(0, -1).join(" ");
+        if (meaningNp[topic] && meaningNp[last]) return `${meaningNp[topic]} ${meaningNp[last]}`;
+      }
+      return "नेपाली अर्थ थपिएको छ";
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem("sswLanguageMode", lang);
+      applyLanguage();
+    }
+
+    function applyLanguage() {
+      [
+        "brandTitle", "brandSubtitle", "quickPractice", "quickVocab", "quickSets", "quickStudy",
+        "bottomTest", "bottomVocab", "bottomCards", "bottomStudy", "dashSetsLabel", "dashSetsValue",
+        "dashVocabLabel", "dashVocabUnit", "dashCardsLabel", "dashCardsUnit", "dashExamLabel",
+        "dashExamValue", "missionTitle", "missionText", "pathStepOne", "pathStepOneSub",
+        "pathStepTwo", "pathStepTwoSub", "pathStepThree", "pathStepThreeSub", "introTitle", "introCopy"
+      ].forEach((key) => setStaticText(key, key));
+
+      el.englishModeBtn.classList.toggle("active", currentLang === "en");
+      el.nepaliModeBtn.classList.toggle("active", currentLang === "np");
+      el.restartBtn.textContent = t("restart");
+      el.fullExamBtn.textContent = t("fullExam");
+      el.showAnswerBtn.textContent = t("showAnswer");
+      el.hardCardBtn.textContent = t("hard");
+      el.knowCardBtn.textContent = t("know");
+      updateMistakeButtons();
+      renderSetControls();
+      renderStudyTabs();
+      renderVocabularyControls();
+      renderVocabulary();
+      renderFlashcard(vocabState.answerVisible);
+      if (state.questions.length) renderQuestion();
+    }
+
+    el.setSelect.addEventListener("change", () => {
+      state.setIndex = Number(el.setSelect.value);
+      startSet();
+    });
+    el.englishModeBtn.addEventListener("click", () => setLanguage("en"));
+    el.nepaliModeBtn.addEventListener("click", () => setLanguage("np"));
+    el.restartBtn.addEventListener("click", () => startSet());
+    el.againBtn.addEventListener("click", () => startSet());
+    el.fullExamBtn.addEventListener("click", startFullExam);
+    el.nextBtn.addEventListener("click", nextQuestion);
+    el.showAnswerBtn.addEventListener("click", showAnswer);
+    el.mistakeOnlyBtn.addEventListener("click", () => {
+      if (state.lastMistakes.length) startSet(state.lastMistakes);
+    });
+    el.reviewMistakesBtn.addEventListener("click", () => {
+      if (state.lastMistakes.length) startSet(state.lastMistakes);
+    });
+    el.vocabSearch.addEventListener("input", renderVocabulary);
+    el.vocabCategory.addEventListener("change", renderVocabulary);
+    el.flipCardBtn.addEventListener("click", () => renderFlashcard(!vocabState.answerVisible));
+    el.hardCardBtn.addEventListener("click", nextFlashcard);
+    el.knowCardBtn.addEventListener("click", () => {
+      knownVocabulary.add(vocabulary[vocabState.flashIndex].id);
+      updateKnownCount();
+      nextFlashcard();
+    });
+
+    applyLanguage();
+    startSet();
+  </script>
+</body>
+</html>
