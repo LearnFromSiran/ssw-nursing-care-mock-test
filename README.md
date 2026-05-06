@@ -9,6 +9,7 @@ A static study app for Japan Specified Skilled Worker nursing care preparation. 
 - Full Exam mode with 45 questions and a 60-minute timer
 - Pass-focused readiness plan and readiness estimate
 - Duolingo-inspired daily study path for test, mistake review, and vocabulary practice
+- Mobile-first visual homepage with large lesson tabs for tests, exam mode, vocabulary, flashcards, study notes, and review
 - One-click language mode: English default or Nepali support
 - 499-entry SSW nursing care vocabulary bank
 - Searchable vocabulary by Japanese, kana, romaji, English/Nepali meaning, and category
@@ -17,7 +18,7 @@ A static study app for Japan Specified Skilled Worker nursing care preparation. 
 - Instant answer feedback and explanations
 - Mistakes-only practice mode
 - Study materials with exam guide, care basics, physical care checklist, communication notes, and vocabulary
-- Mobile-first layout with quick navigation, quiz-first phone flow, sticky actions, and larger touch targets
+- Mobile-first layout with app-style home navigation, sticky actions, and larger touch targets
 - Responsive static HTML/CSS/JavaScript app
 
 ## Official Exam Reference

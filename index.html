@@ -65,8 +65,8 @@
     }
 
     .quick-nav {
-      display: none;
-      grid-template-columns: repeat(4, 1fr);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
       gap: 8px;
       margin: 0 0 12px;
       padding: 8px;
@@ -115,6 +115,208 @@
     .dash-card:nth-child(2) strong { color: var(--purple); }
     .dash-card:nth-child(3) strong { color: var(--blue); }
     .dash-card:nth-child(4) strong { color: var(--orange); }
+
+    .home-screen {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .home-hero {
+      position: relative;
+      min-height: 220px;
+      padding: 24px;
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 72% 18%, rgba(255, 255, 255, 0.38) 0 34px, transparent 35px),
+        linear-gradient(135deg, #dff8ee, #e6f2ff 46%, #fff2d6);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .home-hero::after {
+      content: "";
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      width: 210px;
+      height: 140px;
+      background:
+        radial-gradient(circle at 72% 66%, #84cc16 0 24px, transparent 25px),
+        radial-gradient(circle at 52% 70%, #38bdf8 0 34px, transparent 35px),
+        linear-gradient(115deg, transparent 36%, #7c3aed 37% 49%, transparent 50%),
+        linear-gradient(45deg, transparent 42%, #f59e0b 43% 56%, transparent 57%);
+      opacity: 0.88;
+    }
+
+    .home-kicker {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--teal-dark);
+      font-size: 0.78rem;
+      font-weight: 950;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    .home-hero h2 {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .home-hero p {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+      margin: 12px 0 0;
+      color: #475569;
+      font-size: 1rem;
+      line-height: 1.6;
+      font-weight: 750;
+    }
+
+    .home-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .home-tab {
+      --home-bg: #fde2df;
+      --home-accent: #7c3aed;
+      --home-accent-two: #f59e0b;
+      appearance: none;
+      position: relative;
+      min-height: 168px;
+      padding: 20px 132px 18px 20px;
+      border: 0;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 24% 22%, rgba(255, 255, 255, 0.7) 0 7px, transparent 8px),
+        radial-gradient(circle at 44% 52%, rgba(255, 255, 255, 0.48) 0 6px, transparent 7px),
+        var(--home-bg);
+      color: #111827;
+      text-decoration: none;
+      text-align: left;
+      font: inherit;
+      cursor: pointer;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
+      overflow: hidden;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .home-tab:hover,
+    .home-tab:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 42px rgba(15, 23, 42, 0.15);
+      outline: none;
+    }
+
+    .home-tab:active {
+      transform: translateY(0) scale(0.99);
+    }
+
+    .home-tab::after {
+      content: "...";
+      position: absolute;
+      top: 13px;
+      right: 16px;
+      color: #111827;
+      font-weight: 950;
+      letter-spacing: 2px;
+      opacity: 0.8;
+    }
+
+    .home-tab:nth-child(2) {
+      --home-bg: #fdecc9;
+      --home-accent: #22c55e;
+      --home-accent-two: #f97316;
+    }
+
+    .home-tab:nth-child(3) {
+      --home-bg: #ffd7e8;
+      --home-accent: #ec4899;
+      --home-accent-two: #2563eb;
+    }
+
+    .home-tab:nth-child(4) {
+      --home-bg: #d9fbe8;
+      --home-accent: #0ea5e9;
+      --home-accent-two: #84cc16;
+    }
+
+    .home-tab:nth-child(5) {
+      --home-bg: #e0e7ff;
+      --home-accent: #7c3aed;
+      --home-accent-two: #06b6d4;
+    }
+
+    .home-tab:nth-child(6) {
+      --home-bg: #fee2e2;
+      --home-accent: #f97316;
+      --home-accent-two: #ef4444;
+    }
+
+    .home-tab-title {
+      position: relative;
+      z-index: 2;
+      display: block;
+      font-size: 1.52rem;
+      line-height: 1.08;
+      font-weight: 600;
+    }
+
+    .home-tab-sub {
+      position: relative;
+      z-index: 2;
+      display: block;
+      margin-top: 8px;
+      max-width: 230px;
+      color: #334155;
+      line-height: 1.4;
+      font-weight: 750;
+    }
+
+    .home-art {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      width: 112px;
+      height: 104px;
+    }
+
+    .home-art::before {
+      content: "";
+      position: absolute;
+      right: 32px;
+      top: 12px;
+      width: 64px;
+      height: 80px;
+      border-radius: 16px;
+      background: var(--home-accent);
+      transform: rotate(-8deg);
+      box-shadow: 0 12px 22px rgba(15, 23, 42, 0.14);
+    }
+
+    .home-art::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 66px;
+      height: 66px;
+      border-radius: 999px;
+      background: var(--home-accent-two);
+      opacity: 0.9;
+    }
 
     .timer {
       display: none;
@@ -1039,6 +1241,10 @@
         grid-template-columns: 1fr;
       }
 
+      .home-tabs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
       .intro {
         min-height: auto;
       }
@@ -1069,9 +1275,9 @@
         bottom: 8px;
         z-index: 40;
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 6px;
-        padding: 7px;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 3px;
+        padding: 5px;
         border: 1px solid var(--line);
         border-radius: 18px;
         background: rgba(255, 255, 255, 0.94);
@@ -1082,12 +1288,76 @@
       .bottom-nav a {
         display: grid;
         place-items: center;
+        min-width: 0;
         min-height: 46px;
         border-radius: 13px;
         color: var(--muted);
-        font-size: 0.78rem;
+        font-size: 0.72rem;
         font-weight: 950;
+        white-space: nowrap;
         text-decoration: none;
+      }
+
+      .home-screen {
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .home-hero {
+        min-height: 208px;
+        padding: 18px;
+        border-radius: 20px;
+      }
+
+      .home-hero::after {
+        right: -14px;
+        bottom: 2px;
+        width: 150px;
+        height: 110px;
+        opacity: 0.74;
+      }
+
+      .home-kicker {
+        margin-bottom: 12px;
+        font-size: 0.72rem;
+      }
+
+      .home-hero h2 {
+        max-width: 76%;
+        font-size: clamp(1.75rem, 11vw, 2.8rem);
+      }
+
+      .home-hero p {
+        max-width: 76%;
+        font-size: 0.9rem;
+        line-height: 1.45;
+      }
+
+      .home-tabs {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .home-tab {
+        min-height: 132px;
+        padding: 17px 126px 15px 17px;
+        border-radius: 20px;
+      }
+
+      .home-tab-title {
+        font-size: 1.42rem;
+      }
+
+      .home-tab-sub {
+        max-width: 190px;
+        font-size: 0.9rem;
+      }
+
+      .home-art {
+        right: 6px;
+        bottom: 10px;
+        transform: scale(0.84);
+        transform-origin: right bottom;
       }
 
       .bottom-nav a:first-child {
@@ -1122,13 +1392,17 @@
       }
 
       .brand p {
-        font-size: 0.82rem;
-        line-height: 1.35;
+        display: none;
       }
 
       .toolbar, .actions, .exam-grid {
         display: grid;
         grid-template-columns: 1fr;
+      }
+
+      .toolbar .select,
+      .toolbar > .button {
+        display: none;
       }
 
       .language-toggle {
@@ -1393,45 +1667,59 @@
     </header>
 
     <nav class="quick-nav" aria-label="Quick navigation">
-      <a href="#practice" id="quickPractice">Practice</a>
+      <a href="#home" id="quickHome">Home</a>
+      <a href="#practice" id="quickPractice">Test</a>
       <a href="#vocabulary" id="quickVocab">Vocab</a>
-      <a href="#sets" id="quickSets">Sets</a>
+      <a href="#flashcards" id="quickCards">Cards</a>
       <a href="#study" id="quickStudy">Study</a>
     </nav>
 
     <nav class="bottom-nav" aria-label="Mobile navigation">
+      <a href="#home" id="bottomHome">Home</a>
       <a href="#practice" id="bottomTest">Test</a>
       <a href="#vocabulary" id="bottomVocab">Vocab</a>
-      <a href="#flashcards" id="bottomCards">Cards</a>
       <a href="#study" id="bottomStudy">Study</a>
     </nav>
 
-    <section class="dashboard" aria-label="Learning dashboard">
-      <div class="dash-card"><span id="dashSetsLabel">Mock sets</span><strong id="dashSetsValue">5 sets</strong></div>
-      <div class="dash-card"><span id="dashVocabLabel">Vocabulary</span><strong><span id="vocabTotal">499</span> <span id="dashVocabUnit">words</span></strong></div>
-      <div class="dash-card"><span id="dashCardsLabel">Flashcards</span><strong><span id="knownCount">0</span> <span id="dashCardsUnit">known</span></strong></div>
-      <div class="dash-card"><span id="dashExamLabel">Exam mode</span><strong id="dashExamValue">45Q / 60m</strong></div>
-    </section>
+    <section class="home-screen" id="home" aria-label="App home">
+      <section class="home-hero">
+        <span class="home-kicker" id="homeKicker">SSW Care Sprint</span>
+        <h2 id="homeTitle">Choose today’s lesson.</h2>
+        <p id="homeCopy">Start with one short mock test, fix mistakes, then build care vocabulary with flashcards.</p>
+      </section>
 
-    <section class="mission-card" aria-label="Today's study path">
-      <div>
-        <h2 id="missionTitle">Today’s pass path</h2>
-        <p id="missionText">Study in short loops: test, fix mistakes, then strengthen care vocabulary.</p>
-      </div>
-      <div class="lesson-path">
-        <div class="path-step">
-          <div class="path-node">1</div>
-          <div><strong id="pathStepOne">Take one mock set</strong><small id="pathStepOneSub">15 focused questions</small></div>
-        </div>
-        <div class="path-step">
-          <div class="path-node">2</div>
-          <div><strong id="pathStepTwo">Review mistakes</strong><small id="pathStepTwoSub">Do not skip explanations</small></div>
-        </div>
-        <div class="path-step">
-          <div class="path-node">3</div>
-          <div><strong id="pathStepThree">Learn 20 cards</strong><small id="pathStepThreeSub">Mark only true known words</small></div>
-        </div>
-      </div>
+      <section class="home-tabs" aria-label="Learning tabs">
+        <a class="home-tab" href="#sets">
+          <span class="home-tab-title" id="homeTabSets">Mock Sets</span>
+          <span class="home-tab-sub" id="homeTabSetsSub">5 colorful sets with instant explanations</span>
+          <span class="home-art" aria-hidden="true"></span>
+        </a>
+        <button class="home-tab" id="homeFullExamBtn" type="button">
+          <span class="home-tab-title" id="homeTabExam">Full Exam</span>
+          <span class="home-tab-sub" id="homeTabExamSub">45 questions with a 60 minute timer</span>
+          <span class="home-art" aria-hidden="true"></span>
+        </button>
+        <a class="home-tab" href="#vocabulary">
+          <span class="home-tab-title" id="homeTabVocab">Vocabulary</span>
+          <span class="home-tab-sub"><span id="vocabTotal">499</span> <span id="homeTabVocabSub">SSW care words to search and study</span></span>
+          <span class="home-art" aria-hidden="true"></span>
+        </a>
+        <a class="home-tab" href="#flashcards">
+          <span class="home-tab-title" id="homeTabCards">Flashcards</span>
+          <span class="home-tab-sub"><span id="knownCount">0</span> <span id="homeTabCardsSub">known words tracked on this device</span></span>
+          <span class="home-art" aria-hidden="true"></span>
+        </a>
+        <a class="home-tab" href="#study">
+          <span class="home-tab-title" id="homeTabStudy">Study Notes</span>
+          <span class="home-tab-sub" id="homeTabStudySub">Care basics, safety, communication, and exam tips</span>
+          <span class="home-art" aria-hidden="true"></span>
+        </a>
+        <button class="home-tab" id="homeMistakeBtn" type="button">
+          <span class="home-tab-title" id="homeTabReview">Mistake Review</span>
+          <span class="home-tab-sub" id="homeMistakeStatus">Finish a set to unlock</span>
+          <span class="home-art" aria-hidden="true"></span>
+        </button>
+      </section>
     </section>
 
     <section class="hero" id="practice">
@@ -1831,14 +2119,32 @@
       en: {
         brandTitle: "Japan SSW Nursing Care Mock Test",
         brandSubtitle: "5 practice sets with study notes, care Japanese, and review mode",
-        quickPractice: "Practice",
+        quickHome: "Home",
+        quickPractice: "Test",
         quickVocab: "Vocab",
-        quickSets: "Sets",
+        quickCards: "Cards",
         quickStudy: "Study",
+        bottomHome: "Home",
         bottomTest: "Test",
         bottomVocab: "Vocab",
         bottomCards: "Cards",
         bottomStudy: "Study",
+        homeKicker: "SSW Care Sprint",
+        homeTitle: "Choose today’s lesson.",
+        homeCopy: "Start with one short mock test, fix mistakes, then build care vocabulary with flashcards.",
+        homeTabSets: "Mock Sets",
+        homeTabSetsSub: "5 colorful sets with instant explanations",
+        homeTabExam: "Full Exam",
+        homeTabExamSub: "45 questions with a 60 minute timer",
+        homeTabVocab: "Vocabulary",
+        homeTabVocabSub: "SSW care words to search and study",
+        homeTabCards: "Flashcards",
+        homeTabCardsSub: "known words tracked on this device",
+        homeTabStudy: "Study Notes",
+        homeTabStudySub: "Care basics, safety, communication, and exam tips",
+        homeTabReview: "Mistake Review",
+        mistakeHomeLocked: "Finish a set to unlock",
+        mistakeHomeReady: "Review missed questions",
         dashSetsLabel: "Mock sets",
         dashSetsValue: "5 sets",
         dashVocabLabel: "Vocabulary",
@@ -1877,14 +2183,32 @@
       np: {
         brandTitle: "जापान SSW केयर मोक टेस्ट",
         brandSubtitle: "मोक सेट, अध्ययन नोट, केयर जापानी र गल्ती समीक्षा",
-        quickPractice: "अभ्यास",
+        quickHome: "घर",
+        quickPractice: "टेस्ट",
         quickVocab: "शब्द",
-        quickSets: "सेट",
+        quickCards: "कार्ड",
         quickStudy: "अध्ययन",
+        bottomHome: "घर",
         bottomTest: "टेस्ट",
         bottomVocab: "शब्द",
         bottomCards: "कार्ड",
         bottomStudy: "पढाइ",
+        homeKicker: "SSW केयर अभ्यास",
+        homeTitle: "आज के पढ्ने?",
+        homeCopy: "एक छोटो मोक टेस्टबाट सुरु गर, गल्ती सुधार गर, अनि फ्ल्यासकार्डबाट केयर शब्द बलियो बनाऊ।",
+        homeTabSets: "मोक सेट",
+        homeTabSetsSub: "व्याख्यासहित ५ रंगीन अभ्यास सेट",
+        homeTabExam: "पूरा परीक्षा",
+        homeTabExamSub: "६० मिनेट टाइमरसहित ४५ प्रश्न",
+        homeTabVocab: "शब्दावली",
+        homeTabVocabSub: "SSW केयर शब्द खोजेर पढ",
+        homeTabCards: "फ्ल्यासकार्ड",
+        homeTabCardsSub: "यो डिभाइसमा जानेको शब्द",
+        homeTabStudy: "अध्ययन नोट",
+        homeTabStudySub: "केयर आधार, सुरक्षा, संवाद र परीक्षा सुझाव",
+        homeTabReview: "गल्ती समीक्षा",
+        mistakeHomeLocked: "पहिले एक सेट पूरा गर",
+        mistakeHomeReady: "छुटेका प्रश्न फेरि गर",
         dashSetsLabel: "मोक सेट",
         dashSetsValue: "५ सेट",
         dashVocabLabel: "शब्दावली",
@@ -2242,6 +2566,9 @@
       restartBtn: document.getElementById("restartBtn"),
       reviewMistakesBtn: document.getElementById("reviewMistakesBtn"),
       fullExamBtn: document.getElementById("fullExamBtn"),
+      homeFullExamBtn: document.getElementById("homeFullExamBtn"),
+      homeMistakeBtn: document.getElementById("homeMistakeBtn"),
+      homeMistakeStatus: document.getElementById("homeMistakeStatus"),
       quizView: document.getElementById("quizView"),
       resultsView: document.getElementById("resultsView"),
       quizTitle: document.getElementById("quizTitle"),
@@ -2306,7 +2633,7 @@
       renderSetList();
       updateMistakeButtons();
       if (state.examMode) startTimer(60 * 60);
-      scrollToPractice();
+      if (!options.skipScroll) scrollToPractice();
     }
 
     function startFullExam() {
@@ -2451,6 +2778,9 @@
         ? `${t("reviewMistakes")} ${state.lastMistakes.length}`
         : t("noMistakesYet");
       el.mistakeOnlyBtn.disabled = !hasMistakes;
+      el.homeMistakeStatus.textContent = hasMistakes
+        ? `${t("mistakeHomeReady")} (${state.lastMistakes.length})`
+        : t("mistakeHomeLocked");
     }
 
     function scrollToPractice() {
@@ -2702,11 +3032,11 @@
 
     function applyLanguage() {
       [
-        "brandTitle", "brandSubtitle", "quickPractice", "quickVocab", "quickSets", "quickStudy",
-        "bottomTest", "bottomVocab", "bottomCards", "bottomStudy", "dashSetsLabel", "dashSetsValue",
-        "dashVocabLabel", "dashVocabUnit", "dashCardsLabel", "dashCardsUnit", "dashExamLabel",
-        "dashExamValue", "missionTitle", "missionText", "pathStepOne", "pathStepOneSub",
-        "pathStepTwo", "pathStepTwoSub", "pathStepThree", "pathStepThreeSub", "introTitle", "introCopy"
+        "brandTitle", "brandSubtitle", "quickHome", "quickPractice", "quickVocab", "quickCards", "quickStudy",
+        "bottomHome", "bottomTest", "bottomVocab", "bottomCards", "bottomStudy", "homeKicker", "homeTitle",
+        "homeCopy", "homeTabSets", "homeTabSetsSub", "homeTabExam", "homeTabExamSub", "homeTabVocab",
+        "homeTabVocabSub", "homeTabCards", "homeTabCardsSub", "homeTabStudy", "homeTabStudySub",
+        "homeTabReview", "introTitle", "introCopy"
       ].forEach((key) => setStaticText(key, key));
 
       el.englishModeBtn.classList.toggle("active", currentLang === "en");
@@ -2734,6 +3064,10 @@
     el.restartBtn.addEventListener("click", () => startSet());
     el.againBtn.addEventListener("click", () => startSet());
     el.fullExamBtn.addEventListener("click", startFullExam);
+    el.homeFullExamBtn.addEventListener("click", () => {
+      startFullExam();
+      document.getElementById("practice").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
     el.nextBtn.addEventListener("click", nextQuestion);
     el.showAnswerBtn.addEventListener("click", showAnswer);
     el.mistakeOnlyBtn.addEventListener("click", () => {
@@ -2741,6 +3075,10 @@
     });
     el.reviewMistakesBtn.addEventListener("click", () => {
       if (state.lastMistakes.length) startSet(state.lastMistakes);
+    });
+    el.homeMistakeBtn.addEventListener("click", () => {
+      if (state.lastMistakes.length) startSet(state.lastMistakes);
+      document.getElementById("practice").scrollIntoView({ behavior: "smooth", block: "start" });
     });
     el.vocabSearch.addEventListener("input", renderVocabulary);
     el.vocabCategory.addEventListener("change", renderVocabulary);
@@ -2753,7 +3091,7 @@
     });
 
     applyLanguage();
-    startSet();
+    startSet(null, { skipScroll: true });
   </script>
 </body>
 </html>
