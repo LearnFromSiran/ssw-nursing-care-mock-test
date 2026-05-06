@@ -318,6 +318,872 @@
       opacity: 0.9;
     }
 
+    .topbar {
+      display: none;
+    }
+
+    .quick-nav {
+      display: none;
+    }
+
+    .home-screen {
+      max-width: 560px;
+      margin: 0 auto 22px;
+      padding: 26px 18px 96px;
+      border: 1px solid rgba(226, 232, 240, 0.92);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 14% 4%, rgba(37, 99, 235, 0.08), transparent 24%),
+        radial-gradient(circle at 90% 10%, rgba(20, 184, 166, 0.1), transparent 22%),
+        #fbfdff;
+      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
+      overflow: hidden;
+    }
+
+    .phone-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+      color: #0f172a;
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+
+    .status-icons {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .signal {
+      display: inline-grid;
+      grid-template-columns: repeat(4, 3px);
+      align-items: end;
+      gap: 2px;
+      height: 14px;
+    }
+
+    .signal span {
+      display: block;
+      width: 3px;
+      border-radius: 2px;
+      background: #0f172a;
+    }
+
+    .signal span:nth-child(1) { height: 5px; }
+    .signal span:nth-child(2) { height: 8px; }
+    .signal span:nth-child(3) { height: 11px; }
+    .signal span:nth-child(4) { height: 14px; }
+
+    .wifi {
+      width: 17px;
+      height: 12px;
+      border: 3px solid #0f172a;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      border-bottom: 0;
+      border-radius: 999px 999px 0 0;
+    }
+
+    .battery {
+      position: relative;
+      width: 24px;
+      height: 12px;
+      border: 2px solid #0f172a;
+      border-radius: 4px;
+    }
+
+    .battery::before {
+      content: "";
+      position: absolute;
+      right: 2px;
+      top: 2px;
+      bottom: 2px;
+      width: 14px;
+      border-radius: 2px;
+      background: #0f172a;
+    }
+
+    .battery::after {
+      content: "";
+      position: absolute;
+      right: -5px;
+      top: 3px;
+      width: 3px;
+      height: 6px;
+      border-radius: 0 3px 3px 0;
+      background: #0f172a;
+    }
+
+    .home-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+
+    .home-brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      color: #0f4ea7;
+      font-size: clamp(1.8rem, 7vw, 2.35rem);
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .care-logo {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #2f80ed, #27c5c5);
+      color: #fff;
+      transform: rotate(-45deg);
+    }
+
+    .care-logo::before {
+      content: "+";
+      transform: rotate(45deg);
+      font-size: 2.1rem;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .home-avatar {
+      position: relative;
+      width: 66px;
+      height: 66px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: #e9f0ff;
+      box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.8);
+      overflow: hidden;
+    }
+
+    .home-avatar::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 13px;
+      width: 28px;
+      height: 30px;
+      border-radius: 50% 50% 44% 44%;
+      background: #ffd1a3;
+      box-shadow: 0 -11px 0 2px #4b2517;
+    }
+
+    .home-avatar::after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      right: 13px;
+      bottom: -5px;
+      height: 30px;
+      border-radius: 20px 20px 0 0;
+      background: linear-gradient(135deg, #1597c7, #65d7df);
+    }
+
+    .home-greeting {
+      margin-bottom: 16px;
+    }
+
+    .home-greeting h2 {
+      margin: 0;
+      color: #102348;
+      font-size: clamp(1.75rem, 7vw, 2.25rem);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .home-greeting p {
+      margin: 7px 0 0;
+      color: #77819b;
+      font-size: 1rem;
+      font-weight: 650;
+    }
+
+    .home-search {
+      display: grid;
+      grid-template-columns: 28px 1fr 28px;
+      gap: 10px;
+      align-items: center;
+      min-height: 56px;
+      margin-bottom: 24px;
+      padding: 0 14px;
+      border: 1px solid #dde6f3;
+      border-radius: 15px;
+      background: #fff;
+      box-shadow: 0 9px 22px rgba(15, 23, 42, 0.08);
+      color: #7b87a4;
+      font-weight: 650;
+    }
+
+    .search-lens {
+      position: relative;
+      width: 18px;
+      height: 18px;
+      border: 3px solid #73809f;
+      border-radius: 50%;
+    }
+
+    .search-lens::after {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 3px;
+      margin: 13px 0 0 11px;
+      border-radius: 999px;
+      background: #73809f;
+      transform: rotate(45deg);
+    }
+
+    .filter-icon {
+      position: relative;
+      width: 23px;
+      height: 22px;
+    }
+
+    .data-count {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    .filter-icon::before,
+    .filter-icon::after,
+    .filter-icon span {
+      content: "";
+      position: absolute;
+      left: 1px;
+      right: 1px;
+      height: 2px;
+      border-radius: 999px;
+      background: #71809f;
+    }
+
+    .filter-icon::before { top: 4px; }
+    .filter-icon span { top: 10px; }
+    .filter-icon::after { top: 16px; }
+
+    .featured-card {
+      position: relative;
+      min-height: 210px;
+      margin-bottom: 8px;
+      padding: 20px;
+      border-radius: 21px;
+      background: linear-gradient(135deg, #2f80ed, #25c2c9);
+      color: #fff;
+      box-shadow: 0 17px 36px rgba(37, 99, 235, 0.28);
+      overflow: hidden;
+    }
+
+    .featured-badge {
+      display: inline-flex;
+      gap: 7px;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.2);
+      font-weight: 800;
+    }
+
+    .featured-card h3 {
+      position: relative;
+      z-index: 2;
+      margin: 21px 0 8px;
+      max-width: 280px;
+      font-size: clamp(2rem, 8vw, 2.55rem);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .featured-card p {
+      position: relative;
+      z-index: 2;
+      max-width: 230px;
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .banner-art {
+      position: absolute;
+      right: 48px;
+      top: 34px;
+      width: 116px;
+      height: 126px;
+      border-radius: 12px;
+      background: #f7fbff;
+      box-shadow: 0 10px 20px rgba(15, 23, 42, 0.18);
+    }
+
+    .banner-art::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      top: -11px;
+      width: 74px;
+      height: 24px;
+      border-radius: 10px 10px 5px 5px;
+      background: #164aa8;
+    }
+
+    .banner-art::after {
+      content: "";
+      position: absolute;
+      left: 24px;
+      top: 29px;
+      width: 22px;
+      height: 22px;
+      border-radius: 5px;
+      background: #26bfb7;
+      box-shadow:
+        0 32px 0 #26bfb7,
+        0 64px 0 #26bfb7,
+        34px 4px 0 -7px #c7d5e8,
+        34px 36px 0 -7px #c7d5e8,
+        34px 68px 0 -7px #c7d5e8;
+    }
+
+    .banner-shield {
+      position: absolute;
+      right: 22px;
+      bottom: 56px;
+      width: 72px;
+      height: 82px;
+      border: 7px solid #fff;
+      border-radius: 22px 22px 34px 34px;
+      background: #28c1c2;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.16);
+    }
+
+    .banner-shield::after {
+      content: "+";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 2.4rem;
+      font-weight: 950;
+    }
+
+    .featured-bottom {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 16px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .learners {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .learner-faces {
+      display: flex;
+    }
+
+    .learner-faces span {
+      width: 28px;
+      height: 28px;
+      margin-right: -8px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ffd1a3, #0ea5e9);
+    }
+
+    .learner-faces span:nth-child(2) { background: linear-gradient(135deg, #f9a8d4, #f59e0b); }
+    .learner-faces span:nth-child(3) { background: linear-gradient(135deg, #93c5fd, #7c3aed); }
+
+    .start-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      min-width: 154px;
+      min-height: 56px;
+      padding: 0 18px;
+      border: 0;
+      border-radius: 18px;
+      background: #fff;
+      color: #102348;
+      font-size: 1.05rem;
+      font-weight: 900;
+      box-shadow: 0 12px 22px rgba(15, 23, 42, 0.18);
+    }
+
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 8px 0 12px;
+    }
+
+    .slider-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #cdd8e7;
+    }
+
+    .slider-dots span:first-child {
+      width: 20px;
+      background: #2f80ed;
+    }
+
+    .home-menu-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .menu-tile {
+      display: grid;
+      justify-items: center;
+      align-content: center;
+      min-height: 122px;
+      padding: 12px 8px;
+      border: 1px solid #e1e8f3;
+      border-radius: 15px;
+      background: #fff;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 9px 20px rgba(15, 23, 42, 0.07);
+    }
+
+    .menu-icon {
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      margin-bottom: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2f80ed, #2db2ff);
+      color: #fff;
+      font-size: 1.75rem;
+      font-weight: 950;
+      box-shadow: 0 10px 18px rgba(47, 128, 237, 0.28);
+    }
+
+    .menu-tile:nth-child(2) .menu-icon { background: linear-gradient(135deg, #16b8b1, #2bd3c1); }
+    .menu-tile:nth-child(3) .menu-icon { background: linear-gradient(135deg, #7c6aed, #8c78ff); }
+    .menu-tile:nth-child(4) .menu-icon { background: linear-gradient(135deg, #ffa62b, #ffba41); }
+
+    .menu-tile strong {
+      display: block;
+      color: #102348;
+      font-size: 0.95rem;
+      line-height: 1.1;
+    }
+
+    .menu-tile span:last-child {
+      display: block;
+      margin-top: 5px;
+      color: #71809f;
+      font-size: 0.78rem;
+      line-height: 1.2;
+      font-weight: 650;
+    }
+
+    .home-insights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .insight-card {
+      min-height: 190px;
+      padding: 16px;
+      border: 1px solid #e1e8f3;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 9px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    .progress-card {
+      background: linear-gradient(135deg, #effdfa, #f8fdff);
+    }
+
+    .mini-title {
+      margin: 0 0 14px;
+      color: #102348;
+      font-weight: 850;
+    }
+
+    .progress-body {
+      display: grid;
+      grid-template-columns: 96px 1fr;
+      gap: 13px;
+      align-items: center;
+    }
+
+    .progress-ring {
+      display: grid;
+      place-items: center;
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, #f8fdff 0 56%, transparent 57%),
+        conic-gradient(#18b7bd 0 72%, #e7edf4 72% 100%);
+      color: #102348;
+      font-size: 1.7rem;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .progress-ring span {
+      display: block;
+      margin-top: 3px;
+      font-size: 0.72rem;
+      font-weight: 750;
+    }
+
+    .progress-note strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #102348;
+    }
+
+    .progress-note {
+      color: #61708d;
+      line-height: 1.4;
+      font-size: 0.9rem;
+      font-weight: 650;
+    }
+
+    .xp-bar {
+      height: 6px;
+      margin-top: 17px;
+      border-radius: 999px;
+      background: #e4ecf5;
+      overflow: hidden;
+    }
+
+    .xp-bar span {
+      display: block;
+      width: 72%;
+      height: 100%;
+      border-radius: inherit;
+      background: #18b7bd;
+    }
+
+    .xp-text {
+      margin-top: 7px;
+      color: #71809f;
+      text-align: right;
+      font-size: 0.82rem;
+      font-weight: 750;
+    }
+
+    .word-card {
+      position: relative;
+      background: linear-gradient(135deg, #fffaf3, #fff);
+      overflow: hidden;
+    }
+
+    .bookmark {
+      position: absolute;
+      top: 13px;
+      right: 18px;
+      width: 15px;
+      height: 27px;
+      border-radius: 4px 4px 2px 2px;
+      background: #2f80ed;
+    }
+
+    .bookmark::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      border-left: 7px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 7px solid #2f80ed;
+    }
+
+    .word-card h3 {
+      margin: 0 0 8px;
+      color: #16a1ac;
+      font-size: 1.55rem;
+    }
+
+    .word-card p {
+      max-width: 160px;
+      margin: 0 0 12px;
+      color: #61708d;
+      font-size: 0.86rem;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .heart-hands {
+      position: absolute;
+      right: 13px;
+      bottom: 52px;
+      width: 65px;
+      height: 62px;
+      border-radius: 50%;
+      background: #ff8292;
+    }
+
+    .heart-hands::before,
+    .heart-hands::after {
+      content: "";
+      position: absolute;
+      bottom: -22px;
+      width: 28px;
+      height: 48px;
+      border-radius: 999px;
+      background: #ffc58a;
+    }
+
+    .heart-hands::before {
+      left: -10px;
+      transform: rotate(-28deg);
+    }
+
+    .heart-hands::after {
+      right: -10px;
+      transform: rotate(28deg);
+    }
+
+    .streak-title {
+      margin-top: 20px;
+      color: #102348;
+      font-size: 0.9rem;
+      font-weight: 850;
+    }
+
+    .week-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-top: 7px;
+      color: #61708d;
+      font-size: 0.64rem;
+      text-align: center;
+      font-weight: 800;
+    }
+
+    .week-row span::before {
+      content: "";
+      display: block;
+      width: 15px;
+      height: 15px;
+      margin: 0 auto 3px;
+      border-radius: 50%;
+      background: #22c55e;
+    }
+
+    .week-row span:last-child::before {
+      border: 2px solid #9aa8bf;
+      background: #fff;
+    }
+
+    .home-section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 4px 4px 10px;
+      color: #102348;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .home-section-title a {
+      color: #2f80ed;
+      font-size: 0.9rem;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .continue-card {
+      display: grid;
+      grid-template-columns: 132px 1fr 24px;
+      gap: 14px;
+      align-items: center;
+      min-height: 96px;
+      margin-bottom: 16px;
+      padding: 10px;
+      border: 1px solid #e1e8f3;
+      border-radius: 15px;
+      background: #fff;
+      text-decoration: none;
+      box-shadow: 0 9px 20px rgba(15, 23, 42, 0.07);
+    }
+
+    .lesson-thumb {
+      position: relative;
+      height: 76px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #74d1d9, #e8eef6);
+      overflow: hidden;
+    }
+
+    .lesson-thumb::before,
+    .lesson-thumb::after {
+      content: "";
+      position: absolute;
+      bottom: 8px;
+      width: 42px;
+      height: 48px;
+      border-radius: 22px 22px 12px 12px;
+      background: #ffd1a3;
+    }
+
+    .lesson-thumb::before {
+      left: 26px;
+      box-shadow: 0 -13px 0 #313a52;
+    }
+
+    .lesson-thumb::after {
+      right: 24px;
+      background: #e9c1a8;
+      box-shadow: 0 -13px 0 #cfd5df;
+    }
+
+    .lesson-info strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #102348;
+      font-size: 1rem;
+    }
+
+    .lesson-info span {
+      display: block;
+      color: #61708d;
+      font-size: 0.82rem;
+      line-height: 1.3;
+      font-weight: 650;
+    }
+
+    .small-progress {
+      height: 5px;
+      margin-top: 10px;
+      border-radius: 999px;
+      background: #e4ecf5;
+      overflow: hidden;
+    }
+
+    .small-progress span {
+      display: block;
+      width: 60%;
+      height: 100%;
+      background: #18b7bd;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .news-card {
+      display: grid;
+      grid-template-columns: 46px 1fr;
+      gap: 10px;
+      min-height: 78px;
+      padding: 12px;
+      border: 1px solid #e1e8f3;
+      border-radius: 13px;
+      background: #fff;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+    }
+
+    .news-icon {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #e6fbfb;
+      color: #18aab4;
+      font-size: 1.5rem;
+    }
+
+    .news-card strong {
+      display: block;
+      color: #102348;
+      font-size: 0.82rem;
+      line-height: 1.2;
+    }
+
+    .news-card span {
+      display: block;
+      margin-top: 4px;
+      color: #7b87a4;
+      font-size: 0.75rem;
+      font-weight: 650;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      z-index: 40;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      width: min(560px, 100%);
+      transform: translateX(-50%);
+      min-height: 78px;
+      padding: 10px 20px 14px;
+      border: 1px solid #e1e8f3;
+      border-bottom: 0;
+      border-radius: 22px 22px 0 0;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 -10px 28px rgba(15, 23, 42, 0.1);
+      backdrop-filter: blur(16px);
+    }
+
+    .bottom-nav a {
+      display: grid;
+      place-items: center;
+      gap: 4px;
+      color: #8a95ad;
+      font-size: 0.78rem;
+      font-weight: 750;
+      text-decoration: none;
+    }
+
+    .bottom-nav a::before {
+      display: block;
+      color: currentColor;
+      font-size: 1.45rem;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .bottom-nav a:nth-child(1)::before { content: "⌂"; }
+    .bottom-nav a:nth-child(2)::before { content: "☑"; }
+    .bottom-nav a:nth-child(3)::before { content: "▤"; }
+    .bottom-nav a:nth-child(4)::before { content: "○"; }
+
+    .bottom-nav a:first-child {
+      color: #2f80ed;
+    }
+
     .timer {
       display: none;
       width: max-content;
@@ -1641,6 +2507,147 @@
         transform: scale(0.82);
         transform-origin: right bottom;
       }
+
+      .home-screen {
+        max-width: none;
+        margin-bottom: 12px;
+        padding: 14px 14px 96px;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .phone-status {
+        margin-bottom: 18px;
+      }
+
+      .home-top {
+        margin-bottom: 6px;
+      }
+
+      .home-brand {
+        font-size: 1.9rem;
+      }
+
+      .home-greeting h2 {
+        font-size: 1.6rem;
+      }
+
+      .home-greeting p {
+        font-size: 0.9rem;
+      }
+
+      .home-greeting {
+        margin-bottom: 12px;
+      }
+
+      .home-search {
+        min-height: 50px;
+        margin-bottom: 18px;
+      }
+
+      .featured-card {
+        min-height: 196px;
+        padding: 18px;
+      }
+
+      .featured-card h3 {
+        max-width: 250px;
+        margin-top: 18px;
+        font-size: 1.85rem;
+      }
+
+      .featured-card p {
+        max-width: 220px;
+        font-size: 0.98rem;
+      }
+
+      .featured-bottom {
+        left: 18px;
+        right: 18px;
+        gap: 8px;
+      }
+
+      .learners {
+        gap: 8px;
+        font-size: 0.8rem;
+      }
+
+      .banner-art {
+        right: 24px;
+        transform: scale(0.74);
+        transform-origin: right top;
+      }
+
+      .banner-shield {
+        right: 5px;
+        transform: scale(0.72);
+        transform-origin: right bottom;
+      }
+
+      .start-pill {
+        min-width: 106px;
+        min-height: 50px;
+        padding: 0 8px;
+        font-size: 0.84rem;
+      }
+
+      .home-menu-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .menu-tile {
+        min-height: 112px;
+        padding: 11px 5px;
+      }
+
+      .menu-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+
+      .menu-tile strong {
+        font-size: 0.84rem;
+      }
+
+      .menu-tile span:last-child {
+        font-size: 0.72rem;
+      }
+
+      .home-insights {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .progress-body {
+        grid-template-columns: 88px 1fr;
+      }
+
+      .progress-ring {
+        width: 84px;
+        height: 84px;
+        font-size: 1.5rem;
+      }
+
+      .continue-card {
+        grid-template-columns: 132px 1fr 18px;
+      }
+
+      .bottom-nav {
+        left: 50%;
+        right: auto;
+        bottom: 0;
+        width: min(560px, 100%);
+        min-height: 78px;
+        padding: 10px 12px 14px;
+        border-radius: 22px 22px 0 0;
+        transform: translateX(-50%);
+      }
+
+      .bottom-nav a {
+        font-size: 0.7rem;
+      }
     }
   </style>
 </head>
@@ -1682,43 +2689,125 @@
     </nav>
 
     <section class="home-screen" id="home" aria-label="App home">
-      <section class="home-hero">
-        <span class="home-kicker" id="homeKicker">SSW Care Sprint</span>
-        <h2 id="homeTitle">Choose today’s lesson.</h2>
-        <p id="homeCopy">Start with one short mock test, fix mistakes, then build care vocabulary with flashcards.</p>
+      <div class="phone-status" aria-hidden="true">
+        <span>9:41</span>
+        <span class="status-icons">
+          <span class="signal"><span></span><span></span><span></span><span></span></span>
+          <span class="wifi"></span>
+          <span class="battery"></span>
+        </span>
+      </div>
+
+      <div class="home-top">
+        <div class="home-brand">
+          <span class="care-logo" aria-hidden="true"></span>
+          <strong id="homeKicker">SSW Carepro</strong>
+        </div>
+        <span class="home-avatar" aria-hidden="true"></span>
+      </div>
+
+      <div class="home-greeting">
+        <h2 id="homeTitle">Hi, Alex! 👋</h2>
+        <p id="homeCopy">Prepare smarter for your care exam today.</p>
+      </div>
+
+      <div class="home-search" role="search">
+        <span class="search-lens" aria-hidden="true"></span>
+        <span>Search mock tests, topics or materials...</span>
+        <span class="filter-icon" aria-hidden="true"><span></span></span>
+      </div>
+
+      <section class="featured-card" aria-label="Featured SSW mock test">
+        <span class="featured-badge">☆ Featured</span>
+        <h3>SSW Mock Test</h3>
+        <p>Practice real-style questions and track your score.</p>
+        <span class="banner-art" aria-hidden="true"></span>
+        <span class="banner-shield" aria-hidden="true"></span>
+        <div class="featured-bottom">
+          <div class="learners">
+            <span class="learner-faces" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span>8.6K learners</span>
+          </div>
+          <button class="start-pill" id="homeFullExamBtn" type="button">Start Test <span aria-hidden="true">→</span></button>
+        </div>
       </section>
 
-      <section class="home-tabs" aria-label="Learning tabs">
-        <a class="home-tab" href="#sets">
-          <span class="home-tab-title" id="homeTabSets">Mock Sets</span>
-          <span class="home-tab-sub" id="homeTabSetsSub">5 colorful sets with instant explanations</span>
-          <span class="home-art" aria-hidden="true"></span>
+      <div class="slider-dots" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+
+      <section class="home-menu-grid" aria-label="Main learning sections">
+        <a class="menu-tile" href="#sets">
+          <span class="menu-icon">☑</span>
+          <strong id="homeTabSets">Mock Tests</strong>
+          <span id="homeTabSetsSub">Practice & Improve</span>
         </a>
-        <button class="home-tab" id="homeFullExamBtn" type="button">
-          <span class="home-tab-title" id="homeTabExam">Full Exam</span>
-          <span class="home-tab-sub" id="homeTabExamSub">45 questions with a 60 minute timer</span>
-          <span class="home-art" aria-hidden="true"></span>
-        </button>
-        <a class="home-tab" href="#vocabulary">
-          <span class="home-tab-title" id="homeTabVocab">Vocabulary</span>
-          <span class="home-tab-sub"><span id="vocabTotal">499</span> <span id="homeTabVocabSub">SSW care words to search and study</span></span>
-          <span class="home-art" aria-hidden="true"></span>
+        <a class="menu-tile" href="#study">
+          <span class="menu-icon">□</span>
+          <strong id="homeTabStudy">Study Materials</strong>
+          <span id="homeTabStudySub">Notes & Guides</span>
         </a>
-        <a class="home-tab" href="#flashcards">
-          <span class="home-tab-title" id="homeTabCards">Flashcards</span>
-          <span class="home-tab-sub"><span id="knownCount">0</span> <span id="homeTabCardsSub">known words tracked on this device</span></span>
-          <span class="home-art" aria-hidden="true"></span>
+        <a class="menu-tile" href="#vocabulary">
+          <span class="menu-icon">Aa</span>
+          <strong id="homeTabVocab">Vocabularies</strong>
+          <span><span id="vocabTotal">499</span> <span id="homeTabVocabSub">Words to Master</span></span>
         </a>
-        <a class="home-tab" href="#study">
-          <span class="home-tab-title" id="homeTabStudy">Study Notes</span>
-          <span class="home-tab-sub" id="homeTabStudySub">Care basics, safety, communication, and exam tips</span>
-          <span class="home-art" aria-hidden="true"></span>
+        <a class="menu-tile" href="#study">
+          <span class="menu-icon">!</span>
+          <strong>News Flash</strong>
+          <span>Updates & Alerts</span>
         </a>
-        <button class="home-tab" id="homeMistakeBtn" type="button">
-          <span class="home-tab-title" id="homeTabReview">Mistake Review</span>
-          <span class="home-tab-sub" id="homeMistakeStatus">Finish a set to unlock</span>
-          <span class="home-art" aria-hidden="true"></span>
-        </button>
+      </section>
+
+      <section class="home-insights" aria-label="Progress and word of the day">
+        <div class="insight-card progress-card">
+          <p class="mini-title">Your Progress</p>
+          <span class="data-count" id="knownCount">0</span>
+          <div class="progress-body">
+            <div class="progress-ring">72%<span>Exam Ready</span></div>
+            <p class="progress-note"><strong>Great work!</strong>You’re on track to succeed.</p>
+          </div>
+          <div class="xp-bar"><span></span></div>
+          <div class="xp-text">720 / 1000 XP</div>
+        </div>
+        <div class="insight-card word-card">
+          <span class="bookmark" aria-hidden="true"></span>
+          <p class="mini-title">Word of the Day</p>
+          <h3>Empathy</h3>
+          <p>The ability to understand and share the feelings of another.</p>
+          <span class="heart-hands" aria-hidden="true"></span>
+          <div class="streak-title">🔥 7 Day Streak</div>
+          <div class="week-row" aria-label="Weekly streak"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+        </div>
+      </section>
+
+      <div class="home-section-title">
+        <span>Continue Studying</span>
+        <a href="#study">View all</a>
+      </div>
+      <a class="continue-card" id="homeMistakeBtn" href="#study">
+        <span class="lesson-thumb" aria-hidden="true"></span>
+        <span class="lesson-info">
+          <strong>Elderly Care Basics</strong>
+          <span>Lesson 3 of 10 · Understanding ADLs</span>
+          <span class="small-progress"><span></span></span>
+          <span>60%</span>
+        </span>
+        <span aria-hidden="true">›</span>
+      </a>
+      <span class="data-count" id="homeMistakeStatus">Finish a set to unlock</span>
+
+      <div class="home-section-title">
+        <span>Latest News Flash</span>
+        <a href="#study">View all</a>
+      </div>
+      <section class="news-grid" aria-label="Latest news flash">
+        <div class="news-card">
+          <span class="news-icon" aria-hidden="true">◔</span>
+          <span><strong>Care Worker Pay Rise Update Announced</strong><span>2 hours ago</span></span>
+        </div>
+        <div class="news-card">
+          <span class="news-icon" aria-hidden="true">▣</span>
+          <span><strong>SSW Exam Schedule Released for 2025</strong><span>1 day ago</span></span>
+        </div>
       </section>
     </section>
 
@@ -2129,19 +3218,19 @@
         bottomVocab: "Vocab",
         bottomCards: "Cards",
         bottomStudy: "Study",
-        homeKicker: "SSW Care Sprint",
-        homeTitle: "Choose today’s lesson.",
-        homeCopy: "Start with one short mock test, fix mistakes, then build care vocabulary with flashcards.",
-        homeTabSets: "Mock Sets",
-        homeTabSetsSub: "5 colorful sets with instant explanations",
+        homeKicker: "SSW Carepro",
+        homeTitle: "Hi, Alex! 👋",
+        homeCopy: "Prepare smarter for your care exam today.",
+        homeTabSets: "Mock Tests",
+        homeTabSetsSub: "Practice & Improve",
         homeTabExam: "Full Exam",
         homeTabExamSub: "45 questions with a 60 minute timer",
-        homeTabVocab: "Vocabulary",
-        homeTabVocabSub: "SSW care words to search and study",
-        homeTabCards: "Flashcards",
-        homeTabCardsSub: "known words tracked on this device",
-        homeTabStudy: "Study Notes",
-        homeTabStudySub: "Care basics, safety, communication, and exam tips",
+        homeTabVocab: "Vocabularies",
+        homeTabVocabSub: "Words to Master",
+        homeTabCards: "Profile",
+        homeTabCardsSub: "Profile",
+        homeTabStudy: "Study Materials",
+        homeTabStudySub: "Notes & Guides",
         homeTabReview: "Mistake Review",
         mistakeHomeLocked: "Finish a set to unlock",
         mistakeHomeReady: "Review missed questions",
@@ -2193,19 +3282,19 @@
         bottomVocab: "शब्द",
         bottomCards: "कार्ड",
         bottomStudy: "पढाइ",
-        homeKicker: "SSW केयर अभ्यास",
-        homeTitle: "आज के पढ्ने?",
-        homeCopy: "एक छोटो मोक टेस्टबाट सुरु गर, गल्ती सुधार गर, अनि फ्ल्यासकार्डबाट केयर शब्द बलियो बनाऊ।",
-        homeTabSets: "मोक सेट",
-        homeTabSetsSub: "व्याख्यासहित ५ रंगीन अभ्यास सेट",
+        homeKicker: "SSW Carepro",
+        homeTitle: "नमस्ते, Alex! 👋",
+        homeCopy: "आज केयर परीक्षाको लागि स्मार्ट तरिकाले तयारी गर।",
+        homeTabSets: "मोक टेस्ट",
+        homeTabSetsSub: "अभ्यास र सुधार",
         homeTabExam: "पूरा परीक्षा",
         homeTabExamSub: "६० मिनेट टाइमरसहित ४५ प्रश्न",
         homeTabVocab: "शब्दावली",
-        homeTabVocabSub: "SSW केयर शब्द खोजेर पढ",
-        homeTabCards: "फ्ल्यासकार्ड",
-        homeTabCardsSub: "यो डिभाइसमा जानेको शब्द",
-        homeTabStudy: "अध्ययन नोट",
-        homeTabStudySub: "केयर आधार, सुरक्षा, संवाद र परीक्षा सुझाव",
+        homeTabVocabSub: "सिक्नुपर्ने शब्द",
+        homeTabCards: "प्रोफाइल",
+        homeTabCardsSub: "प्रोफाइल",
+        homeTabStudy: "अध्ययन सामग्री",
+        homeTabStudySub: "नोट र गाइड",
         homeTabReview: "गल्ती समीक्षा",
         mistakeHomeLocked: "पहिले एक सेट पूरा गर",
         mistakeHomeReady: "छुटेका प्रश्न फेरि गर",
@@ -3065,7 +4154,7 @@
     el.againBtn.addEventListener("click", () => startSet());
     el.fullExamBtn.addEventListener("click", startFullExam);
     el.homeFullExamBtn.addEventListener("click", () => {
-      startFullExam();
+      startSet();
       document.getElementById("practice").scrollIntoView({ behavior: "smooth", block: "start" });
     });
     el.nextBtn.addEventListener("click", nextQuestion);
@@ -3076,9 +4165,12 @@
     el.reviewMistakesBtn.addEventListener("click", () => {
       if (state.lastMistakes.length) startSet(state.lastMistakes);
     });
-    el.homeMistakeBtn.addEventListener("click", () => {
-      if (state.lastMistakes.length) startSet(state.lastMistakes);
-      document.getElementById("practice").scrollIntoView({ behavior: "smooth", block: "start" });
+    el.homeMistakeBtn.addEventListener("click", (event) => {
+      if (state.lastMistakes.length) {
+        event.preventDefault();
+        startSet(state.lastMistakes);
+        document.getElementById("practice").scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
     el.vocabSearch.addEventListener("input", renderVocabulary);
     el.vocabCategory.addEventListener("change", renderVocabulary);
