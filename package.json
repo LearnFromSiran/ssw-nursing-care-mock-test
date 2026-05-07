@@ -1,7 +1,7 @@
 {
   "name": "ssw-nursing-care-mock-test",
   "version": "1.0.0",
-  "description": "Japan SSW nursing care mock test app with 5 practice sets and study materials",
+  "description": "Japan SSW nursing care mock test app with chapterwise study materials, vocabulary, and mock tests",
   "main": "index.html",
   "scripts": {
     "start": "npx http-server -p 8090"

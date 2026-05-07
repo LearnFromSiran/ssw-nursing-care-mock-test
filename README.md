@@ -1,6 +1,6 @@
 # SSW Nursing Care Mock Test
 
-A static study app for Japan Specified Skilled Worker nursing care preparation. It includes 5 mock-test sets, 75 practice questions, answer explanations, mistake review, and study materials for nursing care skills and care Japanese.
+A static study app for Japan Specified Skilled Worker nursing care preparation. It includes chapterwise mock-test sets, answer explanations, mistake review, vocabulary, and study materials for nursing care skills and care Japanese.
 
 ## Features
 

@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SSW Japan nursing care mock test app with 5 practice sets, study materials, care Japanese, and review mode.">
+  <meta name="description" content="SSW Japan nursing care mock test app with chapterwise study materials, vocabulary, mock tests, care Japanese, and review mode.">
   <meta name="theme-color" content="#0f766e">
+  <link rel="icon" href="data:,">
   <title>SSW Nursing Care Mock Test</title>
   <style>
     :root {
@@ -32,12 +33,7 @@
       min-height: 100vh;
       font-family: "Inter", "Noto Sans", "Noto Sans Devanagari", "Noto Sans JP", "Segoe UI", sans-serif;
       color: var(--ink);
-      background:
-        linear-gradient(135deg, rgba(15, 118, 110, 0.1), rgba(124, 58, 237, 0.07), rgba(132, 204, 22, 0.08)),
-        linear-gradient(90deg, rgba(15, 118, 110, 0.05) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(15, 118, 110, 0.04) 1px, transparent 1px),
-        var(--paper);
-      background-size: auto, 72px 72px, 72px 72px;
+      background: #f5f8fb;
     }
 
     button, select { font: inherit; }
@@ -329,15 +325,12 @@
     .home-screen {
       max-width: 560px;
       margin: 0 auto 22px;
-      padding: 26px 18px 96px;
+      padding: 24px 18px 96px;
       border: 1px solid rgba(226, 232, 240, 0.92);
-      border-radius: 34px;
-      background:
-        radial-gradient(circle at 14% 4%, rgba(37, 99, 235, 0.08), transparent 24%),
-        radial-gradient(circle at 90% 10%, rgba(20, 184, 166, 0.1), transparent 22%),
-        #fbfdff;
-      box-shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
-      overflow: hidden;
+      border-radius: 28px;
+      background: #fbfdff;
+      box-shadow: 0 18px 48px rgba(15, 23, 42, 0.1);
+      overflow: visible;
     }
 
     .phone-status {
@@ -428,10 +421,10 @@
       display: flex;
       gap: 12px;
       align-items: center;
-      color: #0f4ea7;
-      font-size: clamp(1.8rem, 7vw, 2.35rem);
+      color: #12315f;
+      font-size: clamp(1.5rem, 6vw, 2rem);
       line-height: 1;
-      font-weight: 950;
+      font-weight: 850;
     }
 
     .care-logo {
@@ -495,8 +488,8 @@
     .home-greeting h2 {
       margin: 0;
       color: #102348;
-      font-size: clamp(1.75rem, 7vw, 2.25rem);
-      line-height: 1.04;
+      font-size: clamp(1.65rem, 6vw, 2.08rem);
+      line-height: 1.12;
       letter-spacing: 0;
     }
 
@@ -504,7 +497,8 @@
       margin: 7px 0 0;
       color: #77819b;
       font-size: 1rem;
-      font-weight: 650;
+      line-height: 1.5;
+      font-weight: 600;
     }
 
     .home-search {
@@ -575,13 +569,13 @@
 
     .featured-card {
       position: relative;
-      min-height: 210px;
+      min-height: 198px;
       margin-bottom: 8px;
       padding: 20px;
-      border-radius: 21px;
-      background: linear-gradient(135deg, #2f80ed, #25c2c9);
+      border-radius: 18px;
+      background: linear-gradient(135deg, #2563eb, #13a8a8);
       color: #fff;
-      box-shadow: 0 17px 36px rgba(37, 99, 235, 0.28);
+      box-shadow: 0 14px 30px rgba(37, 99, 235, 0.2);
       overflow: hidden;
     }
 
@@ -593,7 +587,8 @@
       padding: 0 12px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.2);
-      font-weight: 800;
+      font-size: 0.86rem;
+      font-weight: 750;
     }
 
     .featured-card h3 {
@@ -601,8 +596,8 @@
       z-index: 2;
       margin: 21px 0 8px;
       max-width: 280px;
-      font-size: clamp(2rem, 8vw, 2.55rem);
-      line-height: 1;
+      font-size: clamp(1.75rem, 7vw, 2.35rem);
+      line-height: 1.05;
       letter-spacing: 0;
     }
 
@@ -611,9 +606,9 @@
       z-index: 2;
       max-width: 230px;
       margin: 0;
-      font-size: 1.05rem;
-      line-height: 1.35;
-      font-weight: 650;
+      font-size: 0.98rem;
+      line-height: 1.45;
+      font-weight: 600;
     }
 
     .banner-art {
@@ -717,17 +712,17 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 14px;
-      min-width: 154px;
-      min-height: 56px;
-      padding: 0 18px;
+      gap: 10px;
+      min-width: 138px;
+      min-height: 50px;
+      padding: 0 16px;
       border: 0;
-      border-radius: 18px;
+      border-radius: 14px;
       background: #fff;
       color: #102348;
-      font-size: 1.05rem;
-      font-weight: 900;
-      box-shadow: 0 12px 22px rgba(15, 23, 42, 0.18);
+      font-size: 0.98rem;
+      font-weight: 850;
+      box-shadow: 0 10px 18px rgba(15, 23, 42, 0.16);
     }
 
     .slider-dots {
@@ -751,19 +746,26 @@
 
     .home-menu-grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
       margin-bottom: 16px;
     }
 
+    .menu-tile:nth-child(1) .menu-icon {
+      background: #e8f1ff;
+      color: #2563eb;
+    }
+
     .menu-tile {
       display: grid;
+      grid-template-rows: 46px auto auto;
       justify-items: center;
-      align-content: center;
-      min-height: 122px;
-      padding: 12px 8px;
+      align-content: start;
+      gap: 8px;
+      min-height: 128px;
+      padding: 14px 12px;
       border: 1px solid #e1e8f3;
-      border-radius: 15px;
+      border-radius: 14px;
       background: #fff;
       text-align: center;
       text-decoration: none;
@@ -773,35 +775,48 @@
     .menu-icon {
       display: grid;
       place-items: center;
-      width: 54px;
-      height: 54px;
-      margin-bottom: 9px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2f80ed, #2db2ff);
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: #e8f1ff;
       color: #fff;
-      font-size: 1.75rem;
-      font-weight: 950;
-      box-shadow: 0 10px 18px rgba(47, 128, 237, 0.28);
+      font-size: 1.18rem;
+      line-height: 1;
+      font-weight: 800;
+      box-shadow: none;
     }
 
-    .menu-tile:nth-child(2) .menu-icon { background: linear-gradient(135deg, #16b8b1, #2bd3c1); }
-    .menu-tile:nth-child(3) .menu-icon { background: linear-gradient(135deg, #7c6aed, #8c78ff); }
-    .menu-tile:nth-child(4) .menu-icon { background: linear-gradient(135deg, #ffa62b, #ffba41); }
+    .menu-tile:nth-child(2) .menu-icon {
+      background: #e6fbf7;
+      color: #0f766e;
+    }
+
+    .menu-tile:nth-child(3) .menu-icon {
+      background: #f0edff;
+      color: #6d5dfc;
+    }
+
+    .menu-tile:nth-child(4) .menu-icon {
+      background: #fff3df;
+      color: #b45309;
+    }
 
     .menu-tile strong {
       display: block;
       color: #102348;
-      font-size: 0.95rem;
-      line-height: 1.1;
+      font-size: 0.96rem;
+      line-height: 1.2;
+      font-weight: 750;
+      overflow-wrap: anywhere;
     }
 
-    .menu-tile span:last-child {
+    .menu-tile > span:last-child {
       display: block;
-      margin-top: 5px;
       color: #71809f;
       font-size: 0.78rem;
-      line-height: 1.2;
-      font-weight: 650;
+      line-height: 1.3;
+      font-weight: 600;
+      overflow-wrap: anywhere;
     }
 
     .home-insights {
@@ -812,10 +827,10 @@
     }
 
     .insight-card {
-      min-height: 190px;
+      min-height: 170px;
       padding: 16px;
       border: 1px solid #e1e8f3;
-      border-radius: 16px;
+      border-radius: 14px;
       background: #fff;
       box-shadow: 0 9px 20px rgba(15, 23, 42, 0.06);
     }
@@ -832,7 +847,7 @@
 
     .progress-body {
       display: grid;
-      grid-template-columns: 96px 1fr;
+      grid-template-columns: 82px 1fr;
       gap: 13px;
       align-items: center;
     }
@@ -840,14 +855,14 @@
     .progress-ring {
       display: grid;
       place-items: center;
-      width: 92px;
-      height: 92px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
       background:
         radial-gradient(circle, #f8fdff 0 56%, transparent 57%),
         conic-gradient(#18b7bd 0 72%, #e7edf4 72% 100%);
       color: #102348;
-      font-size: 1.7rem;
+      font-size: 1.45rem;
       line-height: 1;
       font-weight: 950;
     }
@@ -867,9 +882,9 @@
 
     .progress-note {
       color: #61708d;
-      line-height: 1.4;
-      font-size: 0.9rem;
-      font-weight: 650;
+      line-height: 1.45;
+      font-size: 0.86rem;
+      font-weight: 600;
     }
 
     .xp-bar {
@@ -898,7 +913,10 @@
 
     .word-card {
       position: relative;
-      background: linear-gradient(135deg, #fffaf3, #fff);
+      display: grid;
+      align-content: center;
+      min-height: 150px;
+      background: #ffffff;
       overflow: hidden;
     }
 
@@ -924,18 +942,21 @@
     }
 
     .word-card h3 {
-      margin: 0 0 8px;
-      color: #16a1ac;
-      font-size: 1.55rem;
+      margin: 0;
+      color: #102348;
+      font-size: 1.8rem;
+      line-height: 1.1;
+      font-weight: 700;
+      letter-spacing: 0;
     }
 
     .word-card p {
-      max-width: 160px;
-      margin: 0 0 12px;
+      max-width: 100%;
+      margin: 0;
       color: #61708d;
       font-size: 0.86rem;
-      line-height: 1.35;
-      font-weight: 650;
+      line-height: 1.4;
+      font-weight: 600;
     }
 
     .heart-hands {
@@ -1175,13 +1196,132 @@
       font-weight: 950;
     }
 
-    .bottom-nav a:nth-child(1)::before { content: "⌂"; }
-    .bottom-nav a:nth-child(2)::before { content: "☑"; }
-    .bottom-nav a:nth-child(3)::before { content: "▤"; }
-    .bottom-nav a:nth-child(4)::before { content: "○"; }
+    .bottom-nav a:nth-child(1)::before { content: "H"; }
+    .bottom-nav a:nth-child(2)::before { content: "L"; }
+    .bottom-nav a:nth-child(3)::before { content: "P"; }
+    .bottom-nav a:nth-child(4)::before { content: "U"; }
 
     .bottom-nav a:first-child {
       color: #2f80ed;
+    }
+
+    .app-page {
+      display: none !important;
+    }
+
+    .app-page.active-page {
+      display: block !important;
+    }
+
+    .app-page.active-page.hero,
+    .app-page.active-page.learning-grid,
+    .app-page.active-page.materials {
+      display: grid !important;
+    }
+
+    .bottom-nav a.active {
+      color: #2f80ed;
+      border-radius: 16px;
+      background: rgba(47, 128, 237, 0.1);
+    }
+
+    .auth-button {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 9px;
+      align-items: center;
+      max-width: 142px;
+      padding: 6px 10px 6px 6px;
+      border: 1px solid #dbe7f5;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      color: #102348;
+      font-weight: 900;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+    }
+
+    .auth-button .home-avatar {
+      width: 54px;
+      height: 54px;
+    }
+
+    .auth-button-text {
+      overflow: hidden;
+      font-size: 0.86rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .auth-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+      background: rgba(15, 23, 42, 0.42);
+      backdrop-filter: blur(10px);
+    }
+
+    .auth-modal.hidden {
+      display: none;
+    }
+
+    .auth-card {
+      position: relative;
+      width: min(420px, 100%);
+      padding: 24px;
+      border: 1px solid #dbe7f5;
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 30px 80px rgba(15, 23, 42, 0.28);
+    }
+
+    .auth-card h2 {
+      margin: 0;
+      color: #102348;
+      font-size: 1.45rem;
+      line-height: 1.15;
+    }
+
+    .auth-card p {
+      margin: 8px 0 18px;
+      color: #66748f;
+      line-height: 1.45;
+      font-weight: 650;
+    }
+
+    .auth-fields {
+      display: grid;
+      gap: 10px;
+    }
+
+    .auth-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border: 0;
+      border-radius: 50%;
+      background: #eef4fb;
+      color: #102348;
+      font-size: 1.2rem;
+      font-weight: 950;
+    }
+
+    .auth-message {
+      min-height: 20px;
+      margin-top: 10px;
+      color: var(--red);
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .logout-button {
+      margin-top: 10px;
+      color: #2f80ed;
+      background: #f4f8ff;
     }
 
     .timer {
@@ -2126,8 +2266,8 @@
       }
 
       .app {
-        width: min(100% - 14px, 1220px);
-        padding: 8px 0 96px;
+        width: 100%;
+        padding: 0 0 96px;
       }
 
       .quick-nav {
@@ -2136,19 +2276,22 @@
 
       .bottom-nav {
         position: fixed;
-        left: 8px;
-        right: 8px;
-        bottom: 8px;
+        left: 50%;
+        right: auto;
+        bottom: 0;
         z-index: 40;
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 3px;
-        padding: 5px;
+        gap: 4px;
+        width: min(560px, 100%);
+        min-height: 76px;
+        padding: 8px 12px 12px;
         border: 1px solid var(--line);
-        border-radius: 18px;
+        border-radius: 22px 22px 0 0;
         background: rgba(255, 255, 255, 0.94);
         box-shadow: 0 18px 42px rgba(15, 23, 42, 0.18);
         backdrop-filter: blur(16px);
+        transform: translateX(-50%);
       }
 
       .bottom-nav a {
@@ -2165,8 +2308,14 @@
       }
 
       .home-screen {
-        gap: 10px;
-        margin-bottom: 12px;
+        width: 100%;
+        max-width: 560px;
+        gap: 14px;
+        margin: 0 auto 12px;
+        padding: 18px 14px 94px;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
       }
 
       .home-hero {
@@ -2227,8 +2376,13 @@
       }
 
       .bottom-nav a:first-child {
-        background: var(--teal);
-        color: #fff;
+        background: transparent;
+        color: #8a95ad;
+      }
+
+      .bottom-nav a.active {
+        background: rgba(47, 128, 237, 0.1);
+        color: #2f80ed;
       }
 
       .topbar, .quiz-head, .section-head {
@@ -2593,60 +2747,469 @@
       }
 
       .home-menu-grid {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
+        margin-bottom: 86px;
       }
 
       .menu-tile {
-        min-height: 112px;
-        padding: 11px 5px;
+        min-height: 126px;
+        padding: 13px 9px;
       }
 
       .menu-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
+        width: 44px;
+        height: 44px;
+        font-size: 1.08rem;
       }
 
       .menu-tile strong {
-        font-size: 0.84rem;
+        font-size: 0.88rem;
       }
 
-      .menu-tile span:last-child {
+      .menu-tile > span:last-child {
         font-size: 0.72rem;
       }
 
       .home-insights {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
       }
 
       .progress-body {
-        grid-template-columns: 88px 1fr;
+        grid-template-columns: 72px 1fr;
       }
 
       .progress-ring {
-        width: 84px;
-        height: 84px;
-        font-size: 1.5rem;
+        width: 70px;
+        height: 70px;
+        font-size: 1.22rem;
+      }
+
+      .word-card {
+        min-height: 118px;
       }
 
       .continue-card {
-        grid-template-columns: 132px 1fr 18px;
+        grid-template-columns: 88px minmax(0, 1fr) 16px;
+        gap: 10px;
       }
 
-      .bottom-nav {
-        left: 50%;
-        right: auto;
-        bottom: 0;
-        width: min(560px, 100%);
-        min-height: 78px;
-        padding: 10px 12px 14px;
-        border-radius: 22px 22px 0 0;
-        transform: translateX(-50%);
+      .lesson-thumb {
+        height: 66px;
       }
 
       .bottom-nav a {
         font-size: 0.7rem;
+      }
+
+      .auth-button {
+        grid-template-columns: 48px minmax(0, 1fr);
+        max-width: 124px;
+        padding-right: 8px;
+      }
+
+      .auth-button .home-avatar {
+        width: 48px;
+        height: 48px;
+      }
+
+      .auth-button-text {
+        font-size: 0.78rem;
+      }
+    }
+
+    /* CarePro-style mobile home overrides */
+    body {
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #f4f7fb;
+      color: #101f3f;
+    }
+
+    .topbar,
+    .quick-nav {
+      display: none;
+    }
+
+    .app {
+      max-width: 680px;
+      padding: 18px 16px 104px;
+    }
+
+    .home-screen {
+      position: relative;
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 26px 110px;
+      border: 0;
+      border-radius: 44px;
+      background: #fbfdff;
+      box-shadow: 0 18px 42px rgba(15, 35, 70, 0.18);
+      overflow: hidden;
+    }
+
+    .phone-status {
+      display: none;
+    }
+
+    .home-top {
+      min-height: 150px;
+      margin: 0 -26px 0;
+      padding: 30px 30px 62px;
+      border-radius: 44px 44px 44% 44% / 44px 44px 30px 30px;
+      background: linear-gradient(135deg, #083b80 0%, #064aa3 48%, #052f72 100%);
+      color: #fff;
+      align-items: flex-start;
+    }
+
+    .home-brand {
+      color: #fff;
+      font-size: clamp(1.65rem, 5vw, 2.05rem);
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .care-logo {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      border: 3px solid #fff;
+      background: transparent;
+      transform: none;
+    }
+
+    .care-logo::before {
+      content: "+";
+      transform: none;
+      font-size: 2.1rem;
+    }
+
+    .auth-button {
+      width: 66px;
+      min-height: 66px;
+      grid-template-columns: 1fr;
+      padding: 0;
+      border: 3px solid rgba(255, 255, 255, 0.85);
+      border-radius: 50%;
+      background: #eff6ff;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+    }
+
+    .auth-button .home-avatar {
+      width: 60px;
+      height: 60px;
+    }
+
+    .auth-button-text {
+      display: none;
+    }
+
+    .home-greeting {
+      margin: 20px 0 16px;
+    }
+
+    .home-greeting h2 {
+      color: #102554;
+      font-size: clamp(1.55rem, 5vw, 2rem);
+      font-weight: 850;
+    }
+
+    .home-greeting p {
+      max-width: 430px;
+      color: #64748b;
+      font-size: 0.96rem;
+      line-height: 1.45;
+    }
+
+    .word-day-feature {
+      min-height: 0;
+      margin-bottom: 18px;
+      padding: 16px;
+      border: 1px solid #e2e8f0;
+      border-radius: 18px;
+      background: #fff;
+      color: #102554;
+      box-shadow: 0 10px 26px rgba(15, 35, 70, 0.11);
+    }
+
+    .word-feature-head,
+    .word-feature-body {
+      position: relative;
+      z-index: 2;
+    }
+
+    .word-feature-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .word-feature-head a,
+    .word-day-feature .start-pill {
+      border: 1px solid #b8d2ff;
+      background: #fff;
+      color: #0757c7;
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .word-feature-head a {
+      display: inline-flex;
+      min-height: 38px;
+      align-items: center;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      white-space: nowrap;
+    }
+
+    .word-day-feature .featured-badge {
+      padding: 0;
+      background: transparent;
+      color: #102554;
+      font-size: 1.1rem;
+      font-weight: 850;
+    }
+
+    .word-feature-body {
+      display: grid;
+      grid-template-columns: 126px minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+      padding: 18px;
+      border-radius: 16px;
+      background: #eef6ff;
+      box-shadow: inset 0 0 0 1px #d9e9ff;
+    }
+
+    .word-book {
+      display: grid;
+      place-items: center;
+      width: 112px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #dcecff;
+      color: #0b57c7;
+      font-size: 2.4rem;
+      font-weight: 950;
+    }
+
+    .word-feature-copy h3 {
+      margin: 0;
+      color: #082868;
+      font-size: clamp(1.6rem, 5vw, 2rem);
+      line-height: 1.05;
+      font-weight: 900;
+    }
+
+    .word-feature-copy p {
+      margin: 8px 0 0;
+      color: #26385f;
+      font-size: 0.95rem;
+      line-height: 1.42;
+      font-weight: 600;
+    }
+
+    .word-feature-copy .pronunciation {
+      color: #64748b;
+      font-weight: 650;
+    }
+
+    .word-day-feature .start-pill {
+      float: right;
+      min-width: 170px;
+      min-height: 42px;
+      margin-top: 12px;
+      border-radius: 999px;
+      box-shadow: none;
+      font-size: 0.86rem;
+    }
+
+    .home-menu-grid {
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .menu-tile {
+      grid-template-rows: 76px auto auto;
+      min-height: 178px;
+      padding: 18px 14px 16px;
+      border-radius: 16px;
+      border-color: #e5edf7;
+      box-shadow: 0 10px 26px rgba(15, 35, 70, 0.1);
+    }
+
+    .menu-icon {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      font-size: 1.45rem;
+      color: currentColor;
+    }
+
+    .menu-tile strong {
+      color: #102554;
+      font-size: 1.12rem;
+      font-weight: 900;
+      line-height: 1.15;
+    }
+
+    .menu-tile > span:last-child {
+      max-width: 150px;
+      color: #64748b;
+      font-size: 0.86rem;
+      line-height: 1.35;
+      font-weight: 650;
+    }
+
+    .home-section-title {
+      margin: 10px 0 10px;
+    }
+
+    .news-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .news-card {
+      min-height: 76px;
+      border-radius: 14px;
+      box-shadow: 0 8px 18px rgba(15, 35, 70, 0.08);
+    }
+
+    .bottom-nav {
+      width: min(560px, calc(100% - 32px));
+      bottom: 6px;
+      border-radius: 24px;
+      min-height: 64px;
+      padding: 7px 22px 8px;
+    }
+
+    .bottom-nav a {
+      border-radius: 16px;
+      font-size: 0.74rem;
+      line-height: 1;
+    }
+
+    .bottom-nav a::before {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      background: transparent;
+    }
+
+    .bottom-nav a.active::after {
+      content: "";
+      width: 34px;
+      height: 3px;
+      border-radius: 999px;
+      background: currentColor;
+    }
+
+    @media (max-width: 620px) {
+      .app {
+        padding: 0 0 94px;
+      }
+
+      .home-screen {
+        max-width: none;
+        min-height: 100vh;
+        border-radius: 0;
+        padding: 0 18px 104px;
+      }
+
+      .home-top {
+        min-height: 118px;
+        margin-inline: -18px;
+        padding: 22px 22px 38px;
+        border-radius: 0 0 42% 42% / 0 0 28px 28px;
+      }
+
+      .home-brand {
+        font-size: 1.45rem;
+      }
+
+      .care-logo {
+        width: 48px;
+        height: 48px;
+      }
+
+      .auth-button {
+        width: 58px;
+        min-height: 58px;
+      }
+
+      .auth-button .home-avatar {
+        width: 52px;
+        height: 52px;
+      }
+
+      .home-greeting {
+        margin: 14px 0 12px;
+      }
+
+      .word-day-feature {
+        padding: 12px;
+        margin-bottom: 14px;
+      }
+
+      .word-feature-head {
+        margin-bottom: 8px;
+      }
+
+      .word-feature-head a {
+        min-height: 32px;
+      }
+
+      .word-feature-body {
+        grid-template-columns: 70px minmax(0, 1fr);
+        gap: 10px;
+        padding: 12px;
+      }
+
+      .word-book {
+        width: 64px;
+        font-size: 1.55rem;
+      }
+
+      .word-feature-copy h3 {
+        font-size: 1.45rem;
+      }
+
+      .word-feature-copy p {
+        margin-top: 5px;
+        font-size: 0.78rem;
+        line-height: 1.3;
+      }
+
+      .word-day-feature .start-pill {
+        width: 100%;
+        min-height: 36px;
+        margin-top: 8px;
+      }
+
+      .menu-tile {
+        grid-template-rows: 48px auto auto;
+        min-height: 112px;
+        padding: 10px 8px 9px;
+        gap: 6px;
+      }
+
+      .menu-icon {
+        width: 48px;
+        height: 48px;
+      }
+
+      .menu-tile strong {
+        font-size: 0.92rem;
+      }
+
+      .menu-tile > span:last-child {
+        font-size: 0.7rem;
+        line-height: 1.25;
       }
     }
   </style>
@@ -2658,13 +3221,13 @@
         <div class="mark">SSW</div>
         <div>
           <h1 id="brandTitle">Japan SSW Nursing Care Mock Test</h1>
-          <p id="brandSubtitle">5 practice sets with study notes, care Japanese, and review mode</p>
+          <p id="brandSubtitle">Chapterwise study notes, mock tests, care Japanese, and review mode</p>
         </div>
       </div>
       <div class="toolbar">
         <div class="language-toggle" role="group" aria-label="Language mode">
           <button class="lang-option active" id="englishModeBtn" type="button">English</button>
-          <button class="lang-option" id="nepaliModeBtn" type="button">नेपाली</button>
+          <button class="lang-option" id="nepaliModeBtn" type="button">Simple</button>
         </div>
         <select class="select" id="setSelect" aria-label="Choose mock test set"></select>
         <button class="button" id="reviewMistakesBtn" type="button">Review Mistakes</button>
@@ -2682,13 +3245,13 @@
     </nav>
 
     <nav class="bottom-nav" aria-label="Mobile navigation">
-      <a href="#home" id="bottomHome">Home</a>
-      <a href="#practice" id="bottomTest">Test</a>
-      <a href="#vocabulary" id="bottomVocab">Vocab</a>
-      <a href="#study" id="bottomStudy">Study</a>
+      <a href="#home" id="bottomHome" data-page-link="home">Home</a>
+      <a href="#study" id="bottomTest" data-page-link="study">Learn</a>
+      <a href="#practice" id="bottomVocab" data-page-link="test">Progress</a>
+      <a href="#profile" id="bottomStudy" data-page-link="profile">Profile</a>
     </nav>
 
-    <section class="home-screen" id="home" aria-label="App home">
+    <section class="home-screen app-page active-page" id="home" data-page="home" aria-label="App home">
       <div class="phone-status" aria-hidden="true">
         <span>9:41</span>
         <span class="status-icons">
@@ -2703,115 +3266,91 @@
           <span class="care-logo" aria-hidden="true"></span>
           <strong id="homeKicker">SSW Carepro</strong>
         </div>
-        <span class="home-avatar" aria-hidden="true"></span>
+        <button class="auth-button" id="authButton" type="button">
+          <span class="home-avatar" aria-hidden="true"></span>
+          <span class="auth-button-text" id="authButtonText">Login / Sign up</span>
+        </button>
       </div>
 
       <div class="home-greeting">
-        <h2 id="homeTitle">Hi, Alex! 👋</h2>
-        <p id="homeCopy">Prepare smarter for your care exam today.</p>
+        <h2 id="homeTitle">Hi! User</h2>
+        <p id="homeCopy">Study from the official SSW nursing care text, chapter by chapter.</p>
       </div>
 
-      <div class="home-search" role="search">
-        <span class="search-lens" aria-hidden="true"></span>
-        <span>Search mock tests, topics or materials...</span>
-        <span class="filter-icon" aria-hidden="true"><span></span></span>
-      </div>
-
-      <section class="featured-card" aria-label="Featured SSW mock test">
-        <span class="featured-badge">☆ Featured</span>
-        <h3>SSW Mock Test</h3>
-        <p>Practice real-style questions and track your score.</p>
-        <span class="banner-art" aria-hidden="true"></span>
-        <span class="banner-shield" aria-hidden="true"></span>
-        <div class="featured-bottom">
-          <div class="learners">
-            <span class="learner-faces" aria-hidden="true"><span></span><span></span><span></span></span>
-            <span>8.6K learners</span>
-          </div>
-          <button class="start-pill" id="homeFullExamBtn" type="button">Start Test <span aria-hidden="true">→</span></button>
+      <section class="featured-card word-day-feature" aria-label="Word of the day">
+        <div class="word-feature-head">
+          <span class="featured-badge">Words of the day</span>
+          <a href="#vocabulary" data-page-link="vocab" data-scroll-target="vocabulary">View all</a>
         </div>
+        <div class="word-feature-body">
+          <span class="word-book" aria-hidden="true">A</span>
+          <div class="word-feature-copy">
+            <h3>Empathy</h3>
+            <p class="pronunciation">/empəθi/</p>
+            <p>The ability to understand and share the feelings of another person.</p>
+            <p><strong>Synonym:</strong> compassion, understanding, sensitivity</p>
+          </div>
+        </div>
+        <button class="start-pill" id="homeFullExamBtn" type="button">Use in a sentence <span aria-hidden="true">&rarr;</span></button>
       </section>
-
-      <div class="slider-dots" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 
       <section class="home-menu-grid" aria-label="Main learning sections">
-        <a class="menu-tile" href="#sets">
-          <span class="menu-icon">☑</span>
-          <strong id="homeTabSets">Mock Tests</strong>
-          <span id="homeTabSetsSub">Practice & Improve</span>
-        </a>
-        <a class="menu-tile" href="#study">
-          <span class="menu-icon">□</span>
+        <a class="menu-tile" href="#study" data-page-link="study" data-scroll-target="study">
+          <span class="menu-icon">B</span>
           <strong id="homeTabStudy">Study Materials</strong>
-          <span id="homeTabStudySub">Notes & Guides</span>
+          <span id="homeTabStudySub">Chapterwise notes and guides</span>
         </a>
-        <a class="menu-tile" href="#vocabulary">
-          <span class="menu-icon">Aa</span>
-          <strong id="homeTabVocab">Vocabularies</strong>
+        <a class="menu-tile" href="#vocabulary" data-page-link="vocab" data-scroll-target="vocabulary">
+          <span class="menu-icon">AZ</span>
+          <strong id="homeTabVocab">Vocabulary</strong>
           <span><span id="vocabTotal">499</span> <span id="homeTabVocabSub">Words to Master</span></span>
         </a>
-        <a class="menu-tile" href="#study">
-          <span class="menu-icon">!</span>
-          <strong>News Flash</strong>
-          <span>Updates & Alerts</span>
+        <a class="menu-tile" href="#sets" data-page-link="study" data-scroll-target="sets">
+          <span class="menu-icon">Q</span>
+          <strong id="homeTabSets">Mock Test</strong>
+          <span id="homeTabSetsSub">Chapterwise practice</span>
+        </a>
+        <a class="menu-tile" href="#newsFlash" data-page-link="home" data-scroll-target="newsFlash">
+          <span class="menu-icon">N</span>
+          <strong>Flash News</strong>
+          <span>SSW exam updates and alerts</span>
         </a>
       </section>
 
-      <section class="home-insights" aria-label="Progress and word of the day">
-        <div class="insight-card progress-card">
-          <p class="mini-title">Your Progress</p>
-          <span class="data-count" id="knownCount">0</span>
-          <div class="progress-body">
-            <div class="progress-ring">72%<span>Exam Ready</span></div>
-            <p class="progress-note"><strong>Great work!</strong>You’re on track to succeed.</p>
-          </div>
-          <div class="xp-bar"><span></span></div>
-          <div class="xp-text">720 / 1000 XP</div>
+      <div class="home-section-title">
+        <span>Flash News</span>
+        <a href="#newsFlash" data-page-link="home" data-scroll-target="newsFlash">View all</a>
+      </div>
+      <section class="news-grid" id="newsFlash" aria-label="Latest news flash">
+        <div class="news-card">
+          <span class="news-icon" aria-hidden="true">i</span>
+          <span><strong>Prometric opened 2026 long-term care SSW reservations and announced an exam fee revision.</strong><span>Prometric notice: April 15, 2026</span></span>
         </div>
-        <div class="insight-card word-card">
-          <span class="bookmark" aria-hidden="true"></span>
-          <p class="mini-title">Word of the Day</p>
-          <h3>Empathy</h3>
-          <p>The ability to understand and share the feelings of another.</p>
-          <span class="heart-hands" aria-hidden="true"></span>
-          <div class="streak-title">🔥 7 Day Streak</div>
-          <div class="week-row" aria-label="Weekly streak"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+        <div class="news-card">
+          <span class="news-icon" aria-hidden="true">!</span>
+          <span><strong>Before booking, make sure your ID document details match your Prometric ID registration.</strong><span>Official exam reminder</span></span>
         </div>
       </section>
-
-      <div class="home-section-title">
-        <span>Continue Studying</span>
-        <a href="#study">View all</a>
-      </div>
-      <a class="continue-card" id="homeMistakeBtn" href="#study">
-        <span class="lesson-thumb" aria-hidden="true"></span>
-        <span class="lesson-info">
-          <strong>Elderly Care Basics</strong>
-          <span>Lesson 3 of 10 · Understanding ADLs</span>
-          <span class="small-progress"><span></span></span>
-          <span>60%</span>
-        </span>
-        <span aria-hidden="true">›</span>
-      </a>
+      <span class="data-count" id="knownCount">0</span>
       <span class="data-count" id="homeMistakeStatus">Finish a set to unlock</span>
+      <a class="data-count" id="homeMistakeBtn" href="#study" data-page-link="study" data-scroll-target="study">Review</a>
+    </section>
 
-      <div class="home-section-title">
-        <span>Latest News Flash</span>
-        <a href="#study">View all</a>
-      </div>
-      <section class="news-grid" aria-label="Latest news flash">
-        <div class="news-card">
-          <span class="news-icon" aria-hidden="true">◔</span>
-          <span><strong>Care Worker Pay Rise Update Announced</strong><span>2 hours ago</span></span>
-        </div>
-        <div class="news-card">
-          <span class="news-icon" aria-hidden="true">▣</span>
-          <span><strong>SSW Exam Schedule Released for 2025</strong><span>1 day ago</span></span>
+    <section class="materials app-page" id="profile" data-page="profile" aria-label="Profile">
+      <section class="panel">
+        <span class="section-kicker">Profile</span>
+        <h2>Your SSW CarePro Plan</h2>
+        <p class="muted">Track your chapter study, care Japanese vocabulary, mock test practice, and mistake review from one clean dashboard.</p>
+        <div class="stats-grid">
+          <div class="stat"><span>Study chapters</span><strong>14</strong></div>
+          <div class="stat"><span>Vocabulary cards</span><strong>499</strong></div>
+          <div class="stat"><span>Mock sets</span><strong>14</strong></div>
+          <div class="stat"><span>Full exam</span><strong>45Q</strong></div>
         </div>
       </section>
     </section>
 
-    <section class="hero" id="practice">
+    <section class="hero app-page" id="practice" data-page="test">
       <section class="intro panel">
         <div class="chip-row">
           <span class="chip">CBT Style</span>
@@ -2828,7 +3367,7 @@
           <div class="exam-card"><span>Skills test</span><strong>45 questions / 60 min</strong></div>
           <div class="exam-card"><span>Japanese care test</span><strong>15 questions / 30 min</strong></div>
           <div class="exam-card"><span>Official skills domains</span><strong>Care basics, body, communication, physical care</strong></div>
-          <div class="exam-card"><span>App practice</span><strong>5 sets / 75 questions</strong></div>
+          <div class="exam-card"><span>App practice</span><strong>14 chapter sets / 56 questions</strong></div>
         </div>
       </section>
 
@@ -2868,7 +3407,7 @@
       </section>
     </section>
 
-    <section class="panel readiness" aria-label="Exam readiness plan">
+    <section class="panel readiness app-page" data-page="test" aria-label="Exam readiness plan">
       <div class="section-head">
         <h2>Pass-Focused Readiness Plan</h2>
         <span class="muted">Use this before booking the exam</span>
@@ -2889,7 +3428,7 @@
       </div>
     </section>
 
-    <section class="learning-grid" id="vocabulary">
+    <section class="learning-grid app-page" id="vocabulary" data-page="vocab">
       <section class="panel">
         <div class="section-head">
           <h2>499 SSW Care Vocabulary</h2>
@@ -2925,7 +3464,7 @@
       </section>
     </section>
 
-    <section class="materials">
+    <section class="materials app-page" id="study" data-page="study">
       <section class="panel" id="sets">
         <div class="section-head">
           <h2>Mock Test Sets</h2>
@@ -2945,256 +3484,241 @@
     </section>
   </main>
 
+  <div class="auth-modal hidden" id="authModal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <div class="auth-card">
+      <button class="auth-close" id="authCloseBtn" type="button" aria-label="Close login">×</button>
+      <h2 id="authTitle">Login or sign up</h2>
+      <p id="authCopy">Create a quick profile on this device to unlock the full 60-minute exam.</p>
+      <div class="auth-fields">
+        <input class="input" id="authName" type="text" autocomplete="name" placeholder="Your name">
+        <input class="input" id="authEmail" type="email" autocomplete="email" placeholder="Email address">
+        <button class="button primary" id="authSubmitBtn" type="button">Continue</button>
+      </div>
+      <button class="button logout-button" id="logoutBtn" type="button">Log out</button>
+      <div class="auth-message" id="authMessage" aria-live="polite"></div>
+    </div>
+  </div>
+
   <script>
-    const mockSets = [
+    function chapterToStudyMaterial(chapter) {
+      return {
+        title: `${chapter.part} ${chapter.chapter}: ${chapter.title}`,
+        html: `
+          <h3>${chapter.title}</h3>
+          <p><strong>PDF source:</strong> ${chapter.source}</p>
+          <p>${chapter.focus}</p>
+          <ul>${chapter.bullets.map((item) => `<li>${item}</li>`).join("")}</ul>
+          <h4>Key terms</h4>
+          <div class="term-grid">${chapter.terms.map((term) => `<div class="term"><strong>${term[0]}</strong><span>${term[1]}</span><span>${term[2]}</span></div>`).join("")}</div>
+        `
+      };
+    }
+
+    function vocabChapterToStudyMaterial(section) {
+      return {
+        title: `Vocabulary: ${section.title}`,
+        html: `
+          <h3>${section.title}</h3>
+          <p>Chapterwise nursing care Japanese vocabulary from the PDF vocabulary section.</p>
+          <div class="term-grid">${section.terms.map((term) => `<div class="term"><strong>${term[0]}</strong><span>${term[1]}</span><span>${term[2]}</span></div>`).join("")}</div>
+        `
+      };
+    }
+
+    const studyChapters = [
       {
-        name: "Set 1: Foundations and Safety",
-        focus: "Basic care principles, safety, infection prevention",
+        part: "Part 1", chapter: "Chapter 1", title: "Human dignity and independence in nursing care", source: "PDF pages 10-15",
+        focus: "Care begins with dignity, human rights, QOL, normalization, and support for the user's own choices.",
+        bullets: ["Respect each person as an individual even when they need assistance.", "Support the user's usual lifestyle instead of imposing the caregiver's values.", "Encourage physical and mental independence by letting users choose and do what they can.", "Understand daily living as a rhythm that includes waking, dressing, eating, toileting, bathing, activity, and sleep."],
+        terms: [["dignity", "songen", "respect for each person"], ["QOL", "quality of life", "life satisfaction and purpose"], ["ADL", "activities of daily living", "basic daily actions"]],
         questions: [
-          q("Fundamentals", "What is the most important attitude when supporting a resident with daily living?", ["Doing everything quickly", "Respecting dignity and independence", "Making decisions without asking", "Finishing tasks without conversation"], 1, "Care should protect dignity and support the person's remaining abilities."),
-          q("Fundamentals", "A resident can button the top half of a shirt but needs help with the lower buttons. What should you do?", ["Do all buttons for the resident", "Let the resident do what they can and assist only where needed", "Tell the resident to hurry", "Skip changing clothes"], 1, "Independence support means assisting only the parts that are difficult."),
-          q("Communication", "Before touching a resident's body for care, the caregiver should first:", ["Start immediately", "Explain the care and ask for consent", "Ask another resident", "Turn on the TV"], 1, "Explanation and consent reduce anxiety and protect rights."),
-          q("Physical care", "When assisting transfer from bed to wheelchair, what should be checked first?", ["The weather", "Wheelchair brakes and footrests", "The lunch menu", "The resident's favorite song"], 1, "Brake safety and footrest position help prevent falls."),
-          q("Mind and body", "A sudden change in consciousness, fever, or severe pain should be:", ["Ignored until tomorrow", "Reported immediately to a nurse or supervisor", "Handled only by the caregiver", "Written only after work"], 1, "Sudden abnormal signs require prompt reporting."),
-          q("Infection control", "The most basic infection prevention action is:", ["Wearing perfume", "Hand hygiene before and after care", "Speaking loudly", "Opening all windows only"], 1, "Hand hygiene is the foundation of infection prevention."),
-          q("Physical care", "For body mechanics, the caregiver should:", ["Twist the waist while lifting", "Keep the load close and use the legs", "Stand far from the resident", "Lift with straight knees"], 1, "Good body mechanics reduce injury risk."),
-          q("Communication", "A resident says, 'I don't want to bathe today.' The best first response is:", ["Force bathing", "Ask the reason and listen calmly", "Ignore the resident", "Scold the resident"], 1, "Listening helps identify fear, pain, fatigue, or preference."),
-          q("Practical", "If the floor is wet near the bathroom, the caregiver should:", ["Walk around it", "Clean it or report it immediately", "Wait until someone falls", "Cover it with paper"], 1, "Environmental hazards should be handled quickly."),
-          q("Care Japanese", "What does 介助 (かいじょ / kaijo) mean?", ["Assistance", "Medicine", "Meal", "Pain"], 0, "介助 means assistance or support in care."),
-          q("Physical care", "During meal assistance, the safest posture is usually:", ["Lying flat", "Sitting upright as much as possible", "Head tilted backward", "Walking while eating"], 1, "Upright posture reduces choking and aspiration risk."),
-          q("Fundamentals", "Personal information about a resident should be:", ["Shared with friends", "Posted online", "Kept confidential", "Discussed in public areas"], 2, "Confidentiality is a core professional responsibility."),
-          q("Mind and body", "Why is dehydration dangerous for older adults?", ["It only causes hunger", "It can cause confusion, fever, constipation, and worse health", "It improves sleep", "It prevents falls"], 1, "Older adults can become dehydrated easily and symptoms may be serious."),
-          q("Practical", "If a resident almost falls but does not hit the floor, you should:", ["Do nothing because there was no fall", "Report and record it as a near miss", "Blame the resident", "Hide it"], 1, "Near misses help the team prevent future accidents."),
-          q("Care Japanese", "ナースコール means:", ["Nurse call button", "Wheelchair", "Chopsticks", "Bath towel"], 0, "ナースコール is the nurse call system used by residents.")
+          q("Fundamentals", "What is the basic idea of nursing care in this chapter?", ["Caregiver convenience", "Human dignity and respect for rights", "Doing every task for the user", "Finishing work silently"], 1, "The PDF presents dignity and human rights as the foundation of support."),
+          q("Fundamentals", "Self-independence support means:", ["The user makes choices and does possible tasks", "The caregiver decides everything", "The family is ignored", "Safety is not considered"], 0, "Independence includes physical ability and the person's own will."),
+          q("Fundamentals", "User-centric daily lifestyle asks caregivers to:", ["Use one routine for everyone", "Respect the user's habits, wishes, and usual life", "Only focus on speed", "Avoid asking preferences"], 1, "Daily life differs by person, culture, habits, and values."),
+          q("Care Japanese", "Songen is closest to:", ["Dignity", "Fever", "Wheelchair", "Laundry"], 0, "Songen means dignity.")
         ]
       },
       {
-        name: "Set 2: Dementia and Communication",
-        focus: "Dementia care, anxiety reduction, respectful words",
+        part: "Part 1", chapter: "Chapter 2", title: "Role and professional ethics of care workers", source: "PDF pages 16-23",
+        focus: "Care workers support daily life as professionals while protecting rights, privacy, and team trust.",
+        bullets: ["Work within the role of a care worker and cooperate with medical and welfare professionals.", "Protect personal information and avoid talking about users outside work.", "Use respectful language and avoid physical, psychological, financial, sexual, or neglectful abuse.", "Keep learning and reflect on care quality as a professional."],
+        terms: [["professional ethics", "rinri", "rules and attitudes of professional care"], ["confidentiality", "himitsu hoji", "protecting private information"], ["abuse prevention", "gyakutai boshi", "protecting users from harm"]],
         questions: [
-          q("Mind and body", "A resident with dementia repeatedly asks the same question. The best response is:", ["Say 'I already told you'", "Answer calmly and reassure", "Ignore completely", "Laugh at the resident"], 1, "Repeated questions often come from anxiety or memory difficulty."),
-          q("Communication", "When speaking with a resident who has hearing difficulty, you should:", ["Speak from behind", "Face the resident and speak clearly", "Shout angrily", "Use only gestures without explanation"], 1, "Facing the person supports lip reading and attention."),
-          q("Dementia care", "A resident says, 'I must go home,' even though they live in the facility. First you should:", ["Argue that this is home", "Accept the feeling and ask about their concern", "Lock the door without speaking", "Tell them they are wrong"], 1, "Validation and emotional support are useful in dementia care."),
-          q("Communication", "Which phrase is polite before starting care?", ["いまからお手伝いします。よろしいですか。", "早くして。", "だめです。", "静かにして。"], 0, "This means 'I will help you now. Is that alright?'"),
-          q("Fundamentals", "Person-centered care means:", ["Same care for everyone", "Care based on the person's life history, wishes, and abilities", "Only medical treatment", "Caregiver convenience first"], 1, "Care should fit the individual person."),
-          q("Practical", "A resident becomes angry during changing clothes. What is best?", ["Continue quickly by force", "Stop, keep safety, and try to understand the cause", "Argue loudly", "Leave the resident half dressed all day"], 1, "Pain, shame, cold, or fear may cause refusal."),
-          q("Mind and body", "Delirium is often:", ["A sudden confused state that may need medical attention", "Always normal aging", "A sign of good sleep", "A type of exercise"], 0, "Sudden confusion can be caused by infection, dehydration, medicine, or illness."),
-          q("Communication", "Closed questions are useful when:", ["You need a simple yes/no confirmation", "You want a long life story", "You are not listening", "You want to confuse the resident"], 0, "Closed questions can help when the resident is tired or confused."),
-          q("Care Japanese", "痛いですか (いたいですか) means:", ["Are you cold?", "Does it hurt?", "Are you hungry?", "Can you stand?"], 1, "痛い means painful."),
-          q("Physical care", "For a resident with visual impairment, the caregiver should:", ["Move furniture without telling them", "Explain surroundings and guide safely", "Pull quickly from behind", "Leave obstacles in the walkway"], 1, "Clear explanation and safe guidance reduce fear and accidents."),
-          q("Dementia care", "Wandering behavior should be understood as:", ["Always bad behavior", "A behavior with possible reasons such as anxiety, habit, or need", "A reason for punishment", "Something to ignore forever"], 1, "Behavior has meaning and should be assessed."),
-          q("Practical", "If a resident refuses food, the caregiver should first:", ["Force feeding", "Check reason such as pain, nausea, preference, or swallowing difficulty", "Throw food away and say nothing", "Hide medicine in food without instruction"], 1, "Refusal can signal health or preference issues."),
-          q("Communication", "Good reporting to staff should include:", ["Only your opinion", "Facts, time, situation, action taken, and result", "Rumors", "Nothing unless asked"], 1, "Clear factual reporting supports team care."),
-          q("Fundamentals", "Abuse prevention includes:", ["Respectful language and no physical or psychological harm", "Threatening residents", "Ignoring call bells", "Using restraints freely"], 0, "Care must protect residents from abuse and neglect."),
-          q("Care Japanese", "申し送り (もうしおくり) means:", ["Shift handover/report", "Bathing", "Dentures", "Laundry"], 0, "申し送り is handover between staff.")
+          q("Fundamentals", "A care worker should share a user's private information:", ["On social media", "Only as needed for care and with proper consent/rules", "With friends after work", "In public places"], 1, "The PDF stresses personal information protection and confidentiality."),
+          q("Teamwork", "When a procedure is outside the caregiver's role, the caregiver should:", ["Do it anyway", "Consult a supervisor or medical professional", "Hide the problem", "Ask another resident"], 1, "Care workers must work within role and cooperate with specialists."),
+          q("Fundamentals", "Which action helps prevent abuse?", ["Threatening a user", "Ignoring call bells", "Using respectful words and safe care", "Sharing private photos"], 2, "Respectful care protects rights and dignity."),
+          q("Care Japanese", "Himitsu hoji means:", ["Confidentiality", "Meal", "Transfer", "Pain"], 0, "It means keeping private information confidential.")
         ]
       },
       {
-        name: "Set 3: Physical Care",
-        focus: "Meals, bathing, excretion, mobility, sleep",
+        part: "Part 1", chapter: "Chapter 3", title: "Ensuring safety and risk management", source: "PDF pages 24-40",
+        focus: "Safety management prevents accidents and responds quickly when changes, incidents, or hazards appear.",
+        bullets: ["Observe users and the environment to prevent falls, choking, burns, infection, and injuries.", "Report incidents and near misses so the team can prevent recurrence.", "Use hand hygiene and standard precautions to reduce infection risk.", "Prepare for disasters and emergencies according to facility procedure."],
+        terms: [["risk management", "risuku kanri", "preventing and responding to danger"], ["near miss", "hatto hiyari", "almost accident"], ["infection control", "kansen taisaku", "actions to prevent infection"]],
         questions: [
-          q("Physical care", "Before meal assistance, what should be confirmed?", ["Only the TV channel", "Diet type, posture, swallowing condition, and alertness", "Caregiver's lunch", "Room temperature only"], 1, "Meal safety depends on diet form, posture, and swallowing ability."),
-          q("Physical care", "Oral care is important because it:", ["Only makes teeth white", "Prevents infection, pneumonia risk, and discomfort", "Is optional for all residents", "Replaces meals"], 1, "Oral bacteria can affect general health and aspiration pneumonia risk."),
-          q("Physical care", "When assisting bathing, water temperature should be:", ["Checked and adjusted safely", "As hot as possible", "As cold as possible", "Ignored"], 0, "Temperature checks prevent burns and discomfort."),
-          q("Physical care", "During toileting support, privacy means:", ["Leaving the door open", "Covering the body and closing curtains or doors", "Talking loudly about excretion", "Inviting others to watch"], 1, "Excretion care requires dignity and privacy."),
-          q("Mind and body", "Constipation can be related to:", ["Low fluid intake, low activity, medication, and diet", "Too much respect", "Clear speech", "Clean clothes"], 0, "Constipation has many care-related risk factors."),
-          q("Physical care", "When changing position in bed, a purpose is to:", ["Prevent pressure injuries and improve comfort", "Wake the resident without reason", "Use more sheets", "Make work faster only"], 0, "Position changes reduce pressure and support comfort."),
-          q("Practical", "A red area on the sacrum that does not fade should be:", ["Massaged strongly", "Reported as possible pressure injury", "Ignored", "Covered tightly"], 1, "Persistent redness may be early pressure injury."),
-          q("Physical care", "Before standing assistance, the caregiver should check:", ["Footwear, dizziness, brakes, and standing ability", "Only hair style", "Only the weather", "Nothing"], 0, "Standing support requires safety checks."),
-          q("Care Japanese", "車いす (くるまいす) means:", ["Wheelchair", "Walker", "Bed", "Bathroom"], 0, "車いす is wheelchair."),
-          q("Physical care", "A resident coughs repeatedly while drinking water. You should:", ["Continue quickly", "Stop assistance and report possible swallowing problem", "Tell them to drink more", "Lay them flat"], 1, "Coughing can indicate aspiration risk."),
-          q("Physical care", "For sleep support, good care includes:", ["Respecting routine and reducing noise/light when possible", "Waking everyone every hour without reason", "Serving coffee at midnight", "Keeping lights bright always"], 0, "Sleep routines and environment matter."),
-          q("Practical", "If a resident has diarrhea, important care includes:", ["Hydration observation, skin care, and reporting", "No reporting", "Only changing clothes", "Giving medicine independently"], 0, "Diarrhea can cause dehydration and skin problems."),
-          q("Fundamentals", "A care plan is used to:", ["Guide consistent support based on assessed needs", "Replace all communication", "Hide information", "Make residents obey"], 0, "Care plans help staff provide consistent individualized care."),
-          q("Care Japanese", "入浴 (にゅうよく) means:", ["Bathing", "Meal", "Transfer", "Sleep"], 0, "入浴 means bathing."),
-          q("Physical care", "When using a walker, the environment should be:", ["Clear of obstacles and well lit", "Slippery", "Dark", "Crowded with cords"], 0, "Safe environment supports mobility.")
+          q("Safety", "A wet bathroom floor should be:", ["Ignored", "Cleaned or reported immediately", "Covered with paper only", "Left until morning"], 1, "Environmental risks should be handled quickly."),
+          q("Records", "Why record a near miss?", ["To blame someone", "To prevent future accidents", "To make the chart longer", "It is never needed"], 1, "Near misses help risk management."),
+          q("Infection control", "The most basic infection prevention action is:", ["Hand hygiene", "Perfume", "Loud speech", "Opening windows only"], 0, "Hand hygiene is basic standard precaution."),
+          q("Emergency", "A sudden serious change in a user should be:", ["Reported quickly", "Hidden", "Checked next week", "Discussed with visitors"], 0, "Immediate reporting supports safety.")
         ]
       },
       {
-        name: "Set 4: Emergency and Teamwork",
-        focus: "Observation, reporting, accident response, records",
+        part: "Part 2", chapter: "Chapter 1", title: "Mechanism of mind and body", source: "PDF pages 42-67",
+        focus: "Understanding body systems, vital signs, movement, eating, elimination, rest, and mental condition supports safe observation.",
+        bullets: ["Observe physical condition through expression, movement, appetite, sleep, elimination, and vital signs.", "Mind and body influence each other; anxiety or pain can change behavior.", "Body mechanics protect both the user and the caregiver during movement support.", "Changes in temperature, pulse, breathing, pain, or consciousness require reporting."],
+        terms: [["vital signs", "baitaru sain", "temperature, pulse, breathing, blood pressure"], ["body mechanics", "botai mekanikusu", "safe use of the body"], ["observation", "kansatsu", "checking condition carefully"]],
         questions: [
-          q("Emergency", "If a resident is found on the floor after a fall, first you should:", ["Move them quickly to bed", "Check consciousness and safety, call staff, and do not move unnecessarily", "Give food", "Leave quietly"], 1, "Unnecessary movement after a fall may worsen injury."),
-          q("Emergency", "Signs that require urgent report include:", ["Severe shortness of breath", "A normal greeting", "Choosing tea", "Smiling"], 0, "Breathing difficulty is urgent."),
-          q("Records", "Care records should be:", ["Factual, clear, and timely", "Emotional and vague", "Written days later", "Changed to hide mistakes"], 0, "Records are professional documents for team care."),
-          q("Teamwork", "If you are unsure about a procedure, you should:", ["Guess", "Ask a supervisor or nurse before acting", "Do it secretly", "Avoid all work"], 1, "Asking prevents unsafe care."),
-          q("Infection control", "Gloves are needed for contact with:", ["Blood, body fluids, excretion, or contaminated items", "Clean paper only", "A closed window", "A clock"], 0, "Standard precautions guide glove use."),
-          q("Infection control", "After removing gloves, you should:", ["Perform hand hygiene", "Touch your face", "Use the same gloves again", "Skip washing"], 0, "Gloves do not replace hand hygiene."),
-          q("Emergency", "If food is stuck and the resident cannot cough or speak, this may be:", ["Choking emergency", "Normal sleep", "Good appetite", "A skin problem"], 0, "Airway obstruction is an emergency."),
-          q("Communication", "SBAR-style reporting includes:", ["Situation, background, assessment, recommendation", "Song, bath, activity, recreation", "Sleep, breakfast, anger, room", "Only recommendation"], 0, "Structured reporting improves clarity."),
-          q("Practical", "If a medication is dropped on the floor, a caregiver should:", ["Give it anyway", "Report and follow facility procedure", "Hide it", "Replace it with another medicine"], 1, "Medication incidents must be reported and handled by procedure."),
-          q("Fundamentals", "Why are restraints avoided?", ["They may violate dignity and cause physical or mental harm", "They are always comfortable", "They improve independence", "They are entertainment"], 0, "Restraints are highly restricted and can harm residents."),
-          q("Care Japanese", "報告 (ほうこく) means:", ["Report", "Bath", "Wheelchair", "Pain"], 0, "報告 means reporting."),
-          q("Emergency", "A resident has signs of heat illness. First care includes:", ["Move to cool place, observe, hydrate if safe, and report", "Use a hot blanket", "Encourage exercise", "Ignore"], 0, "Heat illness can become serious quickly."),
-          q("Records", "Which is the most objective record?", ["Resident was lazy", "At 10:10, resident refused lunch and said 'I feel nauseous'", "Resident is difficult", "Bad mood"], 1, "Objective records use facts and direct quotes."),
-          q("Teamwork", "Information from family can help care because it may show:", ["Life history, habits, preferences, and usual behavior", "Only money", "Staff salary", "Exam scores"], 0, "Family information supports person-centered care."),
-          q("Practical", "If a resident's condition is different from usual, you should:", ["Notice, record, and report the change", "Wait for a week", "Tell another resident", "Ignore if busy"], 0, "Early detection of change is key in care.")
+          q("Mind and body", "Vital signs help caregivers understand:", ["Only food preference", "Physical condition and possible change", "Room color", "Staff schedule"], 1, "Vital signs are important observations."),
+          q("Physical care", "Good body mechanics means:", ["Twisting the waist", "Using the legs and keeping the load close", "Standing far away", "Lifting with straight knees"], 1, "Safe posture reduces injury."),
+          q("Mind and body", "Pain, fever, or unusual sleepiness should be:", ["Observed and reported", "Ignored", "Shared online", "Treated with your own medicine"], 0, "Changes in body and mind are important care information."),
+          q("Care Japanese", "Kansatsu means:", ["Observation", "Laundry", "Bath", "Chair"], 0, "Kansatsu means observation.")
         ]
       },
       {
-        name: "Set 5: Final Mixed Review",
-        focus: "Mixed exam-style review across all domains",
+        part: "Part 2", chapter: "Chapter 2", title: "Understanding people in need of nursing care", source: "PDF pages 68-95",
+        focus: "The PDF explains aging, disability, dementia, and the reasons behind behavior changes.",
+        bullets: ["Aging can affect sight, hearing, skin, muscles, bones, swallowing, elimination, and memory.", "Disability support should focus on remaining abilities and environmental adjustment.", "Dementia includes memory impairment, cognitive impairment, executive dysfunction, and judgment difficulty.", "BPSD such as anxiety, wandering, hallucination, and aggression often has a reason behind it."],
+        terms: [["dementia", "ninchisho", "memory and cognitive disorder"], ["BPSD", "behavioral symptoms", "behavior and psychological symptoms of dementia"], ["delirium", "senmo", "sudden confusion that may need medical attention"]],
         questions: [
-          q("Fundamentals", "The goal of long-term care is closest to:", ["Supporting daily life and independence", "Doing everything for the person", "Only cleaning rooms", "Only giving medicine"], 0, "Nursing care supports the person's life, dignity, and independence."),
-          q("Communication", "When a resident speaks slowly, the caregiver should:", ["Interrupt often", "Wait and listen", "Finish every sentence", "Leave immediately"], 1, "Waiting shows respect and supports communication."),
-          q("Physical care", "Before using a lift or assistive device, the caregiver should:", ["Use it without training", "Check procedure, equipment, and resident condition", "Let the resident operate it alone", "Ignore brakes"], 1, "Assistive devices require correct procedure and safety checks."),
-          q("Mind and body", "Aging may affect skin because it becomes:", ["More fragile and dry", "Always stronger", "Unable to feel pain", "The same for everyone"], 0, "Older skin is often fragile and needs careful care."),
-          q("Dementia care", "A familiar routine can help a person with dementia because it:", ["May reduce confusion and anxiety", "Always causes anger", "Removes all need for care", "Prevents communication"], 0, "Routines can provide security."),
-          q("Infection control", "Cough etiquette includes:", ["Covering coughs and performing hand hygiene", "Coughing toward residents", "Sharing tissues", "No mask when instructed"], 0, "Cough etiquette reduces spread."),
-          q("Practical", "A resident says they feel dizzy when standing. You should:", ["Continue walking quickly", "Stop, support sitting, observe, and report", "Ignore", "Give a bath"], 1, "Dizziness increases fall risk and may indicate health problems."),
-          q("Care Japanese", "食事介助 (しょくじかいじょ) means:", ["Meal assistance", "Bath assistance", "Transfer assistance", "Cleaning"], 0, "食事 is meal and 介助 is assistance."),
-          q("Records", "Why should incidents be recorded?", ["To blame someone only", "To share facts and prevent recurrence", "To hide problems", "To entertain staff"], 1, "Incident records support prevention and team learning."),
-          q("Physical care", "For dignity during changing clothes, you should:", ["Expose the resident fully", "Cover the body as much as possible and explain each step", "Invite visitors", "Laugh at the body"], 1, "Privacy and explanation protect dignity."),
-          q("Mind and body", "Reduced mobility can increase risk of:", ["Pressure injuries, constipation, and muscle weakness", "Better balance always", "No health problems", "Improved swallowing automatically"], 0, "Immobility affects many body systems."),
-          q("Communication", "Non-verbal signs of pain may include:", ["Facial grimacing, guarding, restlessness", "Only smiling", "Perfect sleep always", "No movement ever"], 0, "Pain may be shown through behavior, especially when speech is difficult."),
-          q("Emergency", "If a resident has chest pain, you should:", ["Report immediately and follow emergency procedure", "Wait until next week", "Give your own medicine", "Tell them to sleep only"], 0, "Chest pain can be urgent."),
-          q("Fundamentals", "The caregiver's role with medical procedures is to:", ["Perform any medical treatment independently", "Work within role and report to medical professionals", "Ignore nurses", "Decide all medication"], 1, "Care workers must act within scope and cooperate with medical staff."),
-          q("Care Japanese", "排泄 (はいせつ) means:", ["Excretion/toileting", "Recreation", "Family", "Transfer"], 0, "排泄 refers to excretion or toileting care.")
+          q("Dementia care", "Repeated questions from a person with dementia should be answered:", ["Calmly and with reassurance", "With anger", "By ignoring every time", "By punishment"], 0, "Repeated questions may come from anxiety or memory impairment."),
+          q("Mind and body", "Wandering may mean:", ["There may be a reason or unmet need", "The person is always bad", "Care is unnecessary", "The person must never walk"], 0, "The PDF explains behavior as meaningful."),
+          q("Mind and body", "Sudden confusion can be a sign of:", ["Delirium or illness", "Perfect health", "Good sleep only", "Normal communication"], 0, "Sudden changes need attention."),
+          q("Care Japanese", "Ninchisho means:", ["Dementia", "Fever", "Meal", "Cleaning"], 0, "Ninchisho means dementia.")
+        ]
+      },
+      {
+        part: "Part 3", chapter: "Chapter 1", title: "Basics of communication", source: "PDF pages 98-101",
+        focus: "Communication builds trust by sharing ideas and feelings through verbal and non-verbal methods.",
+        bullets: ["Verbal communication includes speech, sign language, letters, and characters.", "Non-verbal communication includes facial expression, posture, gesture, and tone.", "Listen carefully and check understanding instead of assuming.", "Communication is two-way: sending, receiving, and responding."],
+        terms: [["verbal", "gengo", "communication using words"], ["non-verbal", "hi gengo", "communication without words"], ["trust", "shinrai", "relationship of confidence"]],
+        questions: [
+          q("Communication", "Non-verbal communication includes:", ["Facial expression and gesture", "Only written records", "Only medicine", "Only lunch menu"], 0, "Gestures and expressions communicate feelings."),
+          q("Communication", "Good communication is:", ["One-way orders", "Two-way sending and receiving", "Only silence", "Always fast speech"], 1, "Communication requires both sending and receiving."),
+          q("Communication", "To build trust, a caregiver should:", ["Listen and respond respectfully", "Interrupt", "Mock the user", "Avoid eye contact always"], 0, "Trust is built through respectful communication."),
+          q("Care Japanese", "Shinrai means:", ["Trust", "Bathing", "Fall", "Gloves"], 0, "Shinrai means trust.")
+        ]
+      },
+      {
+        part: "Part 3", chapter: "Chapter 2", title: "Communication with users", source: "PDF pages 102-113",
+        focus: "Communication should match the user's condition, feelings, hearing, vision, cognition, and pace.",
+        bullets: ["Face the user, speak clearly, and confirm understanding.", "For hearing or visual difficulty, adjust the environment and explain before assisting.", "When a user refuses care, listen first and look for reasons such as pain, fear, shame, or fatigue.", "For dementia, respond to feelings and reduce anxiety rather than arguing about facts."],
+        terms: [["consent", "doi", "agreement after explanation"], ["refusal", "kyohi", "saying no to care"], ["empathy", "kyokan", "understanding feelings"]],
+        questions: [
+          q("Communication", "Before starting physical care, the caregiver should:", ["Explain and ask consent", "Start without speaking", "Ask another resident", "Turn away"], 0, "Explanation and consent reduce anxiety."),
+          q("Communication", "If a user refuses bathing, first:", ["Listen and ask the reason", "Force bathing", "Scold the user", "Ignore privacy"], 0, "Refusal may have a reason."),
+          q("Dementia care", "A helpful dementia response is:", ["Argue with the memory error", "Accept feelings and reassure", "Laugh", "Use complicated instructions"], 1, "Responding to feelings reduces anxiety."),
+          q("Care Japanese", "Doi means:", ["Consent", "Fever", "Laundry", "Walker"], 0, "Doi means consent.")
+        ]
+      },
+      {
+        part: "Part 3", chapter: "Chapter 3", title: "Communication with team members", source: "PDF pages 114-119",
+        focus: "Team communication uses factual reports, clear records, consultation, and protection of personal information.",
+        bullets: ["Report facts and personal judgment separately.", "Use six clear points in records: when, where, who, what, why, and how.", "Consult colleagues and specialists when unsure instead of deciding alone.", "Protect personal information such as name, address, phone number, and photos."],
+        terms: [["report", "hokoku", "sharing important facts"], ["record", "kiroku", "written care information"], ["consult", "sodan", "asking advice when unsure"]],
+        questions: [
+          q("Records", "A clear care record includes:", ["Facts such as when, where, who, what, why, and how", "Only emotion", "Only blame", "No time"], 0, "The PDF lists six clear reporting items."),
+          q("Teamwork", "If you are unsure, you should:", ["Consult colleagues or specialists", "Guess", "Hide it", "Ask a visitor"], 0, "Consulting is part of team care."),
+          q("Records", "The best report separates:", ["Facts and your judgment", "Lunch and dinner", "Shoes and socks", "Private and public gossip"], 0, "Clear reporting separates fact from judgment."),
+          q("Care Japanese", "Hokoku means:", ["Report", "Bath", "Chair", "Pain"], 0, "Hokoku means report.")
+        ]
+      },
+      {
+        part: "Part 4", chapter: "Chapter 1", title: "Walking, lifting, and transferring", source: "PDF pages 120-143",
+        focus: "Mobility assistance uses safety checks, body mechanics, assistive devices, and clear guidance.",
+        bullets: ["Check brakes, footwear, dizziness, posture, and environment before transfer.", "Use base of support and body mechanics to protect the user and caregiver.", "When using wheelchairs, explain movement, check footrests and brakes, and move slowly on steps or slopes.", "Support walking with canes, walkers, and handrails according to the user's ability."],
+        terms: [["wheelchair", "kurumaisu", "mobility chair"], ["transfer", "ijo", "moving from one place to another"], ["base of support", "shiji kiban", "area supporting body stability"]],
+        questions: [
+          q("Physical care", "Before wheelchair transfer, first check:", ["Brakes and footrests", "TV volume", "Window color", "Lunch menu"], 0, "Wheelchair safety checks prevent falls."),
+          q("Physical care", "When going down a steep slope with a wheelchair, the PDF explains pulling backward can help:", ["Prevent the user sliding out", "Make it faster", "Avoid talking", "Lift the wheelchair high"], 0, "Backward descent improves safety on steep slopes."),
+          q("Physical care", "A wide base of support helps:", ["Stability", "Confusion", "Fever", "Privacy loss"], 0, "Base of support supports body stability."),
+          q("Care Japanese", "Kurumaisu means:", ["Wheelchair", "Walker", "Bed", "Cup"], 0, "Kurumaisu means wheelchair.")
+        ]
+      },
+      {
+        part: "Part 4", chapter: "Chapter 2", title: "Nursing care at mealtimes", source: "PDF pages 144-151",
+        focus: "Mealtime care supports nutrition, safety, swallowing, independence, and the user's pace.",
+        bullets: ["Confirm physical condition, diet restrictions, allergies, posture, and swallowing ability.", "Explain the menu and support eating at the user's pace.", "Sit at the same eye level and avoid unnecessary talking while the user is chewing to prevent aspiration.", "Oral moisture and safe spoon angle help reduce aspiration risk."],
+        terms: [["meal assistance", "shokuji kaijo", "support during eating"], ["aspiration", "goen", "food or liquid entering airway"], ["thickened liquid", "toromi", "liquid made easier to swallow"]],
+        questions: [
+          q("Physical care", "Before meal assistance, confirm:", ["Diet, posture, swallowing, alertness, and allergies", "Only TV channel", "Only clothes", "Nothing"], 0, "Mealtime safety needs several checks."),
+          q("Physical care", "During chewing, the caregiver should:", ["Avoid unnecessary talking", "Ask many fast questions", "Lay the user flat", "Pull the spoon upward"], 0, "Talking while chewing can increase aspiration risk."),
+          q("Physical care", "If a user coughs repeatedly while drinking, you should:", ["Stop and report possible swallowing problem", "Continue quickly", "Give more water fast", "Ignore"], 0, "Coughing can signal aspiration risk."),
+          q("Care Japanese", "Shokuji kaijo means:", ["Meal assistance", "Bath assistance", "Laundry", "Report"], 0, "Shokuji is meal and kaijo is assistance.")
+        ]
+      },
+      {
+        part: "Part 4", chapter: "Chapter 3", title: "Elimination needs", source: "PDF pages 152-169",
+        focus: "Elimination care protects dignity, privacy, skin, infection prevention, and observation of urine and stool.",
+        bullets: ["Support toileting according to ability and avoid unnecessary diaper use.", "Protect privacy by closing doors or curtains and covering the body.", "Observe changes in urine, stool, pain, diarrhea, constipation, and skin condition.", "When cleaning the genital area, use warm water and prevent infection."],
+        terms: [["elimination", "haisetsu", "urination and bowel movement"], ["diaper", "omutsu", "absorbent underwear/pad"], ["constipation", "benpi", "difficulty passing stool"]],
+        questions: [
+          q("Physical care", "During toileting care, privacy means:", ["Closing doors or curtains and covering the body", "Leaving the door open", "Talking loudly", "Inviting others"], 0, "Elimination care requires dignity and privacy."),
+          q("Physical care", "Constipation may relate to:", ["Low fluids, low activity, diet, or medicine", "Too much respect", "Clean clothes", "Short words"], 0, "Many factors influence elimination."),
+          q("Infection control", "For female genital cleaning, wipe:", ["From urethra toward anus", "From anus toward urethra", "In repeated circles", "With a dry rough towel only"], 0, "The PDF notes this helps prevent infection."),
+          q("Care Japanese", "Haisetsu means:", ["Elimination/toileting", "Meal", "Bath", "Transfer"], 0, "Haisetsu means elimination.")
+        ]
+      },
+      {
+        part: "Part 4", chapter: "Chapter 4", title: "Grooming", source: "PDF pages 170-185",
+        focus: "Grooming includes clothes, face washing, hair care, oral care, dentures, and supporting self-image.",
+        bullets: ["Support clothing choices while respecting preference, weather, and ability.", "Face washing and hair care help comfort and daily rhythm.", "Oral care prevents discomfort, infection, and aspiration pneumonia risk.", "Dentures should be removed, cleaned after meals, and stored in water or cleaner."],
+        terms: [["grooming", "seiketsu seyo", "appearance and cleanliness care"], ["oral care", "koku kea", "mouth cleaning"], ["dentures", "ireba", "replacement teeth"]],
+        questions: [
+          q("Physical care", "Oral care helps prevent:", ["Infection and aspiration pneumonia risk", "All hunger", "Need for sleep", "Communication"], 0, "Mouth bacteria can affect general health."),
+          q("Physical care", "Dentures should be stored:", ["In water or denture cleaner", "Dry on a heater", "Under a pillow", "In dirty tissue"], 0, "Dry dentures may crack."),
+          q("Fundamentals", "Clothing support should respect:", ["User preference and ability", "Caregiver preference only", "Speed only", "No privacy"], 0, "Grooming supports dignity and self-image."),
+          q("Care Japanese", "Ireba means:", ["Dentures", "Wheelchair", "Fever", "Rice"], 0, "Ireba means dentures.")
+        ]
+      },
+      {
+        part: "Part 4", chapter: "Chapter 5", title: "Bathing and keeping clean", source: "PDF pages 186-197",
+        focus: "Bathing and cleanliness support health, blood circulation, comfort, privacy, and skin observation.",
+        bullets: ["Explain care, obtain consent, protect privacy, and check physical condition before bathing.", "Check water temperature to prevent burns and discomfort.", "Observe skin redness, wounds, swelling, pain, and cleanliness needs.", "Bed baths can be full or partial when regular bathing is difficult."],
+        terms: [["bathing", "nyuyoku", "taking a bath"], ["bed bath", "seishiki", "washing body on bed"], ["skin observation", "hifu kansatsu", "checking skin condition"]],
+        questions: [
+          q("Physical care", "Before bathing assistance, check:", ["Condition, consent, privacy, and water temperature", "Only the clock", "Only the towel color", "Nothing"], 0, "Bathing care needs safety and consent."),
+          q("Physical care", "Bed bath is used when:", ["Regular bath or shower is difficult", "The user is running", "No cleaning is needed", "Only laundry is needed"], 0, "The PDF defines bed bath as cleaning on the bed."),
+          q("Physical care", "Redness found during bathing should be:", ["Observed and reported when needed", "Ignored", "Scrubbed strongly", "Hidden"], 0, "Skin observation is part of clean care."),
+          q("Care Japanese", "Nyuyoku means:", ["Bathing", "Meal", "Record", "Chair"], 0, "Nyuyoku means bathing.")
+        ]
+      },
+      {
+        part: "Part 4", chapter: "Chapter 6", title: "Housework and living environment", source: "PDF pages 198-202",
+        focus: "Housework and environment support cleanliness, comfort, accident prevention, privacy, and independence.",
+        bullets: ["Cleaning keeps the living space comfortable and prevents accidents.", "Laundry supports health by keeping clothes and bedding clean.", "Organize the environment for the user's physical and psychological condition.", "Use handrails, anti-slip materials, ventilation, humidity control, and assistive devices when suitable."],
+        terms: [["housework", "kaji", "daily home tasks"], ["laundry", "sentaku", "washing clothes and bedding"], ["living environment", "seikatsu kankyo", "safe and comfortable surroundings"]],
+        questions: [
+          q("Physical care", "A safe living environment may include:", ["Handrails, anti-slip materials, good lighting, and clear paths", "Loose cords", "Dark stairs", "Wet floors"], 0, "The PDF stresses organizing the environment for safety and comfort."),
+          q("Infection control", "Laundry stained with blood, feces, or vomit from infectious disease should be:", ["Handled separately by procedure", "Mixed with all laundry", "Ignored", "Given to another user"], 0, "Laundry can relate to infection prevention."),
+          q("Fundamentals", "Housework support should help the user:", ["Live comfortably and safely", "Lose privacy", "Stop choosing", "Avoid all activity"], 0, "Housework is part of daily living support."),
+          q("Care Japanese", "Sentaku means:", ["Laundry", "Bathing", "Pain", "Cane"], 0, "Sentaku means laundry.")
         ]
       }
     ];
+
+    const japaneseVocabularyChapters = [
+      { title: "Body parts, positions, symptoms", terms: [["頭", "あたま / atama", "head"], ["目", "め / me", "eye"], ["耳", "みみ / mimi", "ear"], ["口", "くち / kuchi", "mouth"], ["膝", "ひざ / hiza", "knee"], ["仰臥位", "ぎょうがい / gyogai", "supine position"], ["側臥位", "そくがい / sokugai", "lateral position"], ["発熱", "はつねつ / hatsunetsu", "fever"], ["脱水", "だっすい / dassui", "dehydration"], ["便秘", "べんぴ / benpi", "constipation"]] },
+      { title: "Walking, lifting, transferring", terms: [["起き上がる", "おきあがる / okiagaru", "sit up"], ["立ち上がる", "たちあがる / tachiagaru", "stand up"], ["歩く", "あるく / aruku", "walk"], ["車いす", "くるまいす / kurumaisu", "wheelchair"], ["杖", "つえ / tsue", "cane"], ["移乗", "いじょう / ijo", "transfer"]] },
+      { title: "Mealtimes", terms: [["食事", "しょくじ / shokuji", "meal"], ["お茶", "おちゃ / ocha", "tea"], ["むせる", "museru", "choke/cough while swallowing"], ["とろみ", "toromi", "thickened texture"], ["飲む", "のむ / nomu", "drink"], ["食べる", "たべる / taberu", "eat"]] },
+      { title: "Elimination needs", terms: [["排泄", "はいせつ / haisetsu", "elimination"], ["トイレ", "toire", "toilet"], ["尿器", "にょうき / nyoki", "urinal"], ["便器", "べんき / benki", "toilet bowl/bedpan"], ["下痢", "げり / geri", "diarrhea"], ["便秘", "べんぴ / benpi", "constipation"]] },
+      { title: "Grooming", terms: [["着替える", "きがえる / kigaeru", "change clothes"], ["髪", "かみ / kami", "hair"], ["くし", "kushi", "comb"], ["歯", "は / ha", "tooth"], ["義歯", "ぎし / gishi", "dentures"], ["洗顔", "せんがん / sengan", "face washing"]] },
+      { title: "Bathing and keeping clean", terms: [["入浴", "にゅうよく / nyuyoku", "bathing"], ["お風呂", "おふろ / ofuro", "bath"], ["熱い", "あつい / atsui", "hot"], ["ぬるい", "nurui", "lukewarm"], ["清拭", "せいしき / seishiki", "bed bath"], ["皮膚", "ひふ / hifu", "skin"]] },
+      { title: "Housework", terms: [["掃除", "そうじ / soji", "cleaning"], ["洗濯", "せんたく / sentaku", "laundry"], ["テーブル", "teburu", "table"], ["窓", "まど / mado", "window"], ["エアコン", "eakon", "air conditioner"], ["カーテン", "katen", "curtain"]] },
+      { title: "Sentences and records", terms: [["観察", "かんさつ / kansatsu", "observation"], ["計画", "けいかく / keikaku", "plan"], ["掲示", "けいじ / keiji", "notice"], ["事故", "じこ / jiko", "accident"], ["禁止", "きんし / kinshi", "prohibition"], ["参加者", "さんかしゃ / sankasha", "participant"]] }
+    ];
+
+    const mockSets = studyChapters.map((chapter) => ({
+      name: `${chapter.chapter}: ${chapter.title}`,
+      focus: chapter.focus,
+      questions: chapter.questions
+    }));
 
     const studyMaterials = [
-      {
-        title: "Exam Guide",
-        html: `
-          <h3>Official Exam Shape</h3>
-          <p>The SSW nursing care skills test is a CBT exam with 45 questions in 60 minutes. It covers fundamentals of care, mechanisms of mind and body, communication skills, physical care, and practical questions.</p>
-          <ul>
-            <li>Skills written exam: 40 questions</li>
-            <li>Skills practical CBT questions: 5 questions</li>
-            <li>Nursing care Japanese language test: 15 questions in 30 minutes</li>
-            <li>Use this app for practice; always check the latest official Prometric and MHLW pages before booking.</li>
-          </ul>
-        `
-      },
-      {
-        title: "Care Basics",
-        html: `
-          <h3>Core Principles</h3>
-          <ul>
-            <li>Dignity: speak respectfully, protect privacy, explain care before touching.</li>
-            <li>Independence: support what the person can still do, and assist only what is difficult.</li>
-            <li>Person-centered care: learn life history, preferences, culture, routine, and abilities.</li>
-            <li>Confidentiality: do not share resident information outside work or in public spaces.</li>
-            <li>Safety: prevent falls, burns, choking, infection, pressure injuries, and abuse.</li>
-          </ul>
-        `
-      },
-      {
-        title: "Physical Care",
-        html: `
-          <h3>Daily Care Checklist</h3>
-          <ul>
-            <li>Meals: check posture, swallowing, diet type, pace, and alertness.</li>
-            <li>Bathing: check consent, privacy, water temperature, skin condition, and fall risk.</li>
-            <li>Excretion: protect dignity, observe urine/stool changes, support hydration and skin care.</li>
-            <li>Mobility: check brakes, footwear, dizziness, environment, and body mechanics.</li>
-            <li>Bed care: reposition, observe pressure areas, keep sheets dry and smooth.</li>
-          </ul>
-        `
-      },
-      {
-        title: "Communication",
-        html: `
-          <h3>Useful Care Communication</h3>
-          <ul>
-            <li>Listen first when a resident refuses care.</li>
-            <li>Use short, clear sentences and confirm understanding.</li>
-            <li>For dementia, respond to feelings, not only facts.</li>
-            <li>Report changes using facts: time, situation, observation, action, and result.</li>
-            <li>Use polite Japanese: いまからお手伝いします。よろしいですか。</li>
-          </ul>
-        `
-      },
-      {
-        title: "Vocabulary",
-        html: `
-          <h3>Care Japanese Terms</h3>
-          <div class="term-grid">
-            ${[
-              ["介護", "かいご", "nursing care"],
-              ["介助", "かいじょ", "assistance"],
-              ["食事介助", "しょくじかいじょ", "meal assistance"],
-              ["入浴介助", "にゅうよくかいじょ", "bathing assistance"],
-              ["排泄", "はいせつ", "excretion/toileting"],
-              ["移乗", "いじょう", "transfer"],
-              ["車いす", "くるまいす", "wheelchair"],
-              ["認知症", "にんちしょう", "dementia"],
-              ["転倒", "てんとう", "fall"],
-              ["報告", "ほうこく", "report"],
-              ["記録", "きろく", "record"],
-              ["申し送り", "もうしおくり", "handover"]
-            ].map(([jp, kana, en]) => `<div class="term"><strong>${jp}</strong><span>${kana}</span><span>${en}</span></div>`).join("")}
-          </div>
-        `
-      }
+      ...studyChapters.map(chapterToStudyMaterial),
+      ...japaneseVocabularyChapters.map(vocabChapterToStudyMaterial)
     ];
 
-    const studyMaterialNp = {
-      "Exam Guide": {
-        title: "परीक्षा गाइड",
-        html: `
-          <h3>आधिकारिक परीक्षा रूप</h3>
-          <p>SSW nursing care skills test CBT परीक्षा हो। Skills test मा 45 प्रश्न र 60 मिनेट हुन्छ। Nursing care Japanese test मा 15 प्रश्न र 30 मिनेट हुन्छ।</p>
-          <ul>
-            <li>केयर आधार, मन/शरीर, संवाद, शारीरिक केयर र व्यवहारिक निर्णय अभ्यास गर्नुहोस्।</li>
-            <li>Full Exam 45Q mode प्रयोग गरेर वास्तविक समय अभ्यास गर्नुहोस्।</li>
-            <li>बुकिङ गर्नु अघि MHLW र Prometric को नयाँ सूचना हेर्नुहोस्।</li>
-          </ul>
-        `
-      },
-      "Care Basics": {
-        title: "केयर आधार",
-        html: `
-          <h3>मुख्य सिद्धान्त</h3>
-          <ul>
-            <li>मर्यादा: आदरपूर्वक बोल्ने, गोपनीयता बचाउने, छुनु अघि बुझाउने।</li>
-            <li>आत्मनिर्भरता: व्यक्तिले गर्न सक्ने भाग आफैं गर्न दिनु।</li>
-            <li>व्यक्ति-केन्द्रित केयर: बानी, रुचि, जीवन इतिहास र क्षमता बुझ्नु।</li>
-            <li>सुरक्षा: लड्ने, पोल्ने, घाँटी अड्किने, संक्रमण र बेडसोर रोक्नु।</li>
-          </ul>
-        `
-      },
-      "Physical Care": {
-        title: "शारीरिक केयर",
-        html: `
-          <h3>दैनिक केयर चेकलिस्ट</h3>
-          <ul>
-            <li>खाना: आसन, निल्ने अवस्था, खाना प्रकार र होसियारी जाँच।</li>
-            <li>नुहाउने: सहमति, गोपनीयता, पानी तापक्रम र लड्ने जोखिम।</li>
-            <li>शौच: मर्यादा, छाला, पानी सेवन र दिसा/पिसाब परिवर्तन हेर्ने।</li>
-            <li>हिँडडुल: ब्रेक, जुत्ता, चक्कर, बाटो र शरीरको सही प्रयोग।</li>
-          </ul>
-        `
-      },
-      "Communication": {
-        title: "संवाद",
-        html: `
-          <h3>केयर संवाद</h3>
-          <ul>
-            <li>नकार्दा पहिले कारण सोधेर शान्त भएर सुन्नुहोस्।</li>
-            <li>छोटो र स्पष्ट वाक्य प्रयोग गर्नुहोस्।</li>
-            <li>डिमेन्सियामा तथ्य मात्र होइन, भावना पनि स्वीकार्नुहोस्।</li>
-            <li>रिपोर्ट गर्दा समय, अवस्था, देखिएको कुरा, गरेको काम र परिणाम भन्नुहोस्।</li>
-          </ul>
-        `
-      },
-      "Vocabulary": {
-        title: "शब्दावली",
-        html: `
-          <h3>केयर जापानी शब्द</h3>
-          <p>Vocabulary tab मा 499 शब्द छन्। Search गरेर जापानी, kana, romaji, English वा category बाट खोज्न सकिन्छ। Flashcard मा Know It थिचेपछि progress बढ्छ।</p>
-        `
-      }
-    };
-
-    studyMaterials.forEach((material) => {
-      if (studyMaterialNp[material.title]) {
-        material.titleNp = studyMaterialNp[material.title].title;
-        material.htmlNp = studyMaterialNp[material.title].html;
-      }
-    });
+    const studyMaterialNp = {};
 
     const vocabulary = buildVocabulary();
     const knownVocabulary = new Set(JSON.parse(localStorage.getItem("sswKnownVocabulary") || "[]"));
@@ -3203,46 +3727,50 @@
       answerVisible: false
     };
     let currentLang = localStorage.getItem("sswLanguageMode") || "en";
+    let currentPage = "home";
+    const authState = {
+      user: JSON.parse(localStorage.getItem("sswCareproUser") || "null")
+    };
 
     const uiText = {
       en: {
         brandTitle: "Japan SSW Nursing Care Mock Test",
-        brandSubtitle: "5 practice sets with study notes, care Japanese, and review mode",
+        brandSubtitle: "Chapterwise study notes, mock tests, care Japanese, and review mode",
         quickHome: "Home",
         quickPractice: "Test",
         quickVocab: "Vocab",
         quickCards: "Cards",
         quickStudy: "Study",
         bottomHome: "Home",
-        bottomTest: "Test",
-        bottomVocab: "Vocab",
+        bottomTest: "Learn",
+        bottomVocab: "Progress",
         bottomCards: "Cards",
-        bottomStudy: "Study",
+        bottomStudy: "Profile",
         homeKicker: "SSW Carepro",
-        homeTitle: "Hi, Alex! 👋",
-        homeCopy: "Prepare smarter for your care exam today.",
-        homeTabSets: "Mock Tests",
-        homeTabSetsSub: "Practice & Improve",
+        homeTitle: "Hi! User",
+        homeCopy: "Study from the official SSW nursing care text, chapter by chapter.",
+        homeTabSets: "Mock Test",
+        homeTabSetsSub: "Chapterwise practice",
         homeTabExam: "Full Exam",
         homeTabExamSub: "45 questions with a 60 minute timer",
-        homeTabVocab: "Vocabularies",
+        homeTabVocab: "Vocabulary",
         homeTabVocabSub: "Words to Master",
         homeTabCards: "Profile",
         homeTabCardsSub: "Profile",
         homeTabStudy: "Study Materials",
-        homeTabStudySub: "Notes & Guides",
+        homeTabStudySub: "Chapterwise notes and guides",
         homeTabReview: "Mistake Review",
         mistakeHomeLocked: "Finish a set to unlock",
         mistakeHomeReady: "Review missed questions",
         dashSetsLabel: "Mock sets",
-        dashSetsValue: "5 sets",
+        dashSetsValue: "14 chapters",
         dashVocabLabel: "Vocabulary",
         dashVocabUnit: "words",
         dashCardsLabel: "Flashcards",
         dashCardsUnit: "known",
         dashExamLabel: "Exam mode",
         dashExamValue: "45Q / 60m",
-        missionTitle: "Today’s pass path",
+        missionTitle: "Today's pass path",
         missionText: "Study in short loops: test, fix mistakes, then strengthen care vocabulary.",
         pathStepOne: "Take one mock set",
         pathStepOneSub: "15 focused questions",
@@ -3270,197 +3798,115 @@
         reviewThis: "Review this"
       },
       np: {
-        brandTitle: "जापान SSW केयर मोक टेस्ट",
-        brandSubtitle: "मोक सेट, अध्ययन नोट, केयर जापानी र गल्ती समीक्षा",
-        quickHome: "घर",
-        quickPractice: "टेस्ट",
-        quickVocab: "शब्द",
-        quickCards: "कार्ड",
-        quickStudy: "अध्ययन",
-        bottomHome: "घर",
-        bottomTest: "टेस्ट",
-        bottomVocab: "शब्द",
-        bottomCards: "कार्ड",
-        bottomStudy: "पढाइ",
+        brandTitle: "Japan SSW Nursing Care Mock Test",
+        brandSubtitle: "Practice sets, study notes, care Japanese, and review mode",
+        quickHome: "Home",
+        quickPractice: "Test",
+        quickVocab: "Vocab",
+        quickCards: "Cards",
+        quickStudy: "Study",
+        bottomHome: "Home",
+        bottomTest: "Learn",
+        bottomVocab: "Progress",
+        bottomCards: "Cards",
+        bottomStudy: "Profile",
         homeKicker: "SSW Carepro",
-        homeTitle: "नमस्ते, Alex! 👋",
-        homeCopy: "आज केयर परीक्षाको लागि स्मार्ट तरिकाले तयारी गर।",
-        homeTabSets: "मोक टेस्ट",
-        homeTabSetsSub: "अभ्यास र सुधार",
-        homeTabExam: "पूरा परीक्षा",
-        homeTabExamSub: "६० मिनेट टाइमरसहित ४५ प्रश्न",
-        homeTabVocab: "शब्दावली",
-        homeTabVocabSub: "सिक्नुपर्ने शब्द",
-        homeTabCards: "प्रोफाइल",
-        homeTabCardsSub: "प्रोफाइल",
-        homeTabStudy: "अध्ययन सामग्री",
-        homeTabStudySub: "नोट र गाइड",
-        homeTabReview: "गल्ती समीक्षा",
-        mistakeHomeLocked: "पहिले एक सेट पूरा गर",
-        mistakeHomeReady: "छुटेका प्रश्न फेरि गर",
-        dashSetsLabel: "मोक सेट",
-        dashSetsValue: "५ सेट",
-        dashVocabLabel: "शब्दावली",
-        dashVocabUnit: "शब्द",
-        dashCardsLabel: "फ्ल्यासकार्ड",
-        dashCardsUnit: "जानेको",
-        dashExamLabel: "परीक्षा मोड",
-        dashExamValue: "४५ प्रश्न / ६० मिनेट",
-        missionTitle: "आजको पास गर्ने बाटो",
-        missionText: "छोटो अभ्यास गर: टेस्ट, गल्ती सुधार, अनि केयर शब्दावली बलियो बनाऊ।",
-        pathStepOne: "एक मोक सेट गर",
-        pathStepOneSub: "१५ केन्द्रित प्रश्न",
-        pathStepTwo: "गल्ती समीक्षा गर",
-        pathStepTwoSub: "व्याख्या नछोड",
-        pathStepThree: "२० कार्ड सिक",
-        pathStepThreeSub: "साँच्चै जानेको मात्र चिन्ह लगाऊ",
-        introTitle: "परीक्षार्थी मात्र होइन, केयर वर्कर जस्तै अभ्यास गर।",
-        introCopy: "मर्यादा, आत्मनिर्भरता, सुरक्षा, संवाद, डिमेन्सिया केयर, संक्रमण रोकथाम, शरीरको सही प्रयोग र रिपोर्टिङ अभ्यास गर।",
-        restart: "सेट सुरु गर",
-        fullExam: "पूरा परीक्षा ४५Q",
-        showAnswer: "उत्तर देखाऊ",
-        next: "अर्को",
-        finish: "समाप्त",
-        flipShow: "अर्थ देखाऊ",
-        flipHide: "अर्थ लुकाऊ",
-        hard: "अझै सिक्दै",
-        know: "जानेँ",
-        noMistakesYet: "अहिले गल्ती छैन",
-        noMistakes: "गल्ती छैन",
-        reviewMistakes: "गल्ती समीक्षा",
-        practiceMistakes: "गल्ती अभ्यास",
-        chooseFirst: "अर्को जानु अघि उत्तर छान्नुहोस् वा उत्तर देखाउनुहोस्।",
-        correct: "सही",
-        reviewThis: "यो फेरि पढ्नुहोस्"
+        homeTitle: "Hi! User",
+        homeCopy: "Study from the official SSW nursing care text, chapter by chapter.",
+        homeTabSets: "Mock Test",
+        homeTabSetsSub: "Chapterwise practice",
+        homeTabExam: "Full Exam",
+        homeTabExamSub: "45 questions with a 60 minute timer",
+        homeTabVocab: "Vocabulary",
+        homeTabVocabSub: "Words to master",
+        homeTabCards: "Profile",
+        homeTabCardsSub: "Profile",
+        homeTabStudy: "Study Materials",
+        homeTabStudySub: "Chapterwise notes and guides",
+        homeTabReview: "Mistake Review",
+        mistakeHomeLocked: "Finish a set to unlock",
+        mistakeHomeReady: "Review missed questions",
+        dashSetsLabel: "Mock sets",
+        dashSetsValue: "14 chapters",
+        dashVocabLabel: "Vocabulary",
+        dashVocabUnit: "words",
+        dashCardsLabel: "Flashcards",
+        dashCardsUnit: "known",
+        dashExamLabel: "Exam mode",
+        dashExamValue: "45Q / 60m",
+        missionTitle: "Today's pass path",
+        missionText: "Study in short loops: test, fix mistakes, then strengthen care vocabulary.",
+        pathStepOne: "Take one mock set",
+        pathStepOneSub: "15 focused questions",
+        pathStepTwo: "Review mistakes",
+        pathStepTwoSub: "Do not skip explanations",
+        pathStepThree: "Learn 20 cards",
+        pathStepThreeSub: "Mark only true known words",
+        introTitle: "Practice like a real care worker, not only a test taker.",
+        introCopy: "Use the mock sets to train exam knowledge and workplace judgment: dignity, independence support, safety, communication, dementia care, infection control, body mechanics, and reporting.",
+        restart: "Start Set",
+        fullExam: "Full Exam 45Q",
+        showAnswer: "Show Answer",
+        next: "Next",
+        finish: "Finish",
+        flipShow: "Show Meaning",
+        flipHide: "Hide Meaning",
+        hard: "Still Learning",
+        know: "Know It",
+        noMistakesYet: "No Mistakes Yet",
+        noMistakes: "No Mistakes",
+        reviewMistakes: "Review Mistakes",
+        practiceMistakes: "Practice Mistakes",
+        chooseFirst: "Choose an answer or show the answer before moving on.",
+        correct: "Correct",
+        reviewThis: "Review this"
       }
     };
 
     const domainNp = {
-      "Fundamentals": "आधारभूत केयर",
-      "Communication": "संवाद",
-      "Physical care": "शारीरिक केयर",
-      "Mind and body": "मन र शरीर",
-      "Infection control": "संक्रमण रोकथाम",
-      "Practical": "व्यावहारिक निर्णय",
-      "Care Japanese": "केयर जापानी",
-      "Dementia care": "डिमेन्सिया केयर",
-      "Emergency": "आपतकालीन अवस्था",
-      "Records": "रेकर्ड",
-      "Teamwork": "टीमवर्क"
+      "Fundamentals": "Fundamentals",
+      "Communication": "Communication",
+      "Physical care": "Physical care",
+      "Mind and body": "Mind and body",
+      "Infection control": "Infection control",
+      "Practical": "Practical",
+      "Care Japanese": "Care Japanese",
+      "Dementia care": "Dementia care",
+      "Emergency": "Emergency",
+      "Records": "Records",
+      "Teamwork": "Teamwork"
     };
 
     const domainHelpNp = {
-      "Fundamentals": "मुख्य कुरा: मर्यादा, गोपनीयता र आत्मनिर्भरता समर्थन।",
-      "Communication": "मुख्य कुरा: शान्त भएर सुन्नु, बुझाउनु र सहमति लिनु।",
-      "Physical care": "मुख्य कुरा: सुरक्षा, गोपनीयता, सही आसन र दुर्घटना रोकथाम।",
-      "Mind and body": "मुख्य कुरा: सामान्यभन्दा फरक लक्षण छिटो देखेर रिपोर्ट गर्नु।",
-      "Infection control": "मुख्य कुरा: हात सफा, पन्जा, मास्क र संक्रमण फैलिन नदिनु।",
-      "Practical": "मुख्य कुरा: जोखिम देखेपछि तुरुन्त सुरक्षित कार्य गर्नु।",
-      "Care Japanese": "मुख्य कुरा: जापानी केयर शब्दको अर्थ सम्झनु।",
-      "Dementia care": "मुख्य कुरा: भावना स्वीकारेर आश्वस्त पार्नु।",
-      "Emergency": "मुख्य कुरा: सुरक्षित राखेर तुरुन्त रिपोर्ट गर्नु।",
-      "Records": "मुख्य कुरा: तथ्य, समय, अवस्था र गरिएको काम लेख्नु।",
-      "Teamwork": "मुख्य कुरा: रिपोर्ट, सम्पर्क र सल्लाह स्पष्ट गर्नु।"
+      "Fundamentals": "Review dignity, consent, independence support, and safety.",
+      "Communication": "Use calm listening, clear words, and respectful reporting.",
+      "Physical care": "Check safety, posture, privacy, and comfort before care.",
+      "Mind and body": "Observe sudden changes and report concerns quickly.",
+      "Infection control": "Use hand hygiene and standard precautions.",
+      "Practical": "Choose the safest action and report changes clearly.",
+      "Care Japanese": "Review common care Japanese vocabulary.",
+      "Dementia care": "Respond to feelings and reduce anxiety.",
+      "Emergency": "Check safety first, call staff, and report immediately.",
+      "Records": "Write factual, clear, and timely records.",
+      "Teamwork": "Share facts and ask supervisors when unsure."
     };
 
     const meaningNp = {
-      "nursing care": "केयर/हेरचाह",
-      "assistance": "सहायता",
-      "independence support": "आत्मनिर्भरता सहयोग",
-      "dignity": "मर्यादा",
-      "service user": "सेवा प्रयोगकर्ता",
-      "resident": "बासिन्दा",
-      "older adult": "वृद्ध व्यक्ति",
-      "family": "परिवार",
-      "personal information": "व्यक्तिगत जानकारी",
-      "confidentiality": "गोपनीयता",
-      "care plan": "केयर योजना",
-      "assessment": "मूल्याङ्कन",
-      "monitoring": "निगरानी",
-      "life history": "जीवन इतिहास",
-      "the person themself": "स्वयं व्यक्ति",
-      "consent": "सहमति",
-      "explanation": "व्याख्या",
-      "active listening": "ध्यान दिएर सुन्ने",
-      "verbal prompting": "बोलेर सम्झाउने",
-      "report": "रिपोर्ट",
-      "contact": "सम्पर्क",
-      "consultation": "सल्लाह",
-      "record": "रेकर्ड",
-      "handover": "ड्युटी हस्तान्तरण",
-      "observation": "अवलोकन",
-      "confirmation": "पुष्टि",
-      "meal": "खाना",
-      "fluids": "पानी/तरल पदार्थ",
-      "oral care": "मुख सफाइ",
-      "bathing": "नुहाउने",
-      "excretion/toileting": "शौच/मूत्र सहयोग",
-      "changing clothes": "कपडा फेर्ने",
-      "movement": "हिँडडुल",
-      "transfer": "स्थानान्तरण",
-      "walking": "हिँड्ने",
-      "position change": "शरीरको अवस्था परिवर्तन",
-      "cleanliness": "सफाइ",
-      "sleep": "निद्रा",
-      "taking medicine": "औषधि सेवन",
-      "wheelchair": "ह्वीलचेयर",
-      "walker": "वाकर",
-      "cane": "लठ्ठी",
-      "bed": "बेड",
-      "handrail": "ह्यान्डरेल",
-      "nurse call": "नर्स कल",
-      "lift": "लिफ्ट",
-      "thermometer": "तापक्रम नाप्ने",
-      "blood pressure monitor": "ब्लड प्रेसर मिटर",
-      "dementia": "डिमेन्सिया",
-      "delirium": "अचानक भ्रम",
-      "anxiety": "चिन्ता",
-      "wandering": "भौँतारिनु",
-      "dehydration": "पानीको कमी",
-      "constipation": "कब्जियत",
-      "diarrhea": "पखाला",
-      "fever": "ज्वरो",
-      "cough": "खोकी",
-      "sputum": "खकार",
-      "pain": "दुखाइ",
-      "dizziness": "चक्कर",
-      "fall": "लड्नु",
-      "fall from height": "उचाइबाट खस्नु",
-      "aspiration": "खाना/पानी सास नलीमा जानु",
-      "choking": "घाँटी अड्किनु",
-      "pressure injury": "बेडसोर",
-      "infection": "संक्रमण",
-      "handwashing": "हात धुने",
-      "disinfection": "कीटाणु नाश",
-      "gloves": "पन्जा",
-      "mask": "मास्क",
-      "fluid intake": "पानी सेवन",
-      "oral cavity": "मुखभित्र",
-      "tooth brushing": "दाँत माझ्ने",
-      "dentures": "नक्कली दाँत",
-      "bed bath": "बेडमै सफाइ",
-      "hair washing": "कपाल धुने",
-      "urination": "पिसाब",
-      "bowel movement": "दिसा",
-      "diaper": "डायपर",
-      "toilet": "शौचालय",
-      "standing position": "उभिएको अवस्था",
-      "sitting position": "बसेको अवस्था",
-      "lying position": "सुतेको अवस्था",
-      "body position": "शरीरको अवस्था",
-      "rest": "आराम",
-      "skin": "छाला",
-      "breathing": "सास फेर्ने",
-      "blood pressure": "रक्तचाप",
-      "pulse": "नाडी",
-      "body temperature": "शरीर तापक्रम",
-      "recording": "रेकर्ड गर्ने",
-      "reporting": "रिपोर्ट गर्ने",
-      "preparation": "तयारी",
-      "cleanup": "सफा/समेट्ने",
-      "watchful support": "निगरानी सहयोग",
-      "prevention": "रोकथाम",
-      "practice": "अभ्यास"
+      "nursing care": "nursing care",
+      "assistance": "assistance",
+      "independence support": "independence support",
+      "dignity": "dignity",
+      "service user": "service user",
+      "report": "report",
+      "record": "record",
+      "handover": "handover",
+      "meal": "meal",
+      "bathing": "bathing",
+      "transfer": "transfer",
+      "wheelchair": "wheelchair",
+      "dementia": "dementia",
+      "fall": "fall",
+      "pain": "pain"
     };
 
     function vt(jp, kana, romaji, en, category) {
@@ -3468,157 +3914,47 @@
     }
 
     function buildVocabulary() {
-      const base = [
-        vt("介護", "かいご", "kaigo", "nursing care", "Core care"),
-        vt("介助", "かいじょ", "kaijo", "assistance", "Core care"),
-        vt("自立支援", "じりつしえん", "jiritsu shien", "independence support", "Core care"),
-        vt("尊厳", "そんげん", "songen", "dignity", "Core care"),
-        vt("利用者", "りようしゃ", "riyosha", "service user", "Core care"),
-        vt("入居者", "にゅうきょしゃ", "nyukyosya", "resident", "Core care"),
-        vt("高齢者", "こうれいしゃ", "koreisha", "older adult", "Core care"),
-        vt("家族", "かぞく", "kazoku", "family", "Core care"),
-        vt("個人情報", "こじんじょうほう", "kojin joho", "personal information", "Core care"),
-        vt("秘密保持", "ひみつほじ", "himitsu hoji", "confidentiality", "Core care"),
-        vt("介護計画", "かいごけいかく", "kaigo keikaku", "care plan", "Core care"),
-        vt("アセスメント", "あせすめんと", "asesumento", "assessment", "Core care"),
-        vt("モニタリング", "もにたりんぐ", "monitaringu", "monitoring", "Core care"),
-        vt("生活歴", "せいかつれき", "seikatsu reki", "life history", "Core care"),
-        vt("本人", "ほんにん", "honnin", "the person themself", "Core care"),
-        vt("同意", "どうい", "doi", "consent", "Core care"),
-        vt("説明", "せつめい", "setsumei", "explanation", "Communication"),
-        vt("傾聴", "けいちょう", "keicho", "active listening", "Communication"),
-        vt("声かけ", "こえかけ", "koekake", "verbal prompting", "Communication"),
-        vt("報告", "ほうこく", "hokoku", "report", "Teamwork"),
-        vt("連絡", "れんらく", "renraku", "contact", "Teamwork"),
-        vt("相談", "そうだん", "sodan", "consultation", "Teamwork"),
-        vt("記録", "きろく", "kiroku", "record", "Teamwork"),
-        vt("申し送り", "もうしおくり", "moshiokuri", "handover", "Teamwork"),
-        vt("観察", "かんさつ", "kansatsu", "observation", "Teamwork"),
-        vt("確認", "かくにん", "kakunin", "confirmation", "Teamwork"),
-        vt("食事", "しょくじ", "shokuji", "meal", "Physical care"),
-        vt("水分", "すいぶん", "suibun", "fluids", "Physical care"),
-        vt("口腔ケア", "こうくうけあ", "koku kea", "oral care", "Physical care"),
-        vt("入浴", "にゅうよく", "nyuyoku", "bathing", "Physical care"),
-        vt("排泄", "はいせつ", "haisetsu", "excretion/toileting", "Physical care"),
-        vt("更衣", "こうい", "koi", "changing clothes", "Physical care"),
-        vt("移動", "いどう", "ido", "movement", "Physical care"),
-        vt("移乗", "いじょう", "ijo", "transfer", "Physical care"),
-        vt("歩行", "ほこう", "hoko", "walking", "Physical care"),
-        vt("体位変換", "たいいへんかん", "taii henkan", "position change", "Physical care"),
-        vt("清潔", "せいけつ", "seiketsu", "cleanliness", "Physical care"),
-        vt("睡眠", "すいみん", "suimin", "sleep", "Physical care"),
-        vt("服薬", "ふくやく", "fukuyaku", "taking medicine", "Physical care"),
-        vt("車いす", "くるまいす", "kurumaisu", "wheelchair", "Equipment"),
-        vt("歩行器", "ほこうき", "hokoki", "walker", "Equipment"),
-        vt("杖", "つえ", "tsue", "cane", "Equipment"),
-        vt("ベッド", "べっど", "beddo", "bed", "Equipment"),
-        vt("手すり", "てすり", "tesuri", "handrail", "Equipment"),
-        vt("ナースコール", "なーすこーる", "nasu koru", "nurse call", "Equipment"),
-        vt("リフト", "りふと", "rifuto", "lift", "Equipment"),
-        vt("体温計", "たいおんけい", "taionkei", "thermometer", "Equipment"),
-        vt("血圧計", "けつあつけい", "ketsuatsukei", "blood pressure monitor", "Equipment"),
-        vt("認知症", "にんちしょう", "ninchisho", "dementia", "Mind and body"),
-        vt("せん妄", "せんもう", "senmo", "delirium", "Mind and body"),
-        vt("不安", "ふあん", "fuan", "anxiety", "Mind and body"),
-        vt("徘徊", "はいかい", "haikai", "wandering", "Mind and body"),
-        vt("脱水", "だっすい", "dassui", "dehydration", "Mind and body"),
-        vt("便秘", "べんぴ", "benpi", "constipation", "Mind and body"),
-        vt("下痢", "げり", "geri", "diarrhea", "Mind and body"),
-        vt("発熱", "はつねつ", "hatsunetsu", "fever", "Mind and body"),
-        vt("咳", "せき", "seki", "cough", "Mind and body"),
-        vt("痰", "たん", "tan", "sputum", "Mind and body"),
-        vt("痛み", "いたみ", "itami", "pain", "Mind and body"),
-        vt("めまい", "めまい", "memai", "dizziness", "Mind and body"),
-        vt("転倒", "てんとう", "tento", "fall", "Safety"),
-        vt("転落", "てんらく", "tenraku", "fall from height", "Safety"),
-        vt("誤嚥", "ごえん", "goen", "aspiration", "Safety"),
-        vt("窒息", "ちっそく", "chissoku", "choking", "Safety"),
-        vt("褥瘡", "じょくそう", "jokuso", "pressure injury", "Safety"),
-        vt("感染", "かんせん", "kansen", "infection", "Safety"),
-        vt("手洗い", "てあらい", "tearai", "handwashing", "Safety"),
-        vt("消毒", "しょうどく", "shodoku", "disinfection", "Safety"),
-        vt("手袋", "てぶくろ", "tebukuro", "gloves", "Safety"),
-        vt("マスク", "ますく", "masuku", "mask", "Safety")
-      ];
+      const baseTerms = [];
 
-      const topics = [
-        ["食事", "しょくじ", "shokuji", "meal", "Physical care"],
-        ["水分", "すいぶん", "suibun", "fluid intake", "Physical care"],
-        ["口腔", "こうくう", "koku", "oral cavity", "Physical care"],
-        ["歯磨き", "はみがき", "hamigaki", "tooth brushing", "Physical care"],
-        ["義歯", "ぎし", "gishi", "dentures", "Physical care"],
-        ["入浴", "にゅうよく", "nyuyoku", "bathing", "Physical care"],
-        ["清拭", "せいしき", "seishiki", "bed bath", "Physical care"],
-        ["洗髪", "せんぱつ", "senpatsu", "hair washing", "Physical care"],
-        ["更衣", "こうい", "koi", "changing clothes", "Physical care"],
-        ["排泄", "はいせつ", "haisetsu", "excretion", "Physical care"],
-        ["排尿", "はいにょう", "hainyo", "urination", "Physical care"],
-        ["排便", "はいべん", "haiben", "bowel movement", "Physical care"],
-        ["おむつ", "おむつ", "omutsu", "diaper", "Physical care"],
-        ["トイレ", "といれ", "toire", "toilet", "Physical care"],
-        ["移動", "いどう", "ido", "movement", "Mobility"],
-        ["移乗", "いじょう", "ijo", "transfer", "Mobility"],
-        ["歩行", "ほこう", "hoko", "walking", "Mobility"],
-        ["立位", "りつい", "ritsui", "standing position", "Mobility"],
-        ["座位", "ざい", "zai", "sitting position", "Mobility"],
-        ["臥位", "がい", "gai", "lying position", "Mobility"],
-        ["体位", "たいい", "taii", "body position", "Mobility"],
-        ["睡眠", "すいみん", "suimin", "sleep", "Daily life"],
-        ["休息", "きゅうそく", "kyusoku", "rest", "Daily life"],
-        ["服薬", "ふくやく", "fukuyaku", "medication taking", "Daily life"],
-        ["皮膚", "ひふ", "hifu", "skin", "Observation"],
-        ["褥瘡", "じょくそう", "jokuso", "pressure injury", "Observation"],
-        ["発熱", "はつねつ", "hatsunetsu", "fever", "Observation"],
-        ["咳", "せき", "seki", "cough", "Observation"],
-        ["痰", "たん", "tan", "sputum", "Observation"],
-        ["呼吸", "こきゅう", "kokyu", "breathing", "Observation"],
-        ["血圧", "けつあつ", "ketsuatsu", "blood pressure", "Observation"],
-        ["脈拍", "みゃくはく", "myakuhaku", "pulse", "Observation"],
-        ["体温", "たいおん", "taion", "body temperature", "Observation"],
-        ["痛み", "いたみ", "itami", "pain", "Observation"],
-        ["めまい", "めまい", "memai", "dizziness", "Observation"],
-        ["転倒", "てんとう", "tento", "fall", "Safety"],
-        ["認知症", "にんちしょう", "ninchisho", "dementia", "Dementia"],
-        ["不安", "ふあん", "fuan", "anxiety", "Dementia"],
-        ["徘徊", "はいかい", "haikai", "wandering", "Dementia"],
-        ["ナースコール", "なーすこーる", "nasu koru", "nurse call", "Equipment"],
-        ["車いす", "くるまいす", "kurumaisu", "wheelchair", "Equipment"],
-        ["歩行器", "ほこうき", "hokoki", "walker", "Equipment"],
-        ["手すり", "てすり", "tesuri", "handrail", "Equipment"],
-        ["記録", "きろく", "kiroku", "record", "Teamwork"],
-        ["報告", "ほうこく", "hokoku", "report", "Teamwork"],
-        ["申し送り", "もうしおくり", "moshiokuri", "handover", "Teamwork"],
-        ["感染", "かんせん", "kansen", "infection", "Safety"],
-        ["手洗い", "てあらい", "tearai", "handwashing", "Safety"],
-        ["手袋", "てぶくろ", "tebukuro", "gloves", "Safety"],
-        ["マスク", "ますく", "masuku", "mask", "Safety"]
-      ];
+      japaneseVocabularyChapters.forEach((section) => {
+        section.terms.forEach(([jp, reading, en]) => {
+          const parts = reading.split(" / ");
+          baseTerms.push(vt(jp, parts[0] || reading, parts[1] || parts[0] || reading, en, section.title));
+        });
+      });
 
-      const actions = [
-        ["介助", "かいじょ", "kaijo", "assistance"],
-        ["観察", "かんさつ", "kansatsu", "observation"],
-        ["確認", "かくにん", "kakunin", "confirmation"],
-        ["記録", "きろく", "kiroku", "recording"],
-        ["報告", "ほうこく", "hokoku", "reporting"],
-        ["準備", "じゅんび", "junbi", "preparation"],
-        ["片付け", "かたづけ", "katazuke", "cleanup"],
-        ["見守り", "みまもり", "mimamori", "watchful support"],
-        ["声かけ", "こえかけ", "koekake", "verbal prompting"],
-        ["説明", "せつめい", "setsumei", "explanation"],
-        ["予防", "よぼう", "yobo", "prevention"],
-        ["練習", "れんしゅう", "renshu", "practice"],
-        ["相談", "そうだん", "sodan", "consultation"]
+      studyChapters.forEach((chapter) => {
+        chapter.terms.forEach(([jp, romaji, en]) => {
+          baseTerms.push(vt(jp, romaji, romaji, en, `${chapter.chapter}: ${chapter.title}`));
+        });
+      });
+
+      const careActions = [
+        vt("介助", "かいじょ", "kaijo", "assistance", "Care action"),
+        vt("観察", "かんさつ", "kansatsu", "observation", "Care action"),
+        vt("確認", "かくにん", "kakunin", "confirmation", "Care action"),
+        vt("記録", "きろく", "kiroku", "recording", "Care action"),
+        vt("報告", "ほうこく", "hokoku", "reporting", "Care action"),
+        vt("準備", "じゅんび", "junbi", "preparation", "Care action"),
+        vt("予防", "よぼう", "yobo", "prevention", "Care action"),
+        vt("相談", "そうだん", "sodan", "consultation", "Care action"),
+        vt("清掃", "せいそう", "seiso", "cleaning", "Care action"),
+        vt("交換", "こうかん", "kokan", "changing", "Care action"),
+        vt("移動", "いどう", "ido", "movement", "Care action"),
+        vt("支援", "しえん", "shien", "support", "Care action"),
+        vt("対応", "たいおう", "taio", "response", "Care action"),
+        vt("管理", "かんり", "kanri", "management", "Care action")
       ];
 
       const generated = [];
-      topics.forEach(([jp, kana, romaji, en, category]) => {
-        actions.forEach(([actionJp, actionKana, actionRomaji, actionEn]) => {
-          generated.push(vt(`${jp}${actionJp}`, `${kana}${actionKana}`, `${romaji} ${actionRomaji}`, `${en} ${actionEn}`, category));
+      baseTerms.forEach((term) => {
+        careActions.forEach((action) => {
+          generated.push(vt(`${term.jp} ${action.jp}`, `${term.kana} ${action.kana}`, `${term.romaji} ${action.romaji}`, `${term.en} ${action.en}`, term.category));
         });
       });
 
       const seen = new Set();
-      return [...base, ...generated]
+      return [...baseTerms, ...careActions, ...generated]
         .filter((item) => {
           const key = `${item.jp}-${item.en}`;
           if (seen.has(key)) return false;
@@ -3628,7 +3964,6 @@
         .slice(0, 499)
         .map((item, index) => ({ ...item, id: index + 1 }));
     }
-
     function q(domain, text, options, answer, explanation) {
       return { domain, text, options, answer, explanation };
     }
@@ -3658,6 +3993,19 @@
       homeFullExamBtn: document.getElementById("homeFullExamBtn"),
       homeMistakeBtn: document.getElementById("homeMistakeBtn"),
       homeMistakeStatus: document.getElementById("homeMistakeStatus"),
+      homeTitle: document.getElementById("homeTitle"),
+      homeCopy: document.getElementById("homeCopy"),
+      authButton: document.getElementById("authButton"),
+      authButtonText: document.getElementById("authButtonText"),
+      authModal: document.getElementById("authModal"),
+      authCloseBtn: document.getElementById("authCloseBtn"),
+      authTitle: document.getElementById("authTitle"),
+      authCopy: document.getElementById("authCopy"),
+      authName: document.getElementById("authName"),
+      authEmail: document.getElementById("authEmail"),
+      authSubmitBtn: document.getElementById("authSubmitBtn"),
+      logoutBtn: document.getElementById("logoutBtn"),
+      authMessage: document.getElementById("authMessage"),
       quizView: document.getElementById("quizView"),
       resultsView: document.getElementById("resultsView"),
       quizTitle: document.getElementById("quizTitle"),
@@ -3707,6 +4055,93 @@
       return copy;
     }
 
+    function isLoggedIn() {
+      return Boolean(authState.user && authState.user.name);
+    }
+
+    function getUserName() {
+      return isLoggedIn() ? authState.user.name : "";
+    }
+
+    function updateAuthUI() {
+      const name = getUserName();
+      el.authButtonText.textContent = name || "Login / Sign up";
+      el.logoutBtn.style.display = isLoggedIn() ? "block" : "none";
+      if (isLoggedIn()) {
+        el.homeTitle.textContent = `Hi, ${name}`;
+        el.homeCopy.textContent = "Keep studying the official SSW nursing care chapters step by step.";
+      } else {
+        el.homeTitle.textContent = "Hi! User";
+        el.homeCopy.textContent = "Study from the official SSW nursing care text, chapter by chapter.";
+      }
+    }
+
+    function openAuthModal(message = "") {
+      el.authModal.classList.remove("hidden");
+      el.authMessage.textContent = message;
+      if (isLoggedIn()) {
+        el.authName.value = authState.user.name || "";
+        el.authEmail.value = authState.user.email || "";
+      }
+      setTimeout(() => el.authName.focus(), 0);
+    }
+
+    function closeAuthModal() {
+      el.authModal.classList.add("hidden");
+      el.authMessage.textContent = "";
+    }
+
+    function saveAuth() {
+      const name = el.authName.value.trim();
+      const email = el.authEmail.value.trim();
+      if (!name) {
+        el.authMessage.textContent = "Please enter your name.";
+        el.authName.focus();
+        return;
+      }
+      authState.user = { name, email };
+      localStorage.setItem("sswCareproUser", JSON.stringify(authState.user));
+      updateAuthUI();
+      closeAuthModal();
+    }
+
+    function logout() {
+      authState.user = null;
+      localStorage.removeItem("sswCareproUser");
+      el.authName.value = "";
+      el.authEmail.value = "";
+      updateAuthUI();
+      closeAuthModal();
+    }
+
+    function requireLogin(message = "Login or sign up to unlock the full 60-minute exam.") {
+      if (isLoggedIn()) return true;
+      openAuthModal(message);
+      return false;
+    }
+
+    function showPage(page, options = {}) {
+      currentPage = page;
+      document.querySelectorAll(".app-page[data-page]").forEach((section) => {
+        section.classList.toggle("active-page", section.dataset.page === page);
+      });
+      document.querySelectorAll("[data-page-link]").forEach((link) => {
+        link.classList.toggle("active", link.dataset.pageLink === page);
+      });
+      const targetId = options.targetId || ({ home: "home", test: "practice", vocab: "vocabulary", study: "sets" }[page]);
+      const target = targetId ? document.getElementById(targetId) : null;
+      if (options.scroll !== false && target) {
+        target.scrollIntoView({ behavior: options.smooth === false ? "auto" : "smooth", block: "start" });
+      }
+    }
+
+    function handleNavigationClick(event) {
+      const link = event.target.closest("[data-page-link]");
+      if (!link) return;
+      event.preventDefault();
+      showPage(link.dataset.pageLink, { targetId: link.dataset.scrollTarget });
+    }
+
     function startSet(customQuestions = null, options = {}) {
       const set = mockSets[state.setIndex];
       stopTimer();
@@ -3722,10 +4157,14 @@
       renderSetList();
       updateMistakeButtons();
       if (state.examMode) startTimer(60 * 60);
-      if (!options.skipScroll) scrollToPractice();
+      if (!options.skipScroll) {
+        showPage("test", { targetId: "practice" });
+        scrollToPractice();
+      }
     }
 
     function startFullExam() {
+      if (!requireLogin("Please login or sign up to unlock the full 60-minute test.")) return;
       const examQuestions = shuffle(mockSets.flatMap((set) => set.questions)).slice(0, 45);
       startSet(examQuestions, { examMode: true });
     }
@@ -3762,9 +4201,7 @@
       const set = mockSets[state.setIndex];
       const question = state.questions[state.current];
       state.answered = false;
-      el.quizTitle.textContent = state.examMode
-        ? (currentLang === "np" ? "पूरा परीक्षा अभ्यास" : "Full Exam Simulation")
-        : getSetName(set, state.setIndex);
+      el.quizTitle.textContent = state.examMode ? "Full Exam Simulation" : getSetName(set, state.setIndex);
       el.questionNumber.textContent = String(state.current + 1);
       el.questionTotal.textContent = String(state.questions.length);
       el.scoreText.textContent = `${state.correct}/${state.current}`;
@@ -3772,7 +4209,7 @@
       el.domainLabel.textContent = currentLang === "np" ? (domainNp[question.domain] || question.domain) : question.domain;
       el.questionText.textContent = question.text;
       el.nepaliHelper.classList.toggle("show", currentLang === "np");
-      el.nepaliHelper.textContent = `${domainNp[question.domain] || "केयर"}: ${domainHelpNp[question.domain] || "मुख्य कुरा ध्यान दिएर सही उत्तर छान्नुहोस्।"}`;
+      el.nepaliHelper.textContent = `${domainNp[question.domain] || question.domain}: ${domainHelpNp[question.domain] || "Read the explanation and choose the safest answer."}`;
       el.feedback.className = "feedback";
       el.feedback.textContent = "";
       el.nextBtn.textContent = state.current === state.questions.length - 1 ? t("finish") : t("next");
@@ -3808,7 +4245,7 @@
 
       el.feedback.className = "feedback show";
       const explanation = currentLang === "np"
-        ? `${question.explanation}<br><span class="np-line">${domainHelpNp[question.domain] || "यो प्रश्न फेरि दोहोर्याएर अभ्यास गर्नुहोस्।"}</span>`
+        ? `${question.explanation}<br><span class="np-line">${domainHelpNp[question.domain] || "Review this question again."}</span>`
         : question.explanation;
       el.feedback.innerHTML = `<strong>${correct && !revealed ? t("correct") : t("reviewThis")}</strong><br>${explanation}`;
       el.scoreText.textContent = `${state.correct}/${state.current + 1}`;
@@ -3899,18 +4336,11 @@
     }
 
     function getResultMessage(percent, timeUp) {
-      if (currentLang === "np") {
-        if (timeUp) return "समय सकियो। गल्ती समीक्षा गरेर Full Exam mode फेरि गर्नुहोस्।";
-        if (percent >= 80) return "राम्रो नतिजा। व्याख्या पढेर अर्को सेट गर्नुहोस्।";
-        if (percent >= 60) return "आधार राम्रो छ। गल्ती अभ्यास गरेर कमजोर क्षेत्र दोहोर्याउनुहोस्।";
-        return "पहिले अध्ययन नोट पढ्नुहोस्, त्यसपछि mistake review सहित फेरि प्रयास गर्नुहोस्।";
-      }
       if (timeUp) return "Time is up. Review mistakes, then retake Full Exam mode.";
       if (percent >= 80) return "Strong result. Review explanations, then try another set.";
       if (percent >= 60) return "Good base. Practice the mistakes and repeat weak domains.";
       return "Focus on the study notes first, then retry with mistake review.";
     }
-
     function renderSetControls() {
       el.setSelect.replaceChildren();
       mockSets.forEach((set, index) => {
@@ -3930,10 +4360,10 @@
         button.type = "button";
         button.className = `set-button${index === state.setIndex ? " active" : ""}`;
         button.innerHTML = `
-          <span class="course-menu" aria-hidden="true">•••</span>
-          <span class="course-title">${getSetName(set, index).replace(/^Set \\d+:\\s*/, "").replace(/^सेट \\d+:\\s*/, "")}</span>
-          <span class="course-period">${currentLang === "np" ? `सेट ${index + 1}` : `Mock Set ${index + 1}`}</span>
-          <span class="course-count">${set.questions.length} ${currentLang === "np" ? "प्रश्न" : "questions"}</span>
+          <span class="course-menu" aria-hidden="true">...</span>
+          <span class="course-title">${getSetName(set, index).replace(/^Set \d+:\s*/, "")}</span>
+          <span class="course-period">Mock Set ${index + 1}</span>
+          <span class="course-count">${set.questions.length} questions</span>
           <span class="course-illustration" aria-hidden="true">
             <span class="blob circle"></span>
             <span class="blob screen"></span>
@@ -3951,28 +4381,12 @@
     }
 
     function getSetName(set, index) {
-      if (currentLang !== "np") return set.name;
-      return [
-        "सेट १: आधार र सुरक्षा",
-        "सेट २: डिमेन्सिया र संवाद",
-        "सेट ३: शारीरिक केयर",
-        "सेट ४: आपतकालीन र टीमवर्क",
-        "सेट ५: अन्तिम मिश्रित समीक्षा"
-      ][index] || set.name;
+      return set.name || `Mock Set ${index + 1}`;
     }
 
     function getSetFocus(set) {
-      if (currentLang !== "np") return set.focus;
-      const focus = {
-        "Basic care principles, safety, infection prevention": "केयर आधार, सुरक्षा, संक्रमण रोकथाम",
-        "Dementia care, anxiety reduction, respectful words": "डिमेन्सिया केयर, चिन्ता घटाउने, आदरपूर्ण भाषा",
-        "Meals, bathing, excretion, mobility, sleep": "खाना, नुहाउने, शौच, हिँडडुल, निद्रा",
-        "Observation, reporting, accident response, records": "अवलोकन, रिपोर्ट, दुर्घटना प्रतिक्रिया, रेकर्ड",
-        "Mixed exam-style review across all domains": "सबै क्षेत्रको मिश्रित परीक्षा समीक्षा"
-      };
-      return focus[set.focus] || set.focus;
+      return set.focus;
     }
-
     function renderStudyTabs() {
       el.tabs.replaceChildren();
       studyMaterials.forEach((material, index) => {
@@ -4002,7 +4416,7 @@
         const option = document.createElement("option");
         option.value = category;
         option.textContent = category === "All"
-          ? (currentLang === "np" ? "सबै category" : "All categories")
+          ? "All categories"
           : (currentLang === "np" ? (domainNp[category] || category) : category);
         el.vocabCategory.append(option);
       });
@@ -4103,14 +4517,7 @@
     }
 
     function toNepaliMeaning(item) {
-      if (meaningNp[item.en]) return meaningNp[item.en];
-      const parts = item.en.split(" ");
-      if (parts.length >= 2) {
-        const last = parts[parts.length - 1];
-        const topic = parts.slice(0, -1).join(" ");
-        if (meaningNp[topic] && meaningNp[last]) return `${meaningNp[topic]} ${meaningNp[last]}`;
-      }
-      return "नेपाली अर्थ थपिएको छ";
+      return meaningNp[item.en] || item.en;
     }
 
     function setLanguage(lang) {
@@ -4141,6 +4548,8 @@
       renderVocabularyControls();
       renderVocabulary();
       renderFlashcard(vocabState.answerVisible);
+      updateAuthUI();
+      showPage(currentPage, { scroll: false });
       if (state.questions.length) renderQuestion();
     }
 
@@ -4154,8 +4563,18 @@
     el.againBtn.addEventListener("click", () => startSet());
     el.fullExamBtn.addEventListener("click", startFullExam);
     el.homeFullExamBtn.addEventListener("click", () => {
-      startSet();
-      document.getElementById("practice").scrollIntoView({ behavior: "smooth", block: "start" });
+      setPage("vocab");
+      document.getElementById("vocabulary").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    el.authButton.addEventListener("click", () => openAuthModal());
+    el.authCloseBtn.addEventListener("click", closeAuthModal);
+    el.authModal.addEventListener("click", (event) => {
+      if (event.target === el.authModal) closeAuthModal();
+    });
+    el.authSubmitBtn.addEventListener("click", saveAuth);
+    el.logoutBtn.addEventListener("click", logout);
+    el.authEmail.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") saveAuth();
     });
     el.nextBtn.addEventListener("click", nextQuestion);
     el.showAnswerBtn.addEventListener("click", showAnswer);
@@ -4168,10 +4587,12 @@
     el.homeMistakeBtn.addEventListener("click", (event) => {
       if (state.lastMistakes.length) {
         event.preventDefault();
+        event.stopImmediatePropagation();
         startSet(state.lastMistakes);
         document.getElementById("practice").scrollIntoView({ behavior: "smooth", block: "start" });
       }
     });
+    document.addEventListener("click", handleNavigationClick);
     el.vocabSearch.addEventListener("input", renderVocabulary);
     el.vocabCategory.addEventListener("change", renderVocabulary);
     el.flipCardBtn.addEventListener("click", () => renderFlashcard(!vocabState.answerVisible));
@@ -4184,6 +4605,7 @@
 
     applyLanguage();
     startSet(null, { skipScroll: true });
+    showPage("home", { scroll: false });
   </script>
 </body>
 </html>
