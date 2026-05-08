@@ -1264,13 +1264,13 @@
         content: "H";
       }
       .bottom-nav a:nth-child(2)::before {
-        content: "L";
+        content: "T";
       }
       .bottom-nav a:nth-child(3)::before {
-        content: "P";
+        content: "V";
       }
       .bottom-nav a:nth-child(4)::before {
-        content: "U";
+        content: "C";
       }
 
       .bottom-nav a:first-child {
@@ -1968,6 +1968,37 @@
         background: #fff;
       }
 
+      .vocab-pager {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--line);
+        background: #f8fafc;
+      }
+
+      .vocab-pager span {
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-weight: 800;
+      }
+
+      .vocab-pager div {
+        display: flex;
+        gap: 8px;
+      }
+
+      .vocab-pager .button {
+        min-height: 38px;
+        padding: 0 12px;
+      }
+
+      .vocab-pager .button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+
       .input {
         min-height: 44px;
         width: 100%;
@@ -2041,6 +2072,19 @@
         background: linear-gradient(145deg, #ffffff, #ecfdf5);
         border: 1px solid var(--line);
         text-align: center;
+      }
+
+      .flashcard-panel {
+        width: min(100%, 720px);
+        margin: 0 auto;
+      }
+
+      #flashcards.learning-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #flashcards .flashcard {
+        min-height: min(62vh, 420px);
       }
 
       .flash-front {
@@ -3721,10 +3765,21 @@
         }
 
         .vocab-tools,
+        .vocab-pager,
         .toolbar,
         .exam-grid,
         .dashboard {
           grid-template-columns: 1fr;
+        }
+
+        .vocab-pager {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .vocab-pager div {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
         }
 
         .vocab-list {
@@ -3801,18 +3856,18 @@
       </header>
 
       <nav class="quick-nav" aria-label="Quick navigation">
-        <a href="#home" id="quickHome">Home</a>
-        <a href="#practice" id="quickPractice">Test</a>
-        <a href="#vocabulary" id="quickVocab">Vocab</a>
-        <a href="#flashcards" id="quickCards">Cards</a>
-        <a href="#study" id="quickStudy">Study</a>
+        <a href="#home" id="quickHome" data-page-link="home">Home</a>
+        <a href="#practice" id="quickPractice" data-page-link="test">Test</a>
+        <a href="#vocabulary" id="quickVocab" data-page-link="vocab">Vocab</a>
+        <a href="#flashcards" id="quickCards" data-page-link="cards">Cards</a>
+        <a href="#study" id="quickStudy" data-page-link="study">Study</a>
       </nav>
 
       <nav class="bottom-nav" aria-label="Mobile navigation">
         <a href="#home" id="bottomHome" data-page-link="home">Home</a>
-        <a href="#study" id="bottomTest" data-page-link="study">Learn</a>
-        <a href="#practice" id="bottomVocab" data-page-link="test">Progress</a>
-        <a href="#profile" id="bottomStudy" data-page-link="profile">Profile</a>
+        <a href="#practice" id="bottomTest" data-page-link="test">Test</a>
+        <a href="#vocabulary" id="bottomVocab" data-page-link="vocab">Vocab</a>
+        <a href="#flashcards" id="bottomStudy" data-page-link="cards">Cards</a>
       </nav>
 
       <section
@@ -3868,19 +3923,17 @@
           <div class="word-feature-body">
             <span class="word-book" aria-hidden="true">A</span>
             <div class="word-feature-copy">
-              <h3>Empathy</h3>
-              <p class="pronunciation">/empəθi/</p>
+              <h3 id="wordDayTitle">Care word</h3>
+              <p class="pronunciation" id="wordDayReading">Loading...</p>
+              <p><span id="wordDayMeaning">nursing care</span></p>
               <p>
-                The ability to understand and share the feelings of another
-                person.
-              </p>
-              <p>
-                <strong>Synonym:</strong> compassion, understanding, sensitivity
+                <strong>Category:</strong>
+                <span id="wordDayCategory">Core care</span>
               </p>
             </div>
           </div>
           <button class="start-pill" id="homeFullExamBtn" type="button">
-            Use in a sentence <span aria-hidden="true">&rarr;</span>
+            Practice cards <span aria-hidden="true">&rarr;</span>
           </button>
         </section>
 
@@ -3918,15 +3971,10 @@
             <strong id="homeTabSets">Mock Test</strong>
             <span id="homeTabSetsSub">Chapterwise practice</span>
           </a>
-          <a
-            class="menu-tile"
-            href="#newsFlash"
-            data-page-link="home"
-            data-scroll-target="newsFlash"
-          >
-            <span class="menu-icon">N</span>
-            <strong>Flash News</strong>
-            <span>SSW exam updates and alerts</span>
+          <a class="menu-tile" href="#flashcards" data-page-link="cards">
+            <span class="menu-icon">FC</span>
+            <strong>Flashcards</strong>
+            <span>One word at a time</span>
           </a>
         </section>
 
@@ -4147,10 +4195,28 @@
               <option value="All">All categories</option>
             </select>
           </div>
+          <div class="vocab-pager">
+            <span id="vocabPageInfo">Page 1 of 1</span>
+            <div>
+              <button class="button" id="vocabPrevBtn" type="button">
+                Previous
+              </button>
+              <button class="button" id="vocabNextBtn" type="button">
+                Next
+              </button>
+            </div>
+          </div>
           <div class="vocab-list" id="vocabList"></div>
         </section>
+      </section>
 
-        <section class="panel" id="flashcards">
+      <section
+        class="learning-grid app-page"
+        id="flashcards"
+        data-page="cards"
+        aria-label="Flashcard practice"
+      >
+        <section class="panel flashcard-panel">
           <div class="section-head">
             <h2>Flashcard Practice</h2>
             <span class="muted"
@@ -4185,15 +4251,15 @@
         <section class="panel" id="sets">
           <div class="section-head">
             <h2>Mock Test Sets</h2>
-            <span class="muted">Select a set and start</span>
+            <span class="muted">Chapter number, name, and mock questions</span>
           </div>
           <div class="set-list" id="setList"></div>
         </section>
 
-        <section class="panel" id="study">
+        <section class="panel" id="studyMaterialsPanel">
           <div class="section-head">
-            <h2>Complete Study Materials</h2>
-            <span class="muted">Read before and after practice</span>
+            <h2>Chapterwise Notes & Guides</h2>
+            <span class="muted">Study material only, no mock answers here</span>
           </div>
           <div class="tabs" id="tabs"></div>
           <div class="study-body" id="studyBody"></div>
@@ -5310,14 +5376,13 @@
 
       const mockSets = studyChapters.map((chapter) => ({
         name: `${chapter.chapter}: ${chapter.title}`,
+        chapterNo: chapter.chapter,
+        chapterTitle: chapter.title,
         focus: chapter.focus,
         questions: chapter.questions,
       }));
 
-      const studyMaterials = [
-        ...studyChapters.map(chapterToStudyMaterial),
-        ...japaneseVocabularyChapters.map(vocabChapterToStudyMaterial),
-      ];
+      const studyMaterials = studyChapters.map(chapterToStudyMaterial);
 
       const studyMaterialNp = {};
 
@@ -5328,6 +5393,7 @@
       const vocabState = {
         flashIndex: 0,
         answerVisible: false,
+        page: 1,
       };
       let currentLang = localStorage.getItem("sswLanguageMode") || "en";
       let currentPage = "home";
@@ -5346,10 +5412,10 @@
           quickCards: "Cards",
           quickStudy: "Study",
           bottomHome: "Home",
-          bottomTest: "Learn",
-          bottomVocab: "Progress",
+          bottomTest: "Test",
+          bottomVocab: "Vocab",
           bottomCards: "Cards",
-          bottomStudy: "Profile",
+          bottomStudy: "Cards",
           homeKicker: "SSW Carepro",
           homeTitle: "Hi! User",
           homeCopy:
@@ -5415,10 +5481,10 @@
           quickCards: "Cards",
           quickStudy: "Study",
           bottomHome: "Home",
-          bottomTest: "Learn",
-          bottomVocab: "Progress",
+          bottomTest: "Test",
+          bottomVocab: "Vocab",
           bottomCards: "Cards",
-          bottomStudy: "Profile",
+          bottomStudy: "Cards",
           homeKicker: "SSW Carepro",
           homeTitle: "Hi! User",
           homeCopy:
@@ -5675,8 +5741,15 @@
         vocabShown: document.getElementById("vocabShown"),
         vocabSearch: document.getElementById("vocabSearch"),
         vocabCategory: document.getElementById("vocabCategory"),
+        vocabPageInfo: document.getElementById("vocabPageInfo"),
+        vocabPrevBtn: document.getElementById("vocabPrevBtn"),
+        vocabNextBtn: document.getElementById("vocabNextBtn"),
         vocabList: document.getElementById("vocabList"),
         knownCount: document.getElementById("knownCount"),
+        wordDayTitle: document.getElementById("wordDayTitle"),
+        wordDayReading: document.getElementById("wordDayReading"),
+        wordDayMeaning: document.getElementById("wordDayMeaning"),
+        wordDayCategory: document.getElementById("wordDayCategory"),
         flashIndex: document.getElementById("flashIndex"),
         flashTotal: document.getElementById("flashTotal"),
         flashCategory: document.getElementById("flashCategory"),
@@ -5784,6 +5857,7 @@
             home: "home",
             test: "practice",
             vocab: "vocabulary",
+            cards: "flashcards",
             study: "sets",
           }[page];
         const target = targetId ? document.getElementById(targetId) : null;
@@ -5933,8 +6007,8 @@
 
         el.feedback.className = "feedback show";
         el.feedback.textContent = revealed
-          ? "Question marked for review. Correct answer will be shown at the end."
-          : "Answer saved. Correct answer will be shown at the end.";
+          ? "Question marked for final review."
+          : "Answer saved. Review it after finishing.";
         el.scoreText.textContent = `${state.correct}/${state.current + 1}`;
       }
 
@@ -6092,9 +6166,9 @@
           button.className = `set-button${index === state.setIndex ? " active" : ""}`;
           button.innerHTML = `
           <span class="course-menu" aria-hidden="true">...</span>
-          <span class="course-title">${getSetName(set, index).replace(/^Set \d+:\s*/, "")}</span>
-          <span class="course-period">Mock Set ${index + 1}</span>
-          <span class="course-count">${set.questions.length} questions</span>
+          <span class="course-title">${set.chapterNo}: ${set.chapterTitle}</span>
+          <span class="course-period">Mock Test ${index + 1}</span>
+          <span class="course-count">${set.questions.length} mock questions</span>
           <span class="course-illustration" aria-hidden="true">
             <span class="blob circle"></span>
             <span class="blob screen"></span>
@@ -6180,7 +6254,18 @@
 
       function renderVocabulary() {
         const filtered = getFilteredVocabulary();
-        el.vocabShown.textContent = String(filtered.length);
+        const pageSize = 10;
+        const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+        vocabState.page = Math.min(Math.max(1, vocabState.page), totalPages);
+        const start = (vocabState.page - 1) * pageSize;
+        const pageItems = filtered.slice(start, start + pageSize);
+        el.vocabShown.textContent = `${pageItems.length}/${filtered.length}`;
+        el.vocabPageInfo.textContent = filtered.length
+          ? `Page ${vocabState.page} of ${totalPages} - ${filtered.length} words`
+          : "No vocabulary found";
+        el.vocabPrevBtn.disabled = vocabState.page <= 1 || !filtered.length;
+        el.vocabNextBtn.disabled =
+          vocabState.page >= totalPages || !filtered.length;
         el.vocabList.replaceChildren();
 
         if (!filtered.length) {
@@ -6191,7 +6276,7 @@
           return;
         }
 
-        filtered.forEach((item) => {
+        pageItems.forEach((item) => {
           const card = document.createElement("div");
           card.className = "vocab-card";
           card.innerHTML = `
@@ -6211,12 +6296,28 @@
               vocabulary.findIndex((word) => word.id === item.id),
             );
             renderFlashcard(false);
-            document
-              .getElementById("flashcards")
-              .scrollIntoView({ behavior: "smooth", block: "start" });
+            showPage("cards", { targetId: "flashcards" });
           });
           el.vocabList.append(card);
         });
+      }
+
+      function renderWordOfTheDay() {
+        const todayKey = new Date().toISOString().slice(0, 10);
+        const seed = [...todayKey].reduce(
+          (sum, char) => sum + char.charCodeAt(0),
+          0,
+        );
+        const item = vocabulary[seed % vocabulary.length];
+        if (!item) return;
+        el.wordDayTitle.textContent = item.jp;
+        el.wordDayReading.textContent = `${item.kana} / ${item.romaji}`;
+        el.wordDayMeaning.textContent =
+          currentLang === "np" ? toNepaliMeaning(item) : item.en;
+        el.wordDayCategory.textContent =
+          currentLang === "np"
+            ? domainNp[item.category] || item.category
+            : item.category;
       }
 
       function renderFlashcard(showAnswer = false) {
@@ -6341,6 +6442,7 @@
         renderStudyTabs();
         renderVocabularyControls();
         renderVocabulary();
+        renderWordOfTheDay();
         renderFlashcard(vocabState.answerVisible);
         updateAuthUI();
         showPage(currentPage, { scroll: false });
@@ -6357,10 +6459,7 @@
       el.againBtn.addEventListener("click", () => startSet());
       el.fullExamBtn.addEventListener("click", startFullExam);
       el.homeFullExamBtn.addEventListener("click", () => {
-        setPage("vocab");
-        document
-          .getElementById("vocabulary")
-          .scrollIntoView({ behavior: "smooth", block: "start" });
+        showPage("cards", { targetId: "flashcards" });
       });
       el.authButton.addEventListener("click", () => openAuthModal());
       el.authCloseBtn.addEventListener("click", closeAuthModal);
@@ -6391,8 +6490,22 @@
         }
       });
       document.addEventListener("click", handleNavigationClick);
-      el.vocabSearch.addEventListener("input", renderVocabulary);
-      el.vocabCategory.addEventListener("change", renderVocabulary);
+      el.vocabSearch.addEventListener("input", () => {
+        vocabState.page = 1;
+        renderVocabulary();
+      });
+      el.vocabCategory.addEventListener("change", () => {
+        vocabState.page = 1;
+        renderVocabulary();
+      });
+      el.vocabPrevBtn.addEventListener("click", () => {
+        vocabState.page -= 1;
+        renderVocabulary();
+      });
+      el.vocabNextBtn.addEventListener("click", () => {
+        vocabState.page += 1;
+        renderVocabulary();
+      });
       el.flipCardBtn.addEventListener("click", () =>
         renderFlashcard(!vocabState.answerVisible),
       );
