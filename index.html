@@ -1807,6 +1807,12 @@
         color: var(--red);
       }
 
+      .option.selected {
+        border-color: var(--blue);
+        background: #eff6ff;
+        color: #1d4ed8;
+      }
+
       .feedback {
         display: none;
         margin-top: 14px;
@@ -1861,6 +1867,27 @@
         border-radius: 12px;
         border: 1px solid var(--line);
         background: #f8fafc;
+      }
+
+      .review-item.correct {
+        border-color: rgba(6, 118, 71, 0.28);
+        background: #f0fdf4;
+      }
+
+      .review-item.incorrect {
+        border-color: rgba(180, 35, 24, 0.24);
+        background: #fff7f7;
+      }
+
+      .review-item strong,
+      .review-item span {
+        display: block;
+      }
+
+      .review-item span {
+        margin-top: 5px;
+        color: var(--muted);
+        line-height: 1.45;
       }
 
       .materials {
@@ -4036,7 +4063,7 @@
               <div class="feedback" id="feedback"></div>
               <div class="actions">
                 <button class="button" id="showAnswerBtn" type="button">
-                  Show Answer
+                  Mark Review
                 </button>
                 <button class="button primary" id="nextBtn" type="button">
                   Next
@@ -5363,7 +5390,7 @@
             "Use the mock sets to train exam knowledge and workplace judgment: dignity, independence support, safety, communication, dementia care, infection control, body mechanics, and reporting.",
           restart: "Start Set",
           fullExam: "Full Exam 45Q",
-          showAnswer: "Show Answer",
+          showAnswer: "Mark Review",
           next: "Next",
           finish: "Finish",
           flipShow: "Show Meaning",
@@ -5374,7 +5401,7 @@
           noMistakes: "No Mistakes",
           reviewMistakes: "Review Mistakes",
           practiceMistakes: "Practice Mistakes",
-          chooseFirst: "Choose an answer or show the answer before moving on.",
+          chooseFirst: "Choose an answer or mark this question for review.",
           correct: "Correct",
           reviewThis: "Review this",
         },
@@ -5432,7 +5459,7 @@
             "Use the mock sets to train exam knowledge and workplace judgment: dignity, independence support, safety, communication, dementia care, infection control, body mechanics, and reporting.",
           restart: "Start Set",
           fullExam: "Full Exam 45Q",
-          showAnswer: "Show Answer",
+          showAnswer: "Mark Review",
           next: "Next",
           finish: "Finish",
           flipShow: "Show Meaning",
@@ -5443,7 +5470,7 @@
           noMistakes: "No Mistakes",
           reviewMistakes: "Review Mistakes",
           practiceMistakes: "Practice Mistakes",
-          chooseFirst: "Choose an answer or show the answer before moving on.",
+          chooseFirst: "Choose an answer or mark this question for review.",
           correct: "Correct",
           reviewThis: "Review this",
         },
@@ -5587,8 +5614,11 @@
         current: 0,
         correct: 0,
         answered: false,
+        selectedIndex: null,
         mistakes: [],
         lastMistakes: [],
+        answers: [],
+        lastAnswers: [],
         examMode: false,
         timerId: null,
         timeRemaining: 0,
@@ -5784,7 +5814,9 @@
         state.current = 0;
         state.correct = 0;
         state.answered = false;
+        state.selectedIndex = null;
         state.mistakes = [];
+        state.answers = [];
         el.quizView.style.display = "block";
         el.resultsView.classList.remove("show");
         renderQuestion();
@@ -5842,6 +5874,7 @@
         const set = mockSets[state.setIndex];
         const question = state.questions[state.current];
         state.answered = false;
+        state.selectedIndex = null;
         el.quizTitle.textContent = state.examMode
           ? "Full Exam Simulation"
           : getSetName(set, state.setIndex);
@@ -5879,6 +5912,13 @@
         const question = state.questions[state.current];
         const correct = selectedIndex === question.answer;
         state.answered = true;
+        state.selectedIndex = selectedIndex;
+        state.answers[state.current] = {
+          question,
+          selectedIndex,
+          correct,
+          revealed,
+        };
 
         if (correct && !revealed) {
           state.correct += 1;
@@ -5888,17 +5928,13 @@
 
         [...el.options.children].forEach((button, index) => {
           button.disabled = true;
-          if (index === question.answer) button.classList.add("correct");
-          if (index === selectedIndex && !correct)
-            button.classList.add("incorrect");
+          if (index === selectedIndex) button.classList.add("selected");
         });
 
         el.feedback.className = "feedback show";
-        const explanation =
-          currentLang === "np"
-            ? `${question.explanation}<br><span class="np-line">${domainHelpNp[question.domain] || "Review this question again."}</span>`
-            : question.explanation;
-        el.feedback.innerHTML = `<strong>${correct && !revealed ? t("correct") : t("reviewThis")}</strong><br>${explanation}`;
+        el.feedback.textContent = revealed
+          ? "Question marked for review. Correct answer will be shown at the end."
+          : "Answer saved. Correct answer will be shown at the end.";
         el.scoreText.textContent = `${state.correct}/${state.current + 1}`;
       }
 
@@ -5924,10 +5960,20 @@
 
       function showResults(timeUp = false) {
         if (timeUp) {
-          const unanswered = state.questions
-            .slice(state.current)
-            .filter((question) => !state.mistakes.includes(question));
+          const unanswered = state.questions.filter(
+            (question, index) => !state.answers[index],
+          );
           state.mistakes.push(...unanswered);
+          unanswered.forEach((question) => {
+            const index = state.questions.indexOf(question);
+            state.answers[index] = {
+              question,
+              selectedIndex: null,
+              correct: false,
+              revealed: false,
+              unanswered: true,
+            };
+          });
         }
         const percent = Math.round(
           (state.correct / state.questions.length) * 100,
@@ -5937,6 +5983,17 @@
           localStorage.setItem("sswBestExamScore", String(percent));
         }
         state.lastMistakes = [...state.mistakes];
+        state.lastAnswers = state.questions.map((question, index) => {
+          return (
+            state.answers[index] || {
+              question,
+              selectedIndex: null,
+              correct: false,
+              revealed: false,
+              unanswered: true,
+            }
+          );
+        });
         stopTimer();
         el.progressFill.style.width = "100%";
         el.quizView.style.display = "none";
@@ -5976,19 +6033,32 @@
 
       function renderReview() {
         el.reviewList.replaceChildren();
-        const list = state.mistakes.length ? state.mistakes : [];
+        const list = state.lastAnswers.length ? state.lastAnswers : [];
         if (!list.length) {
           const item = document.createElement("div");
           item.className = "review-item";
-          item.textContent = "No mistakes in this round.";
+          item.textContent = "No answers to review.";
           el.reviewList.append(item);
           return;
         }
 
-        list.forEach((question) => {
+        list.forEach((entry, index) => {
+          const question = entry.question;
+          const selectedText =
+            entry.selectedIndex === null || entry.selectedIndex === undefined
+              ? "Not answered"
+              : question.options[entry.selectedIndex];
+          const correctText = question.options[question.answer];
+          const mark = entry.correct ? "1/1" : "0/1";
           const item = document.createElement("div");
-          item.className = "review-item";
-          item.innerHTML = `<strong>${question.domain}: ${question.text}</strong><span>Answer: ${question.options[question.answer]}</span><br><span>${question.explanation}</span>`;
+          item.className = `review-item ${entry.correct ? "correct" : "incorrect"}`;
+          item.innerHTML = `
+            <strong>Q${index + 1}. ${question.domain}: ${question.text}</strong>
+            <span><b>Marks:</b> ${mark}</span>
+            <span><b>Your answer:</b> ${selectedText}</span>
+            <span><b>Correct answer:</b> ${correctText}</span>
+            <span><b>Explanation:</b> ${question.explanation}</span>
+          `;
           el.reviewList.append(item);
         });
       }
