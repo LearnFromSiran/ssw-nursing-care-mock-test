@@ -1892,7 +1892,7 @@
 
       .materials {
         display: grid;
-        grid-template-columns: 0.9fr 1.1fr;
+        grid-template-columns: 1fr;
         gap: 18px;
       }
 
@@ -2186,6 +2186,125 @@
         display: grid;
         gap: 14px;
         padding: 16px;
+      }
+
+      .chapter-list {
+        display: grid;
+        gap: 12px;
+        padding: 14px;
+      }
+
+      .chapter-item {
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+        overflow: hidden;
+      }
+
+      .chapter-item[open] {
+        border-color: #b8d2ff;
+        box-shadow: 0 12px 24px rgba(29, 100, 216, 0.1);
+      }
+
+      .chapter-summary {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+        align-items: center;
+        min-height: 68px;
+        padding: 14px 16px;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .chapter-summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .chapter-title {
+        display: block;
+        color: #09235a;
+        font-size: 1rem;
+        line-height: 1.25;
+        font-weight: 950;
+      }
+
+      .chapter-meta {
+        display: block;
+        margin-top: 4px;
+        color: #64748b;
+        font-size: 0.84rem;
+        font-weight: 750;
+      }
+
+      .chapter-chevron {
+        display: grid;
+        place-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 999px;
+        background: #eff6ff;
+        color: #0757c7;
+        font-size: 1.25rem;
+        font-weight: 950;
+        transition: transform 180ms ease;
+      }
+
+      .chapter-item[open] .chapter-chevron {
+        transform: rotate(90deg);
+      }
+
+      .chapter-content {
+        display: grid;
+        gap: 12px;
+        padding: 0 16px 16px;
+      }
+
+      .subchapter-card,
+      .mock-question-card {
+        padding: 13px;
+        border: 1px solid #e8eef6;
+        border-radius: 14px;
+        background: #f8fbff;
+      }
+
+      .subchapter-card h3,
+      .mock-question-card h3 {
+        margin: 0 0 8px;
+        color: #102554;
+        font-size: 0.98rem;
+      }
+
+      .subchapter-card p,
+      .subchapter-card li,
+      .mock-question-card p,
+      .mock-question-card li {
+        color: #475569;
+        line-height: 1.55;
+      }
+
+      .subchapter-card ul,
+      .mock-question-card ul {
+        margin: 8px 0 0;
+        padding-left: 18px;
+      }
+
+      .mock-question-card ol {
+        margin: 8px 0 0;
+        padding-left: 20px;
+      }
+
+      .mock-question-card .answer-line {
+        margin-top: 10px;
+        color: #0f766e;
+        font-weight: 850;
+      }
+
+      .chapter-start {
+        justify-self: start;
+        min-height: 40px;
+        padding: 0 14px;
       }
 
       .set-button {
@@ -3858,6 +3977,18 @@
         color: #fff;
       }
 
+      #practice.hero {
+        grid-template-columns: 1fr;
+      }
+
+      #mockChapterPanel {
+        order: 1;
+      }
+
+      .quiz-panel {
+        order: 2;
+      }
+
       .intro {
         min-height: auto;
         background: #0f766e;
@@ -4717,9 +4848,9 @@
           </a>
           <a
             class="menu-tile"
-            href="#sets"
-            data-page-link="study"
-            data-scroll-target="sets"
+            href="#practice"
+            data-page-link="test"
+            data-scroll-target="mockChapterPanel"
           >
             <span class="menu-icon">Q</span>
             <strong id="homeTabSets">Mock Test</strong>
@@ -4811,37 +4942,12 @@
       </section>
 
       <section class="hero app-page" id="practice" data-page="test">
-        <section class="intro panel">
-          <div class="chip-row">
-            <span class="chip">CBT Style</span>
-            <span class="chip">Nursing Care Skills</span>
-            <span class="chip">Care Japanese</span>
+        <section class="panel" id="mockChapterPanel">
+          <div class="section-head">
+            <h2>Progress: Mock Test Questions</h2>
+            <span class="muted">Tap chapter to open questions</span>
           </div>
-          <h2 id="introTitle">
-            Practice like a real care worker, not only a test taker.
-          </h2>
-          <p id="introCopy">
-            Use the mock sets to train exam knowledge and workplace judgment:
-            dignity, independence support, safety, communication, dementia care,
-            infection control, body mechanics, and reporting.
-          </p>
-          <div class="exam-grid">
-            <div class="exam-card">
-              <span>Skills test</span><strong>45 questions / 60 min</strong>
-            </div>
-            <div class="exam-card">
-              <span>Japanese care test</span
-              ><strong>15 questions / 30 min</strong>
-            </div>
-            <div class="exam-card">
-              <span>Official skills domains</span
-              ><strong>Care basics, body, communication, physical care</strong>
-            </div>
-            <div class="exam-card">
-              <span>App practice</span
-              ><strong>14 chapter sets / 56 questions</strong>
-            </div>
-          </div>
+          <div class="chapter-list" id="mockChapterList"></div>
         </section>
 
         <section class="panel quiz-panel">
@@ -5007,21 +5113,12 @@
       </section>
 
       <section class="materials app-page" id="study" data-page="study">
-        <section class="panel" id="sets">
-          <div class="section-head">
-            <h2>Mock Test Sets</h2>
-            <span class="muted">Chapter number, name, and mock questions</span>
-          </div>
-          <div class="set-list" id="setList"></div>
-        </section>
-
         <section class="panel" id="studyMaterialsPanel">
           <div class="section-head">
-            <h2>Chapterwise Notes & Guides</h2>
-            <span class="muted">Study material only, no mock answers here</span>
+            <h2>Learn: Chapterwise Notes & Guides</h2>
+            <span class="muted">Tap chapter to open subchapter guide</span>
           </div>
-          <div class="tabs" id="tabs"></div>
-          <div class="study-body" id="studyBody"></div>
+          <div class="chapter-list" id="studyChapterList"></div>
         </section>
       </section>
     </main>
@@ -6496,6 +6593,8 @@
         reviewList: document.getElementById("reviewList"),
         tabs: document.getElementById("tabs"),
         studyBody: document.getElementById("studyBody"),
+        studyChapterList: document.getElementById("studyChapterList"),
+        mockChapterList: document.getElementById("mockChapterList"),
         vocabTotal: document.getElementById("vocabTotal"),
         vocabShown: document.getElementById("vocabShown"),
         vocabSearch: document.getElementById("vocabSearch"),
@@ -6617,7 +6716,8 @@
             test: "practice",
             vocab: "vocabulary",
             cards: "flashcards",
-            study: "sets",
+            study: "studyMaterialsPanel",
+            profile: "profile",
           }[page];
         const target = targetId ? document.getElementById(targetId) : null;
         if (options.scroll !== false && target) {
@@ -6918,29 +7018,56 @@
       }
 
       function renderSetList() {
-        el.setList.replaceChildren();
+        const list = el.mockChapterList || el.setList;
+        if (!list) return;
+        list.replaceChildren();
         mockSets.forEach((set, index) => {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.className = `set-button${index === state.setIndex ? " active" : ""}`;
-          button.innerHTML = `
-          <span class="course-menu" aria-hidden="true">...</span>
-          <span class="course-title">${set.chapterNo}: ${set.chapterTitle}</span>
-          <span class="course-period">Mock Test ${index + 1}</span>
-          <span class="course-count">${set.questions.length} mock questions</span>
-          <span class="course-illustration" aria-hidden="true">
-            <span class="blob circle"></span>
-            <span class="blob screen"></span>
-            <span class="blob paper"></span>
-            <span class="care-symbol"></span>
-          </span>
-        `;
-          button.addEventListener("click", () => {
+          const details = document.createElement("details");
+          details.className = "chapter-item";
+          const questionCards = set.questions
+            .map(
+              (question, questionIndex) => `
+                <article class="mock-question-card">
+                  <h3>Question ${questionIndex + 1}</h3>
+                  <p>${question.q}</p>
+                  <ol>
+                    ${question.options.map((option) => `<li>${option}</li>`).join("")}
+                  </ol>
+                  <p class="answer-line">Answer shown after completing the mock test.</p>
+                </article>
+              `,
+            )
+            .join("");
+          details.innerHTML = `
+            <summary class="chapter-summary">
+              <span>
+                <span class="chapter-title">${set.chapterNo}: ${set.chapterTitle}</span>
+                <span class="chapter-meta">Mock Test ${index + 1} · ${set.questions.length} questions</span>
+              </span>
+              <span class="chapter-chevron" aria-hidden="true">›</span>
+            </summary>
+            <div class="chapter-content">
+              <button class="button primary chapter-start" type="button">Start this mock test</button>
+              ${questionCards}
+            </div>
+          `;
+          details
+            .querySelector(".chapter-start")
+            .addEventListener("click", (event) => {
+              event.preventDefault();
+              state.setIndex = index;
+              el.setSelect.value = String(index);
+              startSet();
+            });
+          details.addEventListener("toggle", () => {
+            if (!details.open) return;
             state.setIndex = index;
-            el.setSelect.value = String(index);
-            startSet();
+            if (el.setSelect) el.setSelect.value = String(index);
+            [...list.querySelectorAll(".chapter-item")].forEach((item) => {
+              if (item !== details) item.open = false;
+            });
           });
-          el.setList.append(button);
+          list.append(details);
         });
       }
 
@@ -6952,6 +7079,11 @@
         return set.focus;
       }
       function renderStudyTabs() {
+        if (el.studyChapterList) {
+          renderStudyChapters();
+          return;
+        }
+        if (!el.tabs) return;
         el.tabs.replaceChildren();
         studyMaterials.forEach((material, index) => {
           const button = document.createElement("button");
@@ -6967,7 +7099,33 @@
         showStudy(0);
       }
 
+      function renderStudyChapters() {
+        el.studyChapterList.replaceChildren();
+        studyMaterials.forEach((material, index) => {
+          const details = document.createElement("details");
+          details.className = "chapter-item";
+          const html =
+            currentLang === "np" && material.htmlNp
+              ? material.htmlNp
+              : material.html;
+          details.innerHTML = `
+            <summary class="chapter-summary">
+              <span>
+                <span class="chapter-title">${material.title}</span>
+                <span class="chapter-meta">Subchapter notes, guides, and key points</span>
+              </span>
+              <span class="chapter-chevron" aria-hidden="true">›</span>
+            </summary>
+            <div class="chapter-content">
+              <article class="subchapter-card">${html}</article>
+            </div>
+          `;
+          el.studyChapterList.append(details);
+        });
+      }
+
       function showStudy(index) {
+        if (!el.tabs || !el.studyBody) return;
         [...el.tabs.children].forEach((tab, tabIndex) => {
           tab.classList.toggle("active", tabIndex === index);
         });
