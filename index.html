@@ -7516,6 +7516,14 @@
               <article class="subchapter-card">${html}</article>
             </div>
           `;
+            details.addEventListener("toggle", () => {
+              if (!details.open) return;
+              el.studyChapterList
+                .querySelectorAll(".chapter-item")
+                .forEach((item) => {
+                  if (item !== details) item.open = false;
+                });
+            });
             group.append(details);
           });
           el.studyChapterList.append(group);
