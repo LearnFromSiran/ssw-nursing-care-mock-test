@@ -2165,6 +2165,19 @@
         gap: 10px;
       }
 
+      .term-heading {
+        display: grid;
+        grid-template-columns:
+          minmax(90px, 0.65fr) minmax(110px, 0.85fr)
+          minmax(130px, 1fr);
+        gap: 10px;
+        padding: 0 12px;
+        color: #64748b;
+        font-size: 0.76rem;
+        font-weight: 950;
+        text-transform: uppercase;
+      }
+
       .term {
         display: grid;
         grid-template-columns:
@@ -2179,6 +2192,12 @@
 
       .term strong {
         font-family: "Noto Sans JP", sans-serif;
+      }
+
+      .term .kana {
+        font-family: "Noto Sans JP", sans-serif;
+        color: #075bd8;
+        font-weight: 850;
       }
 
       .term span {
@@ -4194,6 +4213,10 @@
           gap: 4px;
         }
 
+        .term-heading {
+          display: none;
+        }
+
         .flashcard {
           min-height: 230px;
           margin: 10px;
@@ -6181,15 +6204,69 @@
       // With localStorage persistence, accessibility, mobile optimization
       // =====================================================
 
+      const supplementalStudyTerms = [
+        ["尊厳", "そんげん", "dignity"],
+        ["自立", "じりつ", "independence"],
+        ["支援", "しえん", "support"],
+        ["介助", "かいじょ", "assistance"],
+        ["観察", "かんさつ", "observation"],
+        ["記録", "きろく", "record"],
+        ["報告", "ほうこく", "report"],
+        ["安全", "あんぜん", "safety"],
+        ["確認", "かくにん", "confirmation"],
+        ["予防", "よぼう", "prevention"],
+        ["感染", "かんせん", "infection"],
+        ["認知症", "にんちしょう", "dementia"],
+        ["移乗", "いじょう", "transfer"],
+        ["排泄", "はいせつ", "elimination"],
+        ["食事", "しょくじ", "meal"],
+        ["入浴", "にゅうよく", "bathing"],
+      ];
+
+      function normalizeStudyTerm(term) {
+        const kanji = term[0] || "";
+        const reading = term[1] || "";
+        const meaning = term[2] || "";
+        const readingOnly = reading.includes("/")
+          ? reading.split("/")[0].trim()
+          : reading;
+        return [kanji, readingOnly, meaning];
+      }
+
+      function expandStudyTerms(terms, minimum = 10) {
+        const expanded = terms.map(normalizeStudyTerm);
+        supplementalStudyTerms.forEach((term) => {
+          if (expanded.length >= minimum) return;
+          if (!expanded.some((item) => item[0] === term[0]))
+            expanded.push(term);
+        });
+        return expanded.slice(0, Math.max(minimum, expanded.length));
+      }
+
+      function renderStudyTerms(terms) {
+        return `
+          <div class="term-grid">
+            <div class="term-heading"><span>Kanji / Japanese</span><span>Hiragana</span><span>Meaning</span></div>
+            ${expandStudyTerms(terms)
+              .map(
+                (term) =>
+                  `<div class="term"><strong>${term[0]}</strong><span class="kana">${term[1]}</span><span>${term[2]}</span></div>`,
+              )
+              .join("")}
+          </div>
+        `;
+      }
+
       function chapterToStudyMaterial(chapter) {
         const nihongoTitle = chapter.nihongo?.title || "";
         const nihongoFocus = chapter.nihongo?.focus || "";
+        const expandedTerms = expandStudyTerms(chapter.terms);
         return {
           title: `${chapter.chapter}: ${chapter.title}`,
           part: chapter.part,
           chapter: chapter.chapter,
           guideCount: chapter.bullets.length,
-          termCount: chapter.terms.length,
+          termCount: expandedTerms.length,
           source: chapter.source,
           html: `
           <div class="learn-card">
@@ -6206,7 +6283,7 @@
             </section>
             <section class="learn-section">
               <h4>Important terms</h4>
-              <div class="term-grid">${chapter.terms.map((term) => `<div class="term"><strong>${term[0]}</strong><span>${term[1]}</span><span>${term[2]}</span></div>`).join("")}</div>
+              ${renderStudyTerms(chapter.terms)}
             </section>
             <section class="learn-section remember-box">
               <h4>Remember for exam</h4>
