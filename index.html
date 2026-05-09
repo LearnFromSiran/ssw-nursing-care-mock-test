@@ -4047,6 +4047,521 @@
           box-shadow: none;
         }
       }
+
+      /* Exact mockup pass */
+      .home-screen {
+        max-width: 607px;
+        min-height: 1155px;
+        padding: 0 28px 104px;
+        border-radius: 58px;
+        background: #ffffff;
+        box-shadow:
+          0 22px 36px rgba(15, 23, 42, 0.23),
+          inset 0 0 0 1px rgba(226, 232, 240, 0.9);
+      }
+
+      .home-screen::before {
+        content: "";
+        position: absolute;
+        top: 124px;
+        left: 0;
+        right: 0;
+        height: 72px;
+        z-index: 1;
+        border-radius: 0 0 50% 50% / 0 0 100% 100%;
+        background: #ffffff;
+      }
+
+      .home-screen > * {
+        position: relative;
+        z-index: 2;
+      }
+
+      .home-top {
+        min-height: 162px;
+        margin: 0 -28px;
+        padding: 36px 28px 68px;
+        border-radius: 58px 58px 0 0;
+        background:
+          radial-gradient(
+            circle at 74% 20%,
+            rgba(255, 255, 255, 0.11),
+            transparent 18%
+          ),
+          linear-gradient(135deg, #073a82 0%, #043278 56%, #06275f 100%);
+        color: #fff;
+      }
+
+      .home-top::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 54px;
+        border-radius: 0 0 50% 50% / 0 0 100% 100%;
+        background: #ffffff;
+        transform: translateY(22px);
+      }
+
+      .home-brand {
+        position: relative;
+        z-index: 2;
+        gap: 18px;
+        color: #fff;
+        font-size: clamp(1.75rem, 5.2vw, 2.18rem);
+        font-weight: 950;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .care-logo {
+        width: 78px;
+        height: 74px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        filter: drop-shadow(0 2px 0 rgba(255, 255, 255, 0.16));
+      }
+
+      .care-logo::before {
+        content: "+";
+        display: grid;
+        place-items: center;
+        width: 58px;
+        height: 58px;
+        margin: 0 auto;
+        border: 4px solid #fff;
+        border-radius: 18px 18px 22px 22px;
+        color: #fff;
+        font-size: 2.55rem;
+        line-height: 1;
+        font-weight: 950;
+        transform: none;
+      }
+
+      .care-logo::after {
+        content: "";
+        position: absolute;
+        left: 8px;
+        right: 8px;
+        bottom: 0;
+        height: 18px;
+        border-top: 4px solid #fff;
+        border-radius: 50%;
+        box-shadow:
+          0 -7px 0 -3px #fff,
+          0 -14px 0 -6px rgba(255, 255, 255, 0.92);
+      }
+
+      .auth-button {
+        position: relative;
+        z-index: 3;
+        width: 76px;
+        min-height: 76px;
+        padding: 0;
+        border: 4px solid #fff;
+        border-radius: 50%;
+        background: linear-gradient(#f7fbff 0 38%, #2563eb 39% 100%);
+        overflow: hidden;
+      }
+
+      .auth-button .home-avatar {
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at 50% 30%, #ffd8b5 0 18%, transparent 19%),
+          radial-gradient(circle at 43% 24%, #1f2937 0 13%, transparent 14%),
+          linear-gradient(#ffffff 0 52%, #1d4ed8 53% 100%);
+      }
+
+      .auth-button .home-avatar::before,
+      .auth-button .home-avatar::after {
+        display: none;
+      }
+
+      .home-greeting {
+        margin: 22px 0 14px;
+      }
+
+      .home-greeting h2 {
+        margin: 0;
+        color: #0b214f;
+        font-size: 1.78rem;
+        line-height: 1.1;
+        font-weight: 950;
+      }
+
+      .home-greeting p {
+        display: none;
+      }
+
+      .word-day-feature {
+        padding: 16px;
+        border-radius: 18px;
+        background: #fff;
+        box-shadow:
+          0 16px 28px rgba(15, 23, 42, 0.12),
+          inset 0 0 0 1px #e4ebf5;
+      }
+
+      .word-feature-head {
+        margin-bottom: 16px;
+      }
+
+      .word-day-feature .featured-badge {
+        display: inline-grid;
+        grid-template-columns: 34px auto;
+        align-items: center;
+        gap: 10px;
+        color: #09235a;
+        font-size: 1.35rem;
+        font-weight: 950;
+      }
+
+      .word-day-feature .featured-badge::before {
+        content: "▣";
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+        background: #1d64d8;
+        color: #fff;
+        font-size: 1rem;
+      }
+
+      .word-feature-head a {
+        min-height: 36px;
+        padding: 0 14px;
+        border: 1px solid #c8dcff;
+        border-radius: 999px;
+        background: #fff;
+        color: #0757c7;
+        font-size: 0.9rem;
+        font-weight: 850;
+        box-shadow: none;
+      }
+
+      .word-feature-head a::after,
+      .word-day-feature .start-pill span {
+        content: "›";
+        margin-left: 8px;
+        font-size: 1.35em;
+        line-height: 0;
+      }
+
+      .word-feature-body {
+        grid-template-columns: 168px minmax(0, 1fr);
+        gap: 18px;
+        align-items: center;
+        padding: 24px 18px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #eff7ff, #eaf4ff);
+        box-shadow:
+          inset 0 0 0 1px #d9e9ff,
+          0 8px 18px rgba(29, 100, 216, 0.08);
+      }
+
+      .word-book {
+        width: 142px;
+        height: 142px;
+        border-radius: 50%;
+        background: #dcecff;
+        color: #1d64d8;
+        font-size: 0;
+      }
+
+      .word-book::before {
+        content: "▰";
+        color: #1d64d8;
+        font-size: 4rem;
+      }
+
+      .word-feature-copy h3 {
+        color: #082868;
+        font-size: 1.95rem;
+        line-height: 1.04;
+        font-weight: 950;
+      }
+
+      .word-feature-copy p {
+        color: #26385f;
+        font-size: 0.98rem;
+        line-height: 1.48;
+      }
+
+      .word-feature-copy p:last-child {
+        padding-top: 14px;
+        border-top: 1px solid #cbdaf0;
+      }
+
+      .word-day-feature .start-pill {
+        float: right;
+        min-width: 178px;
+        min-height: 40px;
+        margin-top: -58px;
+        margin-right: 14px;
+        position: relative;
+        z-index: 3;
+        border: 1px solid #7fa8f7;
+        border-radius: 999px;
+        background: #fff;
+        color: #0757c7;
+        box-shadow: none;
+      }
+
+      .home-menu-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 16px;
+      }
+
+      .menu-tile {
+        min-height: 248px;
+        grid-template-rows: 92px auto auto 28px;
+        gap: 8px;
+        padding: 16px 14px;
+        border-radius: 16px;
+        border: 1px solid #e7edf6;
+        background: #fff;
+        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+      }
+
+      .menu-icon {
+        width: 92px;
+        height: 92px;
+        border-radius: 50%;
+        font-size: 1.75rem;
+        font-weight: 950;
+      }
+
+      .menu-tile strong {
+        color: #09235a;
+        font-size: 1.42rem;
+        font-weight: 950;
+      }
+
+      .menu-tile > span:last-child {
+        max-width: 190px;
+        color: #596981;
+        font-size: 0.98rem;
+        line-height: 1.25;
+        font-weight: 650;
+      }
+
+      .menu-tile::after {
+        content: "›";
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        justify-self: center;
+        border-radius: 50%;
+        font-size: 1.6rem;
+        font-weight: 900;
+      }
+
+      .menu-tile:nth-child(1)::after {
+        background: #ece5ff;
+        color: #6d28d9;
+      }
+      .menu-tile:nth-child(2)::after {
+        background: #d9f6f3;
+        color: #0f766e;
+      }
+      .menu-tile:nth-child(3)::after {
+        background: #ffedcf;
+        color: #ea8a00;
+      }
+      .menu-tile:nth-child(4)::after {
+        background: #ffe1e7;
+        color: #e11d48;
+      }
+
+      .home-section-title,
+      .news-grid {
+        display: none;
+      }
+
+      .bottom-nav {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        width: min(607px, calc(100% - 32px));
+        min-height: 84px;
+        bottom: 8px;
+        padding: 10px 28px 8px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 -8px 24px rgba(15, 23, 42, 0.08);
+      }
+
+      .bottom-nav a {
+        min-height: 62px;
+        color: #687385;
+        font-size: 0.82rem;
+        font-weight: 750;
+        background: transparent;
+      }
+
+      .bottom-nav a.active {
+        background: transparent;
+        color: #075bd8;
+      }
+
+      .bottom-nav a::before {
+        width: 30px;
+        height: 30px;
+        font-size: 1.35rem;
+        line-height: 1;
+      }
+
+      .bottom-nav a:nth-child(1)::before {
+        content: "⌂";
+      }
+      .bottom-nav a:nth-child(2)::before {
+        content: "▰";
+      }
+      .bottom-nav a:nth-child(3)::before {
+        content: "▮";
+      }
+      .bottom-nav a:nth-child(4)::before {
+        content: "♙";
+      }
+
+      .bottom-nav a.active::after {
+        width: 42px;
+        height: 3px;
+        background: #075bd8;
+      }
+
+      @media (max-width: 620px) {
+        .app {
+          padding: 0 0 94px;
+        }
+
+        .home-screen {
+          max-width: none;
+          min-height: 100svh;
+          padding: 0 18px 104px;
+          border-radius: 0;
+          box-shadow: none;
+        }
+
+        .home-screen::before {
+          top: 104px;
+          height: 58px;
+        }
+
+        .home-top {
+          min-height: 140px;
+          margin: 0 -18px;
+          padding: 26px 20px 54px;
+          border-radius: 0;
+        }
+
+        .home-brand {
+          gap: 12px;
+          font-size: clamp(1.45rem, 7.5vw, 2rem);
+        }
+
+        .care-logo {
+          width: 64px;
+          height: 62px;
+        }
+
+        .care-logo::before {
+          width: 48px;
+          height: 48px;
+          font-size: 2rem;
+        }
+
+        .auth-button {
+          width: 62px;
+          min-height: 62px;
+        }
+
+        .auth-button .home-avatar {
+          width: 54px;
+          height: 54px;
+        }
+
+        .home-greeting h2 {
+          font-size: 1.55rem;
+        }
+
+        .word-day-feature {
+          padding: 12px;
+        }
+
+        .word-day-feature .featured-badge {
+          font-size: 1.12rem;
+        }
+
+        .word-feature-body {
+          grid-template-columns: 112px minmax(0, 1fr);
+          gap: 12px;
+          padding: 18px 12px;
+        }
+
+        .word-book {
+          width: 98px;
+          height: 98px;
+        }
+
+        .word-book::before {
+          font-size: 3rem;
+        }
+
+        .word-feature-copy h3 {
+          font-size: clamp(1.35rem, 6vw, 1.75rem);
+        }
+
+        .word-feature-copy p {
+          font-size: 0.84rem;
+        }
+
+        .word-day-feature .start-pill {
+          min-width: 156px;
+          min-height: 38px;
+          margin-top: 10px;
+          margin-right: 0;
+        }
+
+        .home-menu-grid {
+          gap: 12px;
+        }
+
+        .menu-tile {
+          min-height: 208px;
+          grid-template-rows: 76px auto auto 26px;
+          padding: 14px 10px;
+        }
+
+        .menu-icon {
+          width: 76px;
+          height: 76px;
+          font-size: 1.35rem;
+        }
+
+        .menu-tile strong {
+          font-size: 1.16rem;
+        }
+
+        .menu-tile > span:last-child {
+          font-size: 0.82rem;
+        }
+
+        .bottom-nav {
+          width: 100%;
+          left: 0;
+          bottom: 0;
+          transform: none;
+          border-radius: 24px 24px 0 0;
+          min-height: 76px;
+          padding: 8px 18px calc(6px + env(safe-area-inset-bottom));
+        }
+      }
     </style>
   </head>
   <body>
@@ -4104,8 +4619,9 @@
         <a href="#home" id="bottomHome" data-page-link="home">Home</a>
         <a href="#study" id="bottomStudy" data-page-link="study">Study</a>
         <a href="#practice" id="bottomTest" data-page-link="test">Test</a>
-        <a href="#vocabulary" id="bottomVocab" data-page-link="vocab">Vocab</a>
-        <a href="#flashcards" id="bottomCards" data-page-link="cards">Cards</a>
+        <a href="#profile" id="bottomProfile" data-page-link="profile"
+          >Profile</a
+        >
       </nav>
 
       <section
@@ -4171,7 +4687,7 @@
             </div>
           </div>
           <button class="start-pill" id="homeFullExamBtn" type="button">
-            Practice cards <span aria-hidden="true">&rarr;</span>
+            Use in a sentence <span aria-hidden="true">&rarr;</span>
           </button>
         </section>
 
@@ -4209,10 +4725,15 @@
             <strong id="homeTabSets">Mock Test</strong>
             <span id="homeTabSetsSub">Chapterwise practice</span>
           </a>
-          <a class="menu-tile" href="#flashcards" data-page-link="cards">
-            <span class="menu-icon">FC</span>
-            <strong>Flashcards</strong>
-            <span>One word at a time</span>
+          <a
+            class="menu-tile"
+            href="#newsFlash"
+            data-page-link="home"
+            data-scroll-target="newsFlash"
+          >
+            <span class="menu-icon">N</span>
+            <strong>Flash news</strong>
+            <span>Stay updated with daily healthcare news</span>
           </a>
         </section>
 
@@ -5650,12 +6171,12 @@
           quickCards: "Cards",
           quickStudy: "Study",
           bottomHome: "Home",
-          bottomTest: "Test",
+          bottomTest: "Progress",
           bottomVocab: "Vocab",
           bottomCards: "Cards",
-          bottomStudy: "Cards",
-          homeKicker: "SSW Carepro",
-          homeTitle: "Hi! User",
+          bottomStudy: "Learn",
+          homeKicker: "SSW CAREPRO",
+          homeTitle: "Hi! User 👋",
           homeCopy:
             "Study from the official SSW nursing care text, chapter by chapter.",
           homeTabSets: "Mock Test",
@@ -5719,12 +6240,12 @@
           quickCards: "Cards",
           quickStudy: "Study",
           bottomHome: "Home",
-          bottomTest: "Test",
+          bottomTest: "Progress",
           bottomVocab: "Vocab",
           bottomCards: "Cards",
-          bottomStudy: "Cards",
-          homeKicker: "SSW Carepro",
-          homeTitle: "Hi! User",
+          bottomStudy: "Learn",
+          homeKicker: "SSW CAREPRO",
+          homeTitle: "Hi! User 👋",
           homeCopy:
             "Study from the official SSW nursing care text, chapter by chapter.",
           homeTabSets: "Mock Test",
@@ -6026,7 +6547,7 @@
           el.homeCopy.textContent =
             "Keep studying the official SSW nursing care chapters step by step.";
         } else {
-          el.homeTitle.textContent = "Hi! User";
+          el.homeTitle.textContent = "Hi! User 👋";
           el.homeCopy.textContent =
             "Study from the official SSW nursing care text, chapter by chapter.";
         }
