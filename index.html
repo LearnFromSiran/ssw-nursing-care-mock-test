@@ -2167,10 +2167,9 @@
 
       .term {
         display: grid;
-        grid-template-columns: minmax(90px, 0.65fr) minmax(
-            110px,
-            0.85fr
-          ) minmax(130px, 1fr);
+        grid-template-columns:
+          minmax(90px, 0.65fr) minmax(110px, 0.85fr)
+          minmax(130px, 1fr);
         gap: 10px;
         padding: 12px;
         border: 1px solid var(--line);
@@ -2196,6 +2195,34 @@
         display: grid;
         gap: 12px;
         padding: 14px;
+      }
+
+      .part-group {
+        display: grid;
+        gap: 10px;
+      }
+
+      .part-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #073a82, #075bd8);
+        color: #fff;
+        box-shadow: 0 8px 18px rgba(7, 91, 216, 0.16);
+      }
+
+      .part-heading strong {
+        font-size: 1.02rem;
+        font-weight: 950;
+      }
+
+      .part-heading span {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 0.82rem;
+        font-weight: 850;
       }
 
       .chapter-item {
@@ -5435,7 +5462,9 @@
     <script>
       function chapterToStudyMaterial(chapter) {
         return {
-          title: `${chapter.part} ${chapter.chapter}: ${chapter.title}`,
+          title: `${chapter.chapter}: ${chapter.title}`,
+          part: chapter.part,
+          chapter: chapter.chapter,
           guideCount: chapter.bullets.length,
           termCount: chapter.terms.length,
           source: chapter.source,
@@ -7453,14 +7482,29 @@
 
       function renderStudyChapters() {
         el.studyChapterList.replaceChildren();
-        studyMaterials.forEach((material, index) => {
-          const details = document.createElement("details");
-          details.className = "chapter-item";
-          const html =
-            currentLang === "np" && material.htmlNp
-              ? material.htmlNp
-              : material.html;
-          details.innerHTML = `
+        const grouped = studyMaterials.reduce((groups, material) => {
+          const part = material.part || "Study";
+          if (!groups.has(part)) groups.set(part, []);
+          groups.get(part).push(material);
+          return groups;
+        }, new Map());
+        grouped.forEach((materials, part) => {
+          const group = document.createElement("section");
+          group.className = "part-group";
+          group.innerHTML = `
+            <div class="part-heading">
+              <strong>${part}</strong>
+              <span>${materials.length} chapters</span>
+            </div>
+          `;
+          materials.forEach((material) => {
+            const details = document.createElement("details");
+            details.className = "chapter-item";
+            const html =
+              currentLang === "np" && material.htmlNp
+                ? material.htmlNp
+                : material.html;
+            details.innerHTML = `
             <summary class="chapter-summary">
               <span>
                 <span class="chapter-title">${material.title}</span>
@@ -7472,7 +7516,9 @@
               <article class="subchapter-card">${html}</article>
             </div>
           `;
-          el.studyChapterList.append(details);
+            group.append(details);
+          });
+          el.studyChapterList.append(group);
         });
       }
 
