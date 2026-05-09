@@ -2362,19 +2362,132 @@
         padding: 0 14px;
       }
 
+      .profile-panel {
+        overflow: hidden;
+        border: 0;
+        background: #f8fbff;
+      }
+
+      .profile-hero {
+        position: relative;
+        display: grid;
+        gap: 14px;
+        padding: 22px;
+        color: #fff;
+        background:
+          radial-gradient(
+            circle at 78% 20%,
+            rgba(255, 255, 255, 0.2),
+            transparent 22%
+          ),
+          linear-gradient(135deg, #073a82, #075bd8);
+      }
+
+      .profile-badge {
+        display: inline-flex;
+        width: max-content;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.16);
+        font-size: 0.8rem;
+        font-weight: 900;
+      }
+
+      .profile-head {
+        display: grid;
+        grid-template-columns: 62px minmax(0, 1fr);
+        gap: 12px;
+        align-items: center;
+      }
+
+      .profile-avatar {
+        display: grid;
+        place-items: center;
+        width: 62px;
+        height: 62px;
+        border: 3px solid rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.16);
+        font-size: 1.6rem;
+        font-weight: 950;
+      }
+
+      .profile-title {
+        margin: 0;
+        font-size: clamp(1.35rem, 5vw, 2rem);
+        line-height: 1.1;
+      }
+
+      .profile-copy {
+        margin: 4px 0 0;
+        color: rgba(255, 255, 255, 0.82);
+        line-height: 1.45;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding: 16px;
+      }
+
+      .stat {
+        display: grid;
+        gap: 8px;
+        min-height: 96px;
+        padding: 14px;
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+      }
+
+      .stat span {
+        color: #64748b;
+        font-size: 0.78rem;
+        font-weight: 850;
+      }
+
+      .stat strong {
+        color: #09235a;
+        font-size: 1.65rem;
+        line-height: 1;
+      }
+
       .pdf-unlock-card {
         display: grid;
+        grid-template-columns: 48px minmax(0, 1fr);
         gap: 12px;
-        margin: 18px;
+        align-items: center;
+        margin: 0 16px 16px;
         padding: 16px;
         border: 1px solid #dbeafe;
-        border-radius: 16px;
-        background: #f8fbff;
+        border-radius: 18px;
+        background: linear-gradient(135deg, #eff6ff, #ffffff);
+        box-shadow: 0 10px 24px rgba(7, 91, 216, 0.08);
+      }
+
+      .pdf-unlock-card::before {
+        content: "PDF";
+        display: grid;
+        place-items: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: #075bd8;
+        color: #fff;
+        font-size: 0.76rem;
+        font-weight: 950;
       }
 
       .pdf-unlock-card.locked {
         border-color: #e2e8f0;
         background: #f8fafc;
+      }
+
+      .pdf-unlock-card.locked::before {
+        content: "LOCK";
+        background: #64748b;
       }
 
       .pdf-unlock-card h3 {
@@ -2393,6 +2506,19 @@
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
+        grid-column: 2;
+      }
+
+      .profile-mini-note {
+        margin: 0 16px 16px;
+        padding: 12px 14px;
+        border: 1px solid #dcfce7;
+        border-radius: 14px;
+        background: #f0fdf4;
+        color: #166534;
+        font-size: 0.9rem;
+        font-weight: 750;
+        line-height: 1.45;
       }
 
       .set-button {
@@ -4979,13 +5105,22 @@
         data-page="profile"
         aria-label="Profile"
       >
-        <section class="panel">
-          <span class="section-kicker">Profile</span>
-          <h2>Your SSW CarePro Plan</h2>
-          <p class="muted">
-            Track your chapter study, care Japanese vocabulary, mock test
-            practice, and mistake review from one clean dashboard.
-          </p>
+        <section class="panel profile-panel">
+          <div class="profile-hero">
+            <span class="profile-badge">Profile</span>
+            <div class="profile-head">
+              <span class="profile-avatar" id="profileAvatar">U</span>
+              <div>
+                <h2 class="profile-title" id="profileTitle">
+                  Your SSW CarePro Plan
+                </h2>
+                <p class="profile-copy" id="profileCopy">
+                  Sign up to unlock protected study material and keep your
+                  learning space ready.
+                </p>
+              </div>
+            </div>
+          </div>
           <div class="stats-grid">
             <div class="stat">
               <span>Study chapters</span><strong>14</strong>
@@ -5020,6 +5155,10 @@
               >
             </div>
           </div>
+          <p class="profile-mini-note">
+            Your profile is saved on this device. The PDF unlocks instantly
+            after signup.
+          </p>
         </section>
       </section>
 
@@ -6696,6 +6835,9 @@
         authSubmitBtn: document.getElementById("authSubmitBtn"),
         logoutBtn: document.getElementById("logoutBtn"),
         authMessage: document.getElementById("authMessage"),
+        profileAvatar: document.getElementById("profileAvatar"),
+        profileTitle: document.getElementById("profileTitle"),
+        profileCopy: document.getElementById("profileCopy"),
         profilePdfCard: document.getElementById("profilePdfCard"),
         profilePdfText: document.getElementById("profilePdfText"),
         profilePdfLoginBtn: document.getElementById("profilePdfLoginBtn"),
@@ -6767,6 +6909,17 @@
         const name = getUserName();
         el.authButtonText.textContent = name || "Login / Sign up";
         el.logoutBtn.style.display = isLoggedIn() ? "block" : "none";
+        if (el.profileAvatar) {
+          el.profileAvatar.textContent = name
+            ? name.charAt(0).toUpperCase()
+            : "U";
+          el.profileTitle.textContent = name
+            ? `${name}'s CarePro Profile`
+            : "Your SSW CarePro Plan";
+          el.profileCopy.textContent = name
+            ? "Your protected PDF material is ready in this profile."
+            : "Sign up to unlock protected study material and keep your learning space ready.";
+        }
         updateProfilePdfAccess();
         if (isLoggedIn()) {
           el.homeTitle.textContent = `Hi, ${name}`;
