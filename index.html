@@ -5546,6 +5546,25 @@
         -webkit-mask: var(--nav-icon) center / contain no-repeat !important;
         mask: var(--nav-icon) center / contain no-repeat !important;
       }
+
+      .home-section-title {
+        display: flex !important;
+      }
+
+      .news-grid {
+        display: grid !important;
+      }
+
+      .news-card {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .news-card:hover,
+      .news-card:focus-visible {
+        border-color: #93c5fd;
+        transform: translateY(-1px);
+      }
     </style>
   </head>
   <body>
@@ -5600,7 +5619,7 @@
             aria-label="Keyboard shortcuts (Alt+?)"
             title="Alt+?"
           >
-            ⌨️ Shortcuts
+            Shortcuts
           </button>
           <button
             class="button"
@@ -5609,61 +5628,61 @@
             aria-label="Export progress (Ctrl+E)"
             title="Ctrl+E"
           >
-            📥 Export
+            Export
           </button>
         </div>
       </header>
 
       <nav class="quick-nav" aria-label="Quick navigation">
         <a href="#home" id="quickHome" data-page-link="home" title="Home"
-          >🏠 Home</a
+          >Home</a
         >
         <a
           href="#practice"
           id="quickPractice"
           data-page-link="test"
           title="Mock Test"
-          >📋 Test</a
+          >Test</a
         >
         <a
           href="#vocabulary"
           id="quickVocab"
           data-page-link="vocab"
           title="Vocabulary"
-          >📚 Vocab</a
+          >Vocab</a
         >
         <a
           href="#flashcards"
           id="quickCards"
           data-page-link="cards"
           title="Flashcards"
-          >🎴 Cards</a
+          >Cards</a
         >
         <a
           href="#study"
           id="quickStudy"
           data-page-link="study"
           title="Study Materials"
-          >📖 Study</a
+          >Study</a
         >
       </nav>
 
       <nav class="bottom-nav" aria-label="Mobile navigation">
         <a href="#home" id="bottomHome" data-page-link="home" title="Home"
-          >🏠</a
+          >Home</a
         >
         <a href="#study" id="bottomStudy" data-page-link="study" title="Study"
-          >📖</a
+          >Learn</a
         >
         <a href="#practice" id="bottomTest" data-page-link="test" title="Test"
-          >📋</a
+          >Progress</a
         >
         <a
           href="#profile"
           id="bottomProfile"
           data-page-link="profile"
           title="Profile"
-          >👤</a
+          >Profile</a
         >
       </nav>
 
@@ -5791,24 +5810,61 @@
           id="newsFlash"
           aria-label="Latest news flash"
         >
-          <div class="news-card">
-            <span class="news-icon" aria-hidden="true">i</span>
+          <a
+            class="news-card"
+            href="https://www.prometric-jp.com/en/ssw/test_list/archives/2"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="news-icon" aria-hidden="true">SSW</span>
             <span
               ><strong
-                >Prometric opened 2026 long-term care SSW reservations and
-                announced an exam fee revision.</strong
-              ><span>Prometric notice: April 15, 2026</span></span
+                >Prometric: Long-term Care SSW Skill Evaluation Test</strong
+              ><span
+                >Official exam list, schedule, fees, and test rules</span
+              ></span
             >
-          </div>
-          <div class="news-card">
-            <span class="news-icon" aria-hidden="true">!</span>
+          </a>
+          <a
+            class="news-card"
+            href="https://www.prometric-jp.com/en/ssw/news/"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="news-icon" aria-hidden="true">News</span>
             <span
-              ><strong
-                >Before booking, make sure your ID document details match your
-                Prometric ID registration.</strong
-              ><span>Official exam reminder</span></span
+              ><strong>Prometric SSW notices and reservation updates</strong
+              ><span
+                >Check latest official announcements before booking</span
+              ></span
             >
-          </div>
+          </a>
+          <a
+            class="news-card"
+            href="https://www.ssw.go.jp/en/about/visa/nursing_care_1/"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="news-icon" aria-hidden="true">Visa</span>
+            <span
+              ><strong>SSW Nursing Care field overview</strong
+              ><span>Immigration Services Agency support website</span></span
+            >
+          </a>
+          <a
+            class="news-card"
+            href="https://www.mofa.go.jp/mofaj/ca/fna/ssw/us/overview/index.html"
+            target="_blank"
+            rel="noopener"
+          >
+            <span class="news-icon" aria-hidden="true">JP</span>
+            <span
+              ><strong>Japan SSW program overview</strong
+              ><span
+                >Official Ministry of Foreign Affairs information</span
+              ></span
+            >
+          </a>
         </section>
         <span class="data-count" id="knownCount">0</span>
         <span class="data-count" id="homeMistakeStatus"
@@ -6261,6 +6317,8 @@
         const nihongoTitle = chapter.nihongo?.title || "";
         const nihongoFocus = chapter.nihongo?.focus || "";
         const expandedTerms = expandStudyTerms(chapter.terms);
+        const firstGuide = chapter.bullets[0] || chapter.focus;
+        const secondGuide = chapter.bullets[1] || chapter.focus;
         return {
           title: `${chapter.chapter}: ${chapter.title}`,
           part: chapter.part,
@@ -6276,6 +6334,16 @@
               <p><strong>Study goal:</strong> ${chapter.focus}</p>
               ${nihongoFocus ? `<p style="color: #666; font-size: 0.95em;"><strong>学習目標:</strong> ${nihongoFocus}</p>` : ""}
               <p><strong>Source:</strong> ${chapter.source}</p>
+            </section>
+            <section class="learn-section">
+              <h4>Simple explanation</h4>
+              <p>This chapter is about <strong>${chapter.title.toLowerCase()}</strong>. In the exam, read the situation and choose the answer that best matches safe, respectful care.</p>
+              <p>Start with this idea: ${firstGuide}</p>
+            </section>
+            <section class="learn-section">
+              <h4>Care workplace example</h4>
+              <p>Imagine you are helping a user in a real facility. Before acting, check the user's condition, explain what you will do, protect privacy, and report important changes to staff.</p>
+              <p>Practical point: ${secondGuide}</p>
             </section>
             <section class="learn-section">
               <h4>What to learn</h4>
