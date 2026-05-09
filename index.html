@@ -4835,36 +4835,6 @@
           </p>
         </div>
 
-        <section
-          class="featured-card word-day-feature"
-          aria-label="Word of the day"
-        >
-          <div class="word-feature-head">
-            <span class="featured-badge">Words of the day</span>
-            <a
-              href="#vocabulary"
-              data-page-link="vocab"
-              data-scroll-target="vocabulary"
-              >View all</a
-            >
-          </div>
-          <div class="word-feature-body">
-            <span class="word-book" aria-hidden="true">A</span>
-            <div class="word-feature-copy">
-              <h3 id="wordDayTitle">Care word</h3>
-              <p class="pronunciation" id="wordDayReading">Loading...</p>
-              <p><span id="wordDayMeaning">nursing care</span></p>
-              <p>
-                <strong>Category:</strong>
-                <span id="wordDayCategory">Core care</span>
-              </p>
-            </div>
-          </div>
-          <button class="start-pill" id="homeFullExamBtn" type="button">
-            Use in a sentence <span aria-hidden="true">&rarr;</span>
-          </button>
-        </section>
-
         <section class="home-menu-grid" aria-label="Main learning sections">
           <a
             class="menu-tile"
@@ -6651,7 +6621,6 @@
         restartBtn: document.getElementById("restartBtn"),
         reviewMistakesBtn: document.getElementById("reviewMistakesBtn"),
         fullExamBtn: document.getElementById("fullExamBtn"),
-        homeFullExamBtn: document.getElementById("homeFullExamBtn"),
         homeMistakeBtn: document.getElementById("homeMistakeBtn"),
         homeMistakeStatus: document.getElementById("homeMistakeStatus"),
         homeTitle: document.getElementById("homeTitle"),
@@ -6705,10 +6674,6 @@
         vocabNextBtn: document.getElementById("vocabNextBtn"),
         vocabList: document.getElementById("vocabList"),
         knownCount: document.getElementById("knownCount"),
-        wordDayTitle: document.getElementById("wordDayTitle"),
-        wordDayReading: document.getElementById("wordDayReading"),
-        wordDayMeaning: document.getElementById("wordDayMeaning"),
-        wordDayCategory: document.getElementById("wordDayCategory"),
         flashIndex: document.getElementById("flashIndex"),
         flashTotal: document.getElementById("flashTotal"),
         flashCategory: document.getElementById("flashCategory"),
@@ -7348,24 +7313,6 @@
         });
       }
 
-      function renderWordOfTheDay() {
-        const todayKey = new Date().toISOString().slice(0, 10);
-        const seed = [...todayKey].reduce(
-          (sum, char) => sum + char.charCodeAt(0),
-          0,
-        );
-        const item = vocabulary[seed % vocabulary.length];
-        if (!item) return;
-        el.wordDayTitle.textContent = item.jp;
-        el.wordDayReading.textContent = `${item.kana} / ${item.romaji}`;
-        el.wordDayMeaning.textContent =
-          currentLang === "np" ? toNepaliMeaning(item) : item.en;
-        el.wordDayCategory.textContent =
-          currentLang === "np"
-            ? domainNp[item.category] || item.category
-            : item.category;
-      }
-
       function renderFlashcard(showAnswer = false) {
         const item = vocabulary[vocabState.flashIndex];
         vocabState.answerVisible = showAnswer;
@@ -7488,7 +7435,6 @@
         renderStudyTabs();
         renderVocabularyControls();
         renderVocabulary();
-        renderWordOfTheDay();
         renderFlashcard(vocabState.answerVisible);
         updateAuthUI();
         showPage(currentPage, { scroll: false });
@@ -7504,9 +7450,6 @@
       el.restartBtn.addEventListener("click", () => startSet());
       el.againBtn.addEventListener("click", () => startSet());
       el.fullExamBtn.addEventListener("click", startFullExam);
-      el.homeFullExamBtn.addEventListener("click", () => {
-        showPage("cards", { targetId: "flashcards" });
-      });
       el.authButton.addEventListener("click", () => openAuthModal());
       el.authCloseBtn.addEventListener("click", closeAuthModal);
       el.authModal.addEventListener("click", (event) => {
