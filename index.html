@@ -2317,6 +2317,39 @@
         padding: 0 14px;
       }
 
+      .pdf-unlock-card {
+        display: grid;
+        gap: 12px;
+        margin: 18px;
+        padding: 16px;
+        border: 1px solid #dbeafe;
+        border-radius: 16px;
+        background: #f8fbff;
+      }
+
+      .pdf-unlock-card.locked {
+        border-color: #e2e8f0;
+        background: #f8fafc;
+      }
+
+      .pdf-unlock-card h3 {
+        margin: 0;
+        color: #09235a;
+        font-size: 1.05rem;
+      }
+
+      .pdf-unlock-card p {
+        margin: 0;
+        color: #64748b;
+        line-height: 1.5;
+      }
+
+      .pdf-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
       .set-button {
         --card-bg: #fde2df;
         --card-base: rgba(244, 114, 108, 0.18);
@@ -4948,6 +4981,30 @@
             <div class="stat"><span>Mock sets</span><strong>14</strong></div>
             <div class="stat"><span>Full exam</span><strong>45Q</strong></div>
           </div>
+          <div class="pdf-unlock-card locked" id="profilePdfCard">
+            <h3>Official PDF Material</h3>
+            <p id="profilePdfText">
+              Sign up or login to unlock the PDF material in your profile.
+            </p>
+            <div class="pdf-actions">
+              <button
+                class="button primary"
+                id="profilePdfLoginBtn"
+                type="button"
+              >
+                Login / Sign up
+              </button>
+              <a
+                class="button primary"
+                id="profilePdfLink"
+                href="assets/ssw-carepro-profile-material.pdf"
+                target="_blank"
+                rel="noopener"
+                hidden
+                >Open PDF</a
+              >
+            </div>
+          </div>
         </section>
       </section>
 
@@ -6610,6 +6667,10 @@
         authSubmitBtn: document.getElementById("authSubmitBtn"),
         logoutBtn: document.getElementById("logoutBtn"),
         authMessage: document.getElementById("authMessage"),
+        profilePdfCard: document.getElementById("profilePdfCard"),
+        profilePdfText: document.getElementById("profilePdfText"),
+        profilePdfLoginBtn: document.getElementById("profilePdfLoginBtn"),
+        profilePdfLink: document.getElementById("profilePdfLink"),
         quizView: document.getElementById("quizView"),
         quizPanel: document.getElementById("quizPanel"),
         resultsView: document.getElementById("resultsView"),
@@ -6681,6 +6742,7 @@
         const name = getUserName();
         el.authButtonText.textContent = name || "Login / Sign up";
         el.logoutBtn.style.display = isLoggedIn() ? "block" : "none";
+        updateProfilePdfAccess();
         if (isLoggedIn()) {
           el.homeTitle.textContent = `Hi, ${name}`;
           el.homeCopy.textContent =
@@ -6690,6 +6752,17 @@
           el.homeCopy.textContent =
             "Study from the official SSW nursing care text, chapter by chapter.";
         }
+      }
+
+      function updateProfilePdfAccess() {
+        if (!el.profilePdfCard) return;
+        const unlocked = isLoggedIn();
+        el.profilePdfCard.classList.toggle("locked", !unlocked);
+        el.profilePdfText.textContent = unlocked
+          ? "Unlocked. You can open the PDF material from this profile."
+          : "Sign up or login to unlock the PDF material in your profile.";
+        el.profilePdfLoginBtn.hidden = unlocked;
+        el.profilePdfLink.hidden = !unlocked;
       }
 
       function openAuthModal(message = "") {
@@ -7441,6 +7514,9 @@
       });
       el.authSubmitBtn.addEventListener("click", saveAuth);
       el.logoutBtn.addEventListener("click", logout);
+      el.profilePdfLoginBtn.addEventListener("click", () =>
+        openAuthModal("Login or sign up to unlock the PDF material."),
+      );
       el.authEmail.addEventListener("keydown", (event) => {
         if (event.key === "Enter") saveAuth();
       });
