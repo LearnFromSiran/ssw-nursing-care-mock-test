@@ -2317,6 +2317,51 @@
         padding: 0 14px;
       }
 
+      .mock-set-list {
+        display: grid;
+        gap: 12px;
+        padding: 14px;
+      }
+
+      .mock-set-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 12px;
+        align-items: center;
+        min-height: 92px;
+        padding: 16px;
+        border: 1px solid #dbeafe;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+        text-align: left;
+      }
+
+      .mock-set-card.active {
+        border-color: #075bd8;
+        box-shadow: 0 12px 24px rgba(7, 91, 216, 0.12);
+      }
+
+      .mock-set-title {
+        display: block;
+        color: #09235a;
+        font-size: 1.05rem;
+        font-weight: 950;
+      }
+
+      .mock-set-meta {
+        display: block;
+        margin-top: 5px;
+        color: #64748b;
+        font-size: 0.88rem;
+        font-weight: 750;
+      }
+
+      .mock-set-card .button {
+        min-height: 40px;
+        padding: 0 14px;
+      }
+
       .pdf-unlock-card {
         display: grid;
         gap: 12px;
@@ -4867,7 +4912,7 @@
           >
             <span class="menu-icon">Q</span>
             <strong id="homeTabSets">Mock Test</strong>
-            <span id="homeTabSetsSub">Chapterwise practice</span>
+            <span id="homeTabSetsSub">5 real exam sets</span>
           </a>
           <a
             class="menu-tile"
@@ -4948,7 +4993,7 @@
             <div class="stat">
               <span>Vocabulary cards</span><strong>499</strong>
             </div>
-            <div class="stat"><span>Mock sets</span><strong>14</strong></div>
+            <div class="stat"><span>Mock sets</span><strong>5</strong></div>
             <div class="stat"><span>Full exam</span><strong>45Q</strong></div>
           </div>
           <div class="pdf-unlock-card locked" id="profilePdfCard">
@@ -4981,10 +5026,10 @@
       <section class="hero app-page" id="practice" data-page="test">
         <section class="panel" id="mockChapterPanel">
           <div class="section-head">
-            <h2>Progress: Mock Test Questions</h2>
-            <span class="muted">Tap chapter to open questions</span>
+            <h2>Progress: Full Mock Tests</h2>
+            <span class="muted">5 sets · 45 questions · 60 minutes</span>
           </div>
-          <div class="chapter-list" id="mockChapterList"></div>
+          <div class="mock-set-list" id="mockChapterList"></div>
         </section>
 
         <section class="panel quiz-panel" id="quizPanel">
@@ -6267,13 +6312,7 @@
         },
       ];
 
-      const mockSets = studyChapters.map((chapter) => ({
-        name: `${chapter.chapter}: ${chapter.title}`,
-        chapterNo: chapter.chapter,
-        chapterTitle: chapter.title,
-        focus: chapter.focus,
-        questions: chapter.questions,
-      }));
+      const mockSets = buildFullMockSets(studyChapters);
 
       const studyMaterials = studyChapters.map(chapterToStudyMaterial);
 
@@ -6314,7 +6353,7 @@
           homeCopy:
             "Study from the official SSW nursing care text, chapter by chapter.",
           homeTabSets: "Mock Test",
-          homeTabSetsSub: "Chapterwise practice",
+          homeTabSetsSub: "5 real exam sets",
           homeTabExam: "Full Exam",
           homeTabExamSub: "45 questions with a 60 minute timer",
           homeTabVocab: "Vocabulary",
@@ -6327,7 +6366,7 @@
           mistakeHomeLocked: "Finish a set to unlock",
           mistakeHomeReady: "Review missed questions",
           dashSetsLabel: "Mock sets",
-          dashSetsValue: "14 chapters",
+          dashSetsValue: "5 full sets",
           dashVocabLabel: "Vocabulary",
           dashVocabUnit: "words",
           dashCardsLabel: "Flashcards",
@@ -6383,7 +6422,7 @@
           homeCopy:
             "Study from the official SSW nursing care text, chapter by chapter.",
           homeTabSets: "Mock Test",
-          homeTabSetsSub: "Chapterwise practice",
+          homeTabSetsSub: "5 real exam sets",
           homeTabExam: "Full Exam",
           homeTabExamSub: "45 questions with a 60 minute timer",
           homeTabVocab: "Vocabulary",
@@ -6396,7 +6435,7 @@
           mistakeHomeLocked: "Finish a set to unlock",
           mistakeHomeReady: "Review missed questions",
           dashSetsLabel: "Mock sets",
-          dashSetsValue: "14 chapters",
+          dashSetsValue: "5 full sets",
           dashVocabLabel: "Vocabulary",
           dashVocabUnit: "words",
           dashCardsLabel: "Flashcards",
@@ -6596,6 +6635,26 @@
         return questions.filter(isValidQuestion);
       }
 
+      function buildFullMockSets(chapters) {
+        const bank = chapters.flatMap((chapter) => chapter.questions);
+        const validBank = validQuestionsFor(bank);
+        const questionCount = Math.min(45, validBank.length);
+        return Array.from({ length: 5 }, (_, setIndex) => {
+          const offset = setIndex * 11;
+          const questions = Array.from(
+            { length: questionCount },
+            (_, index) => validBank[(offset + index * 13) % validBank.length],
+          );
+          return {
+            name: `Full Mock Test ${setIndex + 1}`,
+            mockNo: setIndex + 1,
+            focus: "Real-time full mock test",
+            durationSeconds: 60 * 60,
+            questions,
+          };
+        });
+      }
+
       const state = {
         setIndex: 0,
         questions: [],
@@ -6608,6 +6667,7 @@
         answers: [],
         lastAnswers: [],
         examMode: false,
+        quizTitle: "",
         timerId: null,
         timeRemaining: 0,
         bestExamScore: Number(localStorage.getItem("sswBestExamScore") || "0"),
@@ -6818,24 +6878,30 @@
       function startSet(customQuestions = null, options = {}) {
         const set = mockSets[state.setIndex];
         stopTimer();
-        state.examMode = options.examMode || false;
+        state.examMode =
+          options.examMode === undefined ? false : options.examMode;
+        state.quizTitle = options.title || getSetName(set, state.setIndex);
         const sourceQuestions = customQuestions
           ? validQuestionsFor(customQuestions)
           : validQuestionsFor(set);
-        state.questions = shuffle(sourceQuestions);
+        state.questions =
+          options.shuffle === true
+            ? shuffle(sourceQuestions)
+            : [...sourceQuestions];
         state.current = 0;
         state.correct = 0;
         state.answered = false;
         state.selectedIndex = null;
         state.mistakes = [];
         state.answers = [];
+        el.quizPanel.style.display = "block";
         el.quizView.style.display = "block";
         el.resultsView.classList.remove("show");
         renderQuestion();
         renderSetList();
         placeQuizPanel(state.setIndex);
         updateMistakeButtons();
-        if (state.examMode) startTimer(60 * 60);
+        if (state.examMode) startTimer(options.durationSeconds || 60 * 60);
         if (!options.skipScroll) {
           showPage("test", { targetId: "practice" });
           scrollToPractice();
@@ -6852,7 +6918,20 @@
         const examQuestions = shuffle(
           mockSets.flatMap((set) => validQuestionsFor(set)),
         ).slice(0, 45);
-        startSet(examQuestions, { examMode: true });
+        startSet(examQuestions, {
+          examMode: true,
+          title: "Full Exam Simulation",
+          durationSeconds: 60 * 60,
+        });
+      }
+
+      function startCurrentMockSet() {
+        const set = mockSets[state.setIndex];
+        startSet(null, {
+          examMode: true,
+          durationSeconds: set.durationSeconds,
+          title: set.name,
+        });
       }
 
       function startTimer(seconds) {
@@ -6888,9 +6967,8 @@
         const question = state.questions[state.current];
         state.answered = false;
         state.selectedIndex = null;
-        el.quizTitle.textContent = state.examMode
-          ? "Full Exam Simulation"
-          : getSetName(set, state.setIndex);
+        el.quizTitle.textContent =
+          state.quizTitle || getSetName(set, state.setIndex);
         el.questionNumber.textContent = String(state.current + 1);
         el.questionTotal.textContent = String(state.questions.length);
         el.scoreText.textContent = `${state.correct}/${state.current}`;
@@ -7102,69 +7180,39 @@
         if (!list) return;
         list.replaceChildren();
         mockSets.forEach((set, index) => {
-          const details = document.createElement("details");
-          details.className = "chapter-item";
+          const card = document.createElement("article");
+          card.className = `mock-set-card${index === state.setIndex ? " active" : ""}`;
           const validQuestions = validQuestionsFor(set);
-          const questionCards = validQuestions
-            .map(
-              (question, questionIndex) => `
-                <article class="mock-question-card">
-                  <h3>Question ${questionIndex + 1}</h3>
-                  <p>${question.text}</p>
-                  <ol>
-                    ${question.options.map((option) => `<li>${option}</li>`).join("")}
-                  </ol>
-                  <p class="answer-line">Answer shown after completing the mock test.</p>
-                </article>
-              `,
-            )
-            .join("");
-          details.innerHTML = `
-            <summary class="chapter-summary">
+          card.innerHTML = `
               <span>
-                <span class="chapter-title">${set.chapterNo}: ${set.chapterTitle}</span>
-                <span class="chapter-meta">Mock Test ${index + 1} · ${set.questions.length} questions</span>
+                <span class="mock-set-title">${set.name}</span>
+                <span class="mock-set-meta">${validQuestions.length} questions - 60 minute real-time timer</span>
               </span>
-              <span class="chapter-chevron" aria-hidden="true">›</span>
-            </summary>
-            <div class="chapter-content">
-              <button class="button primary chapter-start" type="button">Start this mock test</button>
+              <button class="button primary chapter-start" type="button">Start</button>
               <div class="chapter-quiz-slot" data-quiz-slot="${index}"></div>
-              ${questionCards}
-            </div>
           `;
-          details
+          card
             .querySelector(".chapter-start")
             .addEventListener("click", (event) => {
               event.preventDefault();
               state.setIndex = index;
               el.setSelect.value = String(index);
-              startSet();
+              startCurrentMockSet();
             });
-          details.addEventListener("toggle", () => {
-            if (!details.open) return;
-            state.setIndex = index;
-            if (el.setSelect) el.setSelect.value = String(index);
-            [...list.querySelectorAll(".chapter-item")].forEach((item) => {
-              if (item !== details) item.open = false;
-            });
-          });
-          list.append(details);
+          list.append(card);
         });
       }
 
       function placeQuizPanel(index = state.setIndex) {
         if (!el.quizPanel || !el.mockChapterList) return;
-        const details =
-          el.mockChapterList.querySelectorAll(".chapter-item")[index];
+        const card =
+          el.mockChapterList.querySelectorAll(".mock-set-card")[index];
         const slot = el.mockChapterList.querySelector(
           `[data-quiz-slot="${index}"]`,
         );
-        if (!details || !slot) return;
-        details.open = true;
+        if (!card || !slot) return;
         if (!slot.contains(el.quizPanel)) slot.append(el.quizPanel);
       }
-
       function getSetName(set, index) {
         return set.name || `Mock Set ${index + 1}`;
       }
@@ -7443,12 +7491,12 @@
 
       el.setSelect.addEventListener("change", () => {
         state.setIndex = Number(el.setSelect.value);
-        startSet();
+        startCurrentMockSet();
       });
       el.englishModeBtn.addEventListener("click", () => setLanguage("en"));
       el.nepaliModeBtn.addEventListener("click", () => setLanguage("np"));
-      el.restartBtn.addEventListener("click", () => startSet());
-      el.againBtn.addEventListener("click", () => startSet());
+      el.restartBtn.addEventListener("click", startCurrentMockSet);
+      el.againBtn.addEventListener("click", startCurrentMockSet);
       el.fullExamBtn.addEventListener("click", startFullExam);
       el.authButton.addEventListener("click", () => openAuthModal());
       el.authCloseBtn.addEventListener("click", closeAuthModal);
@@ -7466,16 +7514,30 @@
       el.nextBtn.addEventListener("click", nextQuestion);
       el.showAnswerBtn.addEventListener("click", showAnswer);
       el.mistakeOnlyBtn.addEventListener("click", () => {
-        if (state.lastMistakes.length) startSet(state.lastMistakes);
+        if (state.lastMistakes.length)
+          startSet(state.lastMistakes, {
+            examMode: false,
+            shuffle: true,
+            title: "Mistake Review",
+          });
       });
       el.reviewMistakesBtn.addEventListener("click", () => {
-        if (state.lastMistakes.length) startSet(state.lastMistakes);
+        if (state.lastMistakes.length)
+          startSet(state.lastMistakes, {
+            examMode: false,
+            shuffle: true,
+            title: "Mistake Review",
+          });
       });
       el.homeMistakeBtn.addEventListener("click", (event) => {
         if (state.lastMistakes.length) {
           event.preventDefault();
           event.stopImmediatePropagation();
-          startSet(state.lastMistakes);
+          startSet(state.lastMistakes, {
+            examMode: false,
+            shuffle: true,
+            title: "Mistake Review",
+          });
           document
             .getElementById("practice")
             .scrollIntoView({ behavior: "smooth", block: "start" });
@@ -7509,7 +7571,7 @@
       });
 
       applyLanguage();
-      startSet(null, { skipScroll: true });
+      el.quizPanel.style.display = "none";
       showPage("home", { scroll: false });
     </script>
   </body>
