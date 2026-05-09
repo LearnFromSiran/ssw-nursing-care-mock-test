@@ -6540,6 +6540,35 @@
         return { domain, text, options, answer, explanation };
       }
 
+      function hasCleanText(value) {
+        return (
+          value !== undefined &&
+          value !== null &&
+          String(value).trim() &&
+          String(value).trim().toLowerCase() !== "undefined"
+        );
+      }
+
+      function isValidQuestion(question) {
+        return (
+          question &&
+          hasCleanText(question.text) &&
+          Array.isArray(question.options) &&
+          question.options.length >= 2 &&
+          question.options.every(hasCleanText) &&
+          Number.isInteger(question.answer) &&
+          question.answer >= 0 &&
+          question.answer < question.options.length
+        );
+      }
+
+      function validQuestionsFor(setOrQuestions) {
+        const questions = Array.isArray(setOrQuestions)
+          ? setOrQuestions
+          : setOrQuestions.questions;
+        return questions.filter(isValidQuestion);
+      }
+
       const state = {
         setIndex: 0,
         questions: [],
@@ -6752,9 +6781,10 @@
         const set = mockSets[state.setIndex];
         stopTimer();
         state.examMode = options.examMode || false;
-        state.questions = customQuestions
-          ? shuffle(customQuestions)
-          : shuffle(set.questions);
+        const sourceQuestions = customQuestions
+          ? validQuestionsFor(customQuestions)
+          : validQuestionsFor(set);
+        state.questions = shuffle(sourceQuestions);
         state.current = 0;
         state.correct = 0;
         state.answered = false;
@@ -6782,7 +6812,7 @@
         )
           return;
         const examQuestions = shuffle(
-          mockSets.flatMap((set) => set.questions),
+          mockSets.flatMap((set) => validQuestionsFor(set)),
         ).slice(0, 45);
         startSet(examQuestions, { examMode: true });
       }
@@ -7036,7 +7066,8 @@
         mockSets.forEach((set, index) => {
           const details = document.createElement("details");
           details.className = "chapter-item";
-          const questionCards = set.questions
+          const validQuestions = validQuestionsFor(set);
+          const questionCards = validQuestions
             .map(
               (question, questionIndex) => `
                 <article class="mock-question-card">
