@@ -4848,6 +4848,73 @@
         background: #075bd8;
       }
 
+      /* Icon polish pass */
+      .menu-icon svg {
+        width: 62%;
+        height: 62%;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 4;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .menu-tile::after {
+        content: "";
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background:
+          linear-gradient(currentColor 0 0) center / 10px 2px no-repeat,
+          linear-gradient(
+              135deg,
+              transparent 46%,
+              currentColor 48% 54%,
+              transparent 56%
+            )
+            54% center / 8px 8px no-repeat,
+          var(--tile-arrow-bg, #eff6ff);
+      }
+
+      .menu-tile:nth-child(1) {
+        --tile-arrow-bg: #ece5ff;
+      }
+      .menu-tile:nth-child(2) {
+        --tile-arrow-bg: #d9f6f3;
+      }
+      .menu-tile:nth-child(3) {
+        --tile-arrow-bg: #ffedcf;
+      }
+      .menu-tile:nth-child(4) {
+        --tile-arrow-bg: #ffe1e7;
+      }
+
+      .bottom-nav a::before {
+        content: "";
+        display: block;
+        width: 28px;
+        height: 28px;
+        background: currentColor;
+        -webkit-mask: var(--nav-icon) center / contain no-repeat;
+        mask: var(--nav-icon) center / contain no-repeat;
+      }
+
+      .bottom-nav a:nth-child(1) {
+        --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3z'/%3E%3C/svg%3E");
+      }
+
+      .bottom-nav a:nth-child(2) {
+        --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M5 4h9a5 5 0 0 1 5 5v11h-9a5 5 0 0 0-5-5zm4 5h6v2H9zm0 4h5v2H9z'/%3E%3C/svg%3E");
+      }
+
+      .bottom-nav a:nth-child(3) {
+        --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M5 20h3V9H5zm6 0h3V4h-3zm6 0h3v-7h-3z'/%3E%3C/svg%3E");
+      }
+
+      .bottom-nav a:nth-child(4) {
+        --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10m-8 9a8 8 0 0 1 16 0z'/%3E%3C/svg%3E");
+      }
+
       @media (max-width: 620px) {
         .app {
           padding: 0 0 94px;
@@ -4975,13 +5042,499 @@
           padding: 8px 18px calc(6px + env(safe-area-inset-bottom));
         }
       }
+
+      /* Enhanced Design System */
+      :root {
+        --accent-purple: #a855f7;
+        --accent-pink: #ec4899;
+        --accent-cyan: #06b6d4;
+        --accent-indigo: #6366f1;
+        --gradient-primary: linear-gradient(
+          135deg,
+          var(--teal) 0%,
+          var(--accent-cyan) 100%
+        );
+        --gradient-success: linear-gradient(
+          135deg,
+          var(--green) 0%,
+          #10b981 100%
+        );
+        --gradient-warning: linear-gradient(
+          135deg,
+          var(--orange) 0%,
+          #f97316 100%
+        );
+        --gradient-danger: linear-gradient(135deg, var(--red) 0%, #ef4444 100%);
+        --gradient-purple: linear-gradient(
+          135deg,
+          var(--accent-purple) 0%,
+          var(--accent-pink) 100%
+        );
+        --transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.08);
+        --shadow-md: 0 8px 16px rgba(15, 23, 42, 0.12);
+        --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.16);
+        --shadow-xl: 0 20px 48px rgba(15, 23, 42, 0.2);
+      }
+
+      /* Icon Utilities */
+      [class*="icon-"]::before {
+        display: inline-block;
+        margin-right: 6px;
+        font-weight: 900;
+        font-size: 1.1em;
+        vertical-align: -0.15em;
+      }
+
+      .icon-primary {
+        color: var(--teal);
+      }
+
+      .icon-success {
+        color: var(--green);
+      }
+
+      .icon-warning {
+        color: var(--orange);
+      }
+
+      .icon-danger {
+        color: var(--red);
+      }
+
+      /* Enhanced Buttons */
+      .button {
+        position: relative;
+        transition: var(--transition);
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
+        box-shadow: var(--shadow-sm);
+        border: 2px solid var(--line);
+      }
+
+      .button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .button:active:not(:disabled) {
+        transform: translateY(-1px);
+      }
+
+      .button.primary {
+        background: var(--gradient-primary);
+        border: none;
+        box-shadow: 0 4px 16px rgba(15, 118, 110, 0.3);
+        font-weight: 900;
+      }
+
+      .button.primary:hover:not(:disabled) {
+        box-shadow: 0 8px 24px rgba(15, 118, 110, 0.4);
+      }
+
+      .button.success {
+        background: var(--gradient-success);
+        border: none;
+        color: white;
+        box-shadow: 0 4px 16px rgba(6, 118, 71, 0.3);
+      }
+
+      .button.success:hover:not(:disabled) {
+        box-shadow: 0 8px 24px rgba(6, 118, 71, 0.4);
+      }
+
+      .button.warning {
+        background: var(--gradient-warning);
+        border: none;
+        color: white;
+        box-shadow: 0 4px 16px rgba(234, 88, 12, 0.3);
+      }
+
+      .button.warning:hover:not(:disabled) {
+        box-shadow: 0 8px 24px rgba(234, 88, 12, 0.4);
+      }
+
+      .button.danger {
+        background: var(--gradient-danger);
+        border: none;
+        color: white;
+        box-shadow: 0 4px 16px rgba(180, 35, 24, 0.3);
+      }
+
+      .button.danger:hover:not(:disabled) {
+        box-shadow: 0 8px 24px rgba(180, 35, 24, 0.4);
+      }
+
+      .button.secondary {
+        background: var(--soft);
+        border-color: var(--line);
+        color: var(--ink);
+      }
+
+      .button.secondary:hover:not(:disabled) {
+        background: #e0f2fe;
+        border-color: var(--accent-cyan);
+      }
+
+      .button.outline {
+        background: transparent;
+        border: 2px solid var(--teal);
+        color: var(--teal);
+      }
+
+      .button.outline:hover:not(:disabled) {
+        background: rgba(15, 118, 110, 0.08);
+      }
+
+      .button.ghost {
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        color: var(--ink);
+      }
+
+      .button.ghost:hover:not(:disabled) {
+        background: rgba(0, 0, 0, 0.04);
+        box-shadow: none;
+      }
+
+      /* Enhanced Cards */
+      .panel {
+        transition: var(--transition);
+        box-shadow: var(--shadow-md);
+      }
+
+      .panel:hover {
+        box-shadow: var(--shadow-lg);
+      }
+
+      .dash-card {
+        transition: var(--transition);
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--line);
+      }
+
+      .dash-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--accent-cyan);
+      }
+
+      /* Enhanced Cards with Accent Borders */
+      .card-primary {
+        border-left: 4px solid var(--teal);
+      }
+
+      .card-success {
+        border-left: 4px solid var(--green);
+      }
+
+      .card-warning {
+        border-left: 4px solid var(--orange);
+      }
+
+      .card-danger {
+        border-left: 4px solid var(--red);
+      }
+
+      .card-purple {
+        border-left: 4px solid var(--accent-purple);
+      }
+
+      /* Badge/Tag System */
+      .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-size: 0.78rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .badge-primary {
+        background: rgba(15, 118, 110, 0.15);
+        color: var(--teal);
+      }
+
+      .badge-success {
+        background: rgba(6, 118, 71, 0.15);
+        color: var(--green);
+      }
+
+      .badge-warning {
+        background: rgba(234, 88, 12, 0.15);
+        color: var(--orange);
+      }
+
+      .badge-danger {
+        background: rgba(180, 35, 24, 0.15);
+        color: var(--red);
+      }
+
+      .badge.solid {
+        color: white;
+      }
+
+      .badge.solid-primary {
+        background: var(--teal);
+      }
+
+      .badge.solid-success {
+        background: var(--green);
+      }
+
+      .badge.solid-warning {
+        background: var(--orange);
+      }
+
+      .badge.solid-danger {
+        background: var(--red);
+      }
+
+      /* Enhanced Typography */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        transition: color 0.3s ease;
+        background: linear-gradient(135deg, var(--ink) 0%, #4b5563 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Section Headers */
+      .section-title {
+        font-size: 1.4rem;
+        font-weight: 950;
+        letter-spacing: -0.5px;
+        margin-bottom: 16px;
+        position: relative;
+        padding-bottom: 12px;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 32px;
+        height: 3px;
+        background: var(--gradient-primary);
+        border-radius: 2px;
+      }
+
+      /* Progress/Status Indicators */
+      .progress-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: rgba(15, 118, 110, 0.1);
+        color: var(--teal);
+        font-weight: 900;
+        font-size: 0.85rem;
+      }
+
+      .progress-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--teal);
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* Smooth Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.4s ease-out;
+      }
+
+      .slide-in {
+        animation: slideIn 0.4s ease-out;
+      }
+
+      .scale-in {
+        animation: scaleIn 0.3s ease-out;
+      }
+
+      /* Glassmorphism Effect */
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
+
+      /* Gradient Overlays for Visual Hierarchy */
+      .gradient-overlay {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .gradient-overlay::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.5),
+          transparent
+        );
+      }
+
+      /* Enhanced Focus States for Accessibility */
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible {
+        outline: 2px solid var(--accent-cyan);
+        outline-offset: 2px;
+      }
+
+      /* Smooth Transitions for Interactive Elements */
+      a,
+      button,
+      input,
+      select,
+      textarea {
+        transition: var(--transition);
+      }
+
+      /* Enhanced Code/Important Boxes */
+      .important-box {
+        background: linear-gradient(
+          135deg,
+          rgba(15, 118, 110, 0.08) 0%,
+          rgba(6, 214, 160, 0.06) 100%
+        );
+        border: 1px solid rgba(15, 118, 110, 0.2);
+        border-left: 4px solid var(--teal);
+        padding: 16px;
+        border-radius: 12px;
+        margin: 16px 0;
+      }
+
+      .success-box {
+        background: linear-gradient(
+          135deg,
+          rgba(6, 118, 71, 0.08) 0%,
+          rgba(16, 185, 129, 0.06) 100%
+        );
+        border: 1px solid rgba(6, 118, 71, 0.2);
+        border-left: 4px solid var(--green);
+      }
+
+      .warning-box {
+        background: linear-gradient(
+          135deg,
+          rgba(234, 88, 12, 0.08) 0%,
+          rgba(251, 146, 60, 0.06) 100%
+        );
+        border: 1px solid rgba(234, 88, 12, 0.2);
+        border-left: 4px solid var(--orange);
+      }
+
+      .danger-box {
+        background: linear-gradient(
+          135deg,
+          rgba(180, 35, 24, 0.08) 0%,
+          rgba(239, 68, 68, 0.06) 100%
+        );
+        border: 1px solid rgba(180, 35, 24, 0.2);
+        border-left: 4px solid var(--red);
+      }
+
+      /* Responsive Typography */
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        .section-title {
+          font-size: 1.2rem;
+        }
+
+        .button {
+          font-size: 0.9rem;
+          min-height: 44px;
+        }
+      }
+
+      /* Final icon overrides */
+      .bottom-nav a::before {
+        content: "" !important;
+        display: block !important;
+        width: 28px !important;
+        height: 28px !important;
+        background: currentColor !important;
+        -webkit-mask: var(--nav-icon) center / contain no-repeat !important;
+        mask: var(--nav-icon) center / contain no-repeat !important;
+      }
     </style>
   </head>
   <body>
-    <main class="app">
-      <header class="topbar">
+    <main
+      class="app"
+      id="main-content"
+      role="main"
+      aria-label="SSW Nursing Care Mock Test Application"
+    >
+      <header class="topbar" role="banner">
         <div class="brand">
-          <div class="mark">SSW</div>
+          <div class="mark" aria-label="Application Logo">SSW</div>
           <div>
             <h1 id="brandTitle">Japan SSW Nursing Care Mock Test</h1>
             <p id="brandSubtitle">
@@ -5017,23 +5570,77 @@
           <button class="button primary" id="restartBtn" type="button">
             Start Set
           </button>
+          <button
+            class="button"
+            id="keyboardHelpBtn"
+            type="button"
+            aria-label="Keyboard shortcuts (Alt+?)"
+            title="Alt+?"
+          >
+            ⌨️ Shortcuts
+          </button>
+          <button
+            class="button"
+            id="exportDataBtn"
+            type="button"
+            aria-label="Export progress (Ctrl+E)"
+            title="Ctrl+E"
+          >
+            📥 Export
+          </button>
         </div>
       </header>
 
       <nav class="quick-nav" aria-label="Quick navigation">
-        <a href="#home" id="quickHome" data-page-link="home">Home</a>
-        <a href="#practice" id="quickPractice" data-page-link="test">Test</a>
-        <a href="#vocabulary" id="quickVocab" data-page-link="vocab">Vocab</a>
-        <a href="#flashcards" id="quickCards" data-page-link="cards">Cards</a>
-        <a href="#study" id="quickStudy" data-page-link="study">Study</a>
+        <a href="#home" id="quickHome" data-page-link="home" title="Home"
+          >🏠 Home</a
+        >
+        <a
+          href="#practice"
+          id="quickPractice"
+          data-page-link="test"
+          title="Mock Test"
+          >📋 Test</a
+        >
+        <a
+          href="#vocabulary"
+          id="quickVocab"
+          data-page-link="vocab"
+          title="Vocabulary"
+          >📚 Vocab</a
+        >
+        <a
+          href="#flashcards"
+          id="quickCards"
+          data-page-link="cards"
+          title="Flashcards"
+          >🎴 Cards</a
+        >
+        <a
+          href="#study"
+          id="quickStudy"
+          data-page-link="study"
+          title="Study Materials"
+          >📖 Study</a
+        >
       </nav>
 
       <nav class="bottom-nav" aria-label="Mobile navigation">
-        <a href="#home" id="bottomHome" data-page-link="home">Home</a>
-        <a href="#study" id="bottomStudy" data-page-link="study">Study</a>
-        <a href="#practice" id="bottomTest" data-page-link="test">Test</a>
-        <a href="#profile" id="bottomProfile" data-page-link="profile"
-          >Profile</a
+        <a href="#home" id="bottomHome" data-page-link="home" title="Home"
+          >🏠</a
+        >
+        <a href="#study" id="bottomStudy" data-page-link="study" title="Study"
+          >📖</a
+        >
+        <a href="#practice" id="bottomTest" data-page-link="test" title="Test"
+          >📋</a
+        >
+        <a
+          href="#profile"
+          id="bottomProfile"
+          data-page-link="profile"
+          title="Profile"
+          >👤</a
         >
       </nav>
 
@@ -5081,7 +5688,15 @@
             data-page-link="study"
             data-scroll-target="study"
           >
-            <span class="menu-icon">B</span>
+            <span class="menu-icon icon-study" aria-hidden="true">
+              <svg viewBox="0 0 64 64" focusable="false">
+                <path
+                  d="M18 15h26a6 6 0 0 1 6 6v30H22a6 6 0 0 0-6 6V17a2 2 0 0 1 2-2Z"
+                />
+                <path d="M16 21H8a4 4 0 0 0-4 4v28h12" />
+                <path d="M24 25h18M24 33h18M24 41h13" />
+              </svg>
+            </span>
             <strong id="homeTabStudy">Study Materials</strong>
             <span id="homeTabStudySub">Chapterwise notes and guides</span>
           </a>
@@ -5091,7 +5706,13 @@
             data-page-link="vocab"
             data-scroll-target="vocabulary"
           >
-            <span class="menu-icon">AZ</span>
+            <span class="menu-icon icon-vocab" aria-hidden="true">
+              <svg viewBox="0 0 64 64" focusable="false">
+                <path d="M11 13h19a8 8 0 0 1 8 8v30a8 8 0 0 0-8-8H11Z" />
+                <path d="M53 13H38a8 8 0 0 0-8 8v30a8 8 0 0 1 8-8h15Z" />
+                <path d="M18 35l6-16 6 16M21 29h6M42 21h8l-8 14h9" />
+              </svg>
+            </span>
             <strong id="homeTabVocab">Vocabulary</strong>
             <span
               ><span id="vocabTotal">499</span>
@@ -5104,7 +5725,14 @@
             data-page-link="test"
             data-scroll-target="mockChapterPanel"
           >
-            <span class="menu-icon">Q</span>
+            <span class="menu-icon icon-mock" aria-hidden="true">
+              <svg viewBox="0 0 64 64" focusable="false">
+                <path d="M21 10h22l5 6v38H16V16Z" />
+                <path d="M24 25l4 4 8-9M24 37l4 4 8-9M39 28h7M39 40h7" />
+                <circle cx="46" cy="48" r="10" />
+                <path d="M46 42v7l5 3" />
+              </svg>
+            </span>
             <strong id="homeTabSets">Mock Test</strong>
             <span id="homeTabSetsSub">5 real exam sets</span>
           </a>
@@ -5114,7 +5742,13 @@
             data-page-link="home"
             data-scroll-target="newsFlash"
           >
-            <span class="menu-icon">N</span>
+            <span class="menu-icon icon-news" aria-hidden="true">
+              <svg viewBox="0 0 64 64" focusable="false">
+                <path d="M14 12h36v40H14Z" />
+                <path d="M22 22h20M22 30h20M22 38h11" />
+                <path d="M38 38h8v8h-8Z" />
+              </svg>
+            </span>
             <strong>Flash news</strong>
             <span>Stay updated with daily healthcare news</span>
           </a>
@@ -5264,11 +5898,15 @@
               <div class="options" id="options"></div>
               <div class="feedback" id="feedback"></div>
               <div class="actions">
-                <button class="button" id="showAnswerBtn" type="button">
-                  Mark Review
+                <button
+                  class="button secondary"
+                  id="showAnswerBtn"
+                  type="button"
+                >
+                  ⭐ Mark Review
                 </button>
                 <button class="button primary" id="nextBtn" type="button">
-                  Next
+                  Next →
                 </button>
               </div>
             </div>
@@ -5352,15 +5990,43 @@
           <div class="vocab-pager">
             <span id="vocabPageInfo">Page 1 of 1</span>
             <div>
-              <button class="button" id="vocabPrevBtn" type="button">
-                Previous
+              <button class="button secondary" id="vocabPrevBtn" type="button">
+                ← Previous
               </button>
-              <button class="button" id="vocabNextBtn" type="button">
-                Next
+              <button class="button primary" id="vocabNextBtn" type="button">
+                Next →
               </button>
             </div>
           </div>
           <div class="vocab-list" id="vocabList"></div>
+          <div
+            class="vocab-pager"
+            style="
+              margin-top: 16px;
+              border-top: 1px solid var(--line);
+              padding-top: 16px;
+            "
+          >
+            <span id="vocabPageInfoBottom">Page 1 of 1</span>
+            <div>
+              <button
+                class="button secondary"
+                id="vocabPrevBtnBottom"
+                type="button"
+                aria-label="Previous vocabulary page"
+              >
+                ← Previous
+              </button>
+              <button
+                class="button primary"
+                id="vocabNextBtnBottom"
+                type="button"
+                aria-label="Next vocabulary page"
+              >
+                Next →
+              </button>
+            </div>
+          </div>
         </section>
       </section>
 
@@ -5405,7 +6071,51 @@
         <section class="panel" id="studyMaterialsPanel">
           <div class="section-head">
             <h2>Learn: Chapterwise Notes & Guides</h2>
-            <span class="muted">Tap chapter to open subchapter guide</span>
+            <span class="muted"
+              >学習: 章ごとノート・ガイド (Gakushū: Shōgo toni Nōto ·
+              Gaido)</span
+            >
+          </div>
+          <div
+            class="study-intro"
+            style="
+              padding: 16px;
+              background: #f0fdf4;
+              border-radius: 12px;
+              margin-bottom: 16px;
+              border: 1px solid #bbf7d0;
+            "
+          >
+            <strong>📚 Study Structure (学習構成)</strong>
+            <ul
+              style="
+                margin: 10px 0 0;
+                padding-left: 20px;
+                color: #166534;
+                line-height: 1.6;
+              "
+            >
+              <li>
+                <strong>Part 1:</strong> 介護の基本 (Kaigo no Kihon) -
+                Fundamentals of Care
+              </li>
+              <li>
+                <strong>Part 2:</strong> 利用者の理解 (Riyōsha no Rikai) -
+                Understanding Users
+              </li>
+              <li>
+                <strong>Part 3:</strong> 身体介護 (Shintai Kaigo) - Physical
+                Care
+              </li>
+              <li>
+                <strong>Part 4:</strong> 生活支援 (Seikatsu Shien) - Daily Life
+                Support
+              </li>
+              <li>
+                <strong>Vocabulary:</strong> ケア日本語 (Kea Nihongo) - Care
+                Japanese (499 terms)
+              </li>
+            </ul>
           </div>
           <div class="chapter-list" id="studyChapterList"></div>
         </section>
@@ -5459,8 +6169,21 @@
       </div>
     </div>
 
+    <!-- Modular JavaScript Files -->
+    <script src="utils.js"></script>
+    <script src="storage.js"></script>
+    <script src="accessibility.js"></script>
+    <script src="mobile.js"></script>
+
     <script>
+      // =====================================================
+      // ENHANCED SSW NURSING CARE MOCK TEST APP
+      // With localStorage persistence, accessibility, mobile optimization
+      // =====================================================
+
       function chapterToStudyMaterial(chapter) {
+        const nihongoTitle = chapter.nihongo?.title || "";
+        const nihongoFocus = chapter.nihongo?.focus || "";
         return {
           title: `${chapter.chapter}: ${chapter.title}`,
           part: chapter.part,
@@ -5472,7 +6195,9 @@
           <div class="learn-card">
             <section class="learn-section learn-focus">
               <h3>${chapter.title}</h3>
+              ${nihongoTitle ? `<p style="color: #666; font-style: italic; font-size: 0.95em;">🇯🇵 ${nihongoTitle}</p>` : ""}
               <p><strong>Study goal:</strong> ${chapter.focus}</p>
+              ${nihongoFocus ? `<p style="color: #666; font-size: 0.95em;"><strong>学習目標:</strong> ${nihongoFocus}</p>` : ""}
               <p><strong>Source:</strong> ${chapter.source}</p>
             </section>
             <section class="learn-section">
@@ -5509,6 +6234,12 @@
           chapter: "Chapter 1",
           title: "Human dignity and independence in nursing care",
           source: "PDF pages 10-15",
+          nihongo: {
+            title:
+              "介護における人間の尊厳と自立 (Kaigo ni okeru ningen no songen to jiritsu)",
+            focus:
+              "介護は尊厳、人権、生活の質（QOL）、正常化、そしてユーザー自身の選択をサポートすることから始まります。",
+          },
           focus:
             "Care begins with dignity, human rights, QOL, normalization, and support for the user's own choices.",
           bullets: [
@@ -5573,6 +6304,12 @@
           chapter: "Chapter 2",
           title: "Role and professional ethics of care workers",
           source: "PDF pages 16-23",
+          nihongo: {
+            title:
+              "介護職の役割と職業倫理 (Kaigo-shoku no yakuwari to shokugyō rinri)",
+            focus:
+              "介護職は権利、プライバシー、チーム信頼を保護しながら、専門家として日常生活をサポートします。",
+          },
           focus:
             "Care workers support daily life as professionals while protecting rights, privacy, and team trust.",
           bullets: [
@@ -5649,6 +6386,11 @@
           chapter: "Chapter 3",
           title: "Ensuring safety and risk management",
           source: "PDF pages 24-40",
+          nihongo: {
+            title: "安全確保とリスク管理 (Anzen kakuho to risuku kanri)",
+            focus:
+              "安全管理は事故を防ぎ、変化、事件、または危険が現れたときに迅速に対応します。",
+          },
           focus:
             "Safety management prevents accidents and responds quickly when changes, incidents, or hazards appear.",
           bullets: [
@@ -5726,6 +6468,11 @@
           chapter: "Chapter 1",
           title: "Mechanism of mind and body",
           source: "PDF pages 42-67",
+          nihongo: {
+            title: "心と体のメカニズム (Kokoro to karada no mekanizumu)",
+            focus:
+              "体系、バイタルサイン、運動、食事、排泄、休息、精神状態を理解することで、安全な観察をサポートします。",
+          },
           focus:
             "Understanding body systems, vital signs, movement, eating, elimination, rest, and mental condition supports safe observation.",
           bullets: [
@@ -6960,6 +7707,9 @@
         vocabPageInfo: document.getElementById("vocabPageInfo"),
         vocabPrevBtn: document.getElementById("vocabPrevBtn"),
         vocabNextBtn: document.getElementById("vocabNextBtn"),
+        vocabPrevBtnBottom: document.getElementById("vocabPrevBtnBottom"),
+        vocabNextBtnBottom: document.getElementById("vocabNextBtnBottom"),
+        vocabPageInfoBottom: document.getElementById("vocabPageInfoBottom"),
         vocabList: document.getElementById("vocabList"),
         knownCount: document.getElementById("knownCount"),
         flashIndex: document.getElementById("flashIndex"),
@@ -7586,8 +8336,15 @@
         el.vocabPageInfo.textContent = filtered.length
           ? `Page ${vocabState.page} of ${totalPages} - ${filtered.length} words`
           : "No vocabulary found";
+        el.vocabPageInfoBottom.textContent = filtered.length
+          ? `Page ${vocabState.page} of ${totalPages}`
+          : "No vocabulary found";
         el.vocabPrevBtn.disabled = vocabState.page <= 1 || !filtered.length;
         el.vocabNextBtn.disabled =
+          vocabState.page >= totalPages || !filtered.length;
+        el.vocabPrevBtnBottom.disabled =
+          vocabState.page <= 1 || !filtered.length;
+        el.vocabNextBtnBottom.disabled =
           vocabState.page >= totalPages || !filtered.length;
         el.vocabList.replaceChildren();
 
@@ -7824,6 +8581,20 @@
         vocabState.page += 1;
         renderVocabulary();
       });
+      el.vocabPrevBtnBottom.addEventListener("click", () => {
+        vocabState.page -= 1;
+        renderVocabulary();
+        document
+          .getElementById("vocabList")
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+      el.vocabNextBtnBottom.addEventListener("click", () => {
+        vocabState.page += 1;
+        renderVocabulary();
+        document
+          .getElementById("vocabList")
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      });
       el.flipCardBtn.addEventListener("click", () =>
         renderFlashcard(!vocabState.answerVisible),
       );
@@ -7833,6 +8604,43 @@
         updateKnownCount();
         nextFlashcard();
       });
+
+      // ===== NEW FEATURE HANDLERS =====
+      // Keyboard shortcuts help
+      el.keyboardHelpBtn = document.getElementById("keyboardHelpBtn");
+      if (el.keyboardHelpBtn) {
+        el.keyboardHelpBtn.addEventListener("click", () => {
+          A11y.showKeyboardHelp();
+        });
+      }
+
+      // Export data button
+      el.exportDataBtn = document.getElementById("exportDataBtn");
+      if (el.exportDataBtn) {
+        el.exportDataBtn.addEventListener("click", () => {
+          const confirmed = confirm("Export your progress and settings?");
+          if (confirmed) {
+            Storage.downloadExport();
+            A11y.announce("Your data has been exported", "polite");
+          }
+        });
+      }
+
+      // Save quiz results to history
+      const originalStartSet = startSet;
+      window.startSet = function (...args) {
+        originalStartSet.apply(this, args);
+      };
+
+      // Auto-save progress periodically
+      setInterval(() => {
+        if (state.currentIndex !== undefined) {
+          Storage.saveProgress("quiz_" + state.currentSet, {
+            currentIndex: state.currentIndex,
+            progress: state.answered.length,
+          });
+        }
+      }, 30000);
 
       applyLanguage();
       el.quizPanel.style.display = "none";
