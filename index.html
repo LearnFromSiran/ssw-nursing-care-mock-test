@@ -2167,10 +2167,10 @@
 
       .term {
         display: grid;
-        grid-template-columns: minmax(110px, 0.7fr) minmax(150px, 1fr) minmax(
-            150px,
-            1fr
-          );
+        grid-template-columns: minmax(90px, 0.65fr) minmax(
+            110px,
+            0.85fr
+          ) minmax(130px, 1fr);
         gap: 10px;
         padding: 12px;
         border: 1px solid var(--line);
@@ -2180,6 +2180,10 @@
 
       .term strong {
         font-family: "Noto Sans JP", sans-serif;
+      }
+
+      .term span {
+        overflow-wrap: anywhere;
       }
 
       .set-list {
@@ -2298,6 +2302,38 @@
       .mock-question-card ul {
         margin: 8px 0 0;
         padding-left: 18px;
+      }
+
+      .learn-card {
+        display: grid;
+        gap: 12px;
+      }
+
+      .learn-section {
+        padding: 13px;
+        border: 1px solid #e8eef6;
+        border-radius: 14px;
+        background: #fff;
+      }
+
+      .learn-section h4 {
+        margin: 0 0 8px;
+        color: #09235a;
+        font-size: 0.95rem;
+      }
+
+      .learn-focus {
+        border-color: #bfdbfe;
+        background: #eff6ff;
+      }
+
+      .remember-box {
+        border-color: #bbf7d0;
+        background: #f0fdf4;
+      }
+
+      .remember-box strong {
+        color: #166534;
       }
 
       .mock-question-card ol {
@@ -4126,6 +4162,11 @@
           padding: 12px;
         }
 
+        .term {
+          grid-template-columns: 1fr;
+          gap: 4px;
+        }
+
         .flashcard {
           min-height: 230px;
           margin: 10px;
@@ -5395,13 +5436,29 @@
       function chapterToStudyMaterial(chapter) {
         return {
           title: `${chapter.part} ${chapter.chapter}: ${chapter.title}`,
+          guideCount: chapter.bullets.length,
+          termCount: chapter.terms.length,
+          source: chapter.source,
           html: `
-          <h3>${chapter.title}</h3>
-          <p><strong>PDF source:</strong> ${chapter.source}</p>
-          <p>${chapter.focus}</p>
-          <ul>${chapter.bullets.map((item) => `<li>${item}</li>`).join("")}</ul>
-          <h4>Key terms</h4>
-          <div class="term-grid">${chapter.terms.map((term) => `<div class="term"><strong>${term[0]}</strong><span>${term[1]}</span><span>${term[2]}</span></div>`).join("")}</div>
+          <div class="learn-card">
+            <section class="learn-section learn-focus">
+              <h3>${chapter.title}</h3>
+              <p><strong>Study goal:</strong> ${chapter.focus}</p>
+              <p><strong>Source:</strong> ${chapter.source}</p>
+            </section>
+            <section class="learn-section">
+              <h4>What to learn</h4>
+              <ul>${chapter.bullets.map((item) => `<li>${item}</li>`).join("")}</ul>
+            </section>
+            <section class="learn-section">
+              <h4>Important terms</h4>
+              <div class="term-grid">${chapter.terms.map((term) => `<div class="term"><strong>${term[0]}</strong><span>${term[1]}</span><span>${term[2]}</span></div>`).join("")}</div>
+            </section>
+            <section class="learn-section remember-box">
+              <h4>Remember for exam</h4>
+              <p><strong>Best answer style:</strong> choose the option that protects dignity, safety, independence, privacy, and clear reporting.</p>
+            </section>
+          </div>
         `,
         };
       }
@@ -7407,7 +7464,7 @@
             <summary class="chapter-summary">
               <span>
                 <span class="chapter-title">${material.title}</span>
-                <span class="chapter-meta">Subchapter notes, guides, and key points</span>
+                <span class="chapter-meta">${material.guideCount || 0} guide points · ${material.termCount || 0} key terms · ${material.source || "Study guide"}</span>
               </span>
               <span class="chapter-chevron" aria-hidden="true">›</span>
             </summary>
