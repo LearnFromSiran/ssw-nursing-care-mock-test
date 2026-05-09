@@ -2261,6 +2261,16 @@
         padding: 0 16px 16px;
       }
 
+      .chapter-quiz-slot {
+        display: grid;
+        gap: 12px;
+      }
+
+      .chapter-quiz-slot .quiz-panel {
+        border-radius: 14px;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+      }
+
       .subchapter-card,
       .mock-question-card {
         padding: 13px;
@@ -4950,7 +4960,7 @@
           <div class="chapter-list" id="mockChapterList"></div>
         </section>
 
-        <section class="panel quiz-panel">
+        <section class="panel quiz-panel" id="quizPanel">
           <div id="quizView">
             <div class="quiz-head">
               <div>
@@ -6572,6 +6582,7 @@
         logoutBtn: document.getElementById("logoutBtn"),
         authMessage: document.getElementById("authMessage"),
         quizView: document.getElementById("quizView"),
+        quizPanel: document.getElementById("quizPanel"),
         resultsView: document.getElementById("resultsView"),
         quizTitle: document.getElementById("quizTitle"),
         questionNumber: document.getElementById("questionNumber"),
@@ -6754,6 +6765,7 @@
         el.resultsView.classList.remove("show");
         renderQuestion();
         renderSetList();
+        placeQuizPanel(state.setIndex);
         updateMistakeButtons();
         if (state.examMode) startTimer(60 * 60);
         if (!options.skipScroll) {
@@ -7048,6 +7060,7 @@
             </summary>
             <div class="chapter-content">
               <button class="button primary chapter-start" type="button">Start this mock test</button>
+              <div class="chapter-quiz-slot" data-quiz-slot="${index}"></div>
               ${questionCards}
             </div>
           `;
@@ -7069,6 +7082,18 @@
           });
           list.append(details);
         });
+      }
+
+      function placeQuizPanel(index = state.setIndex) {
+        if (!el.quizPanel || !el.mockChapterList) return;
+        const details =
+          el.mockChapterList.querySelectorAll(".chapter-item")[index];
+        const slot = el.mockChapterList.querySelector(
+          `[data-quiz-slot="${index}"]`,
+        );
+        if (!details || !slot) return;
+        details.open = true;
+        if (!slot.contains(el.quizPanel)) slot.append(el.quizPanel);
       }
 
       function getSetName(set, index) {
