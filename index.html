@@ -1407,6 +1407,71 @@
         display: none;
       }
 
+      .auth-divider {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 10px;
+        align-items: center;
+        margin: 14px 0;
+        color: #94a3b8;
+        font-size: 0.78rem;
+        font-weight: 850;
+      }
+
+      .auth-divider::before,
+      .auth-divider::after {
+        content: "";
+        height: 1px;
+        background: #e2e8f0;
+      }
+
+      .google-auth-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 46px;
+        gap: 10px;
+        border: 1px solid #dbe3ef;
+        border-radius: 14px;
+        background: #fff;
+        color: #1f2937;
+        font: inherit;
+        font-weight: 900;
+        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+      }
+
+      .google-auth-button::before {
+        content: "G";
+        display: grid;
+        place-items: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: conic-gradient(
+          from -45deg,
+          #4285f4 0 25%,
+          #34a853 0 50%,
+          #fbbc05 0 75%,
+          #ea4335 0
+        );
+        color: #fff;
+        font-size: 0.9rem;
+        font-weight: 950;
+      }
+
+      .google-auth-button:hover,
+      .google-auth-button:focus-visible {
+        border-color: #b9c7dc;
+        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+      }
+
+      #googleSignInSlot:not(:empty) {
+        display: grid;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
       .auth-close {
         position: absolute;
         top: 14px;
@@ -5896,6 +5961,11 @@
         gap: 14px;
       }
 
+      .google-auth-button {
+        min-height: 48px;
+        padding: 0 16px;
+      }
+
       @media (max-width: 620px) {
         .home-top {
           gap: 10px;
@@ -5988,6 +6058,8 @@
         }
       }
     </style>
+    <meta name="google-signin-client_id" content="" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
   </head>
   <body>
     <main
@@ -6706,9 +6778,14 @@
             Login
           </button>
         </div>
+        <div class="auth-divider">or</div>
+        <button class="google-auth-button" id="googleAuthBtn" type="button">
+          Continue with Google
+        </button>
+        <div id="googleSignInSlot" aria-live="polite"></div>
         <p class="auth-note">
-          Your account is saved securely on this device. Use the same email and
-          password next time.
+          Email login is saved on this device. Google login works after adding
+          your Google OAuth Client ID.
         </p>
         <button class="button logout-button" id="logoutBtn" type="button">
           Log out
@@ -8285,6 +8362,8 @@
         authPassword: document.getElementById("authPassword"),
         authConfirmPassword: document.getElementById("authConfirmPassword"),
         authSubmitBtn: document.getElementById("authSubmitBtn"),
+        googleAuthBtn: document.getElementById("googleAuthBtn"),
+        googleSignInSlot: document.getElementById("googleSignInSlot"),
         logoutBtn: document.getElementById("logoutBtn"),
         authMessage: document.getElementById("authMessage"),
         profileAvatar: document.getElementById("profileAvatar"),
@@ -8428,6 +8507,105 @@
             .join("");
         }
         return btoa(unescape(encodeURIComponent(input)));
+      }
+
+      function getGoogleClientId() {
+        return (
+          document
+            .querySelector('meta[name="google-signin-client_id"]')
+            ?.content.trim() ||
+          localStorage.getItem("sswGoogleClientId") ||
+          ""
+        );
+      }
+
+      function decodeJwtPayload(token) {
+        const payload = token?.split(".")[1];
+        if (!payload) return null;
+        try {
+          const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+          const decoded = decodeURIComponent(
+            atob(normalized)
+              .split("")
+              .map(
+                (char) =>
+                  `%${`00${char.charCodeAt(0).toString(16)}`.slice(-2)}`,
+              )
+              .join(""),
+          );
+          return JSON.parse(decoded);
+        } catch {
+          return null;
+        }
+      }
+
+      function completeGoogleLogin(profile) {
+        const email = normalizeEmail(profile.email || "");
+        const name = profile.name || email.split("@")[0] || "Google User";
+        if (!isValidEmail(email)) {
+          el.authMessage.textContent =
+            "Google did not return a valid email address.";
+          return;
+        }
+
+        const accounts = getStoredAccounts();
+        accounts[email] = {
+          ...(accounts[email] || {}),
+          name,
+          email,
+          provider: "google",
+          picture: profile.picture || "",
+          updatedAt: new Date().toISOString(),
+        };
+        saveStoredAccounts(accounts);
+        authState.user = { name, email, provider: "google" };
+        localStorage.setItem("sswCareproUser", JSON.stringify(authState.user));
+        updateAuthUI();
+        closeAuthModal();
+      }
+
+      function handleGoogleCredentialResponse(response) {
+        const profile = decodeJwtPayload(response?.credential);
+        if (!profile) {
+          el.authMessage.textContent =
+            "Google login could not read your profile. Please try again.";
+          return;
+        }
+        completeGoogleLogin(profile);
+      }
+
+      window.handleGoogleCredentialResponse = handleGoogleCredentialResponse;
+
+      function startGoogleLogin() {
+        const clientId = getGoogleClientId();
+        if (!clientId) {
+          el.authMessage.textContent =
+            "Google login needs a Google OAuth Client ID before it can go live.";
+          return;
+        }
+
+        if (!window.google?.accounts?.id) {
+          el.authMessage.textContent =
+            "Google login is still loading. Please try again in a moment.";
+          return;
+        }
+
+        window.google.accounts.id.initialize({
+          client_id: clientId,
+          callback: handleGoogleCredentialResponse,
+          ux_mode: "popup",
+        });
+        window.google.accounts.id.prompt();
+        if (el.googleSignInSlot && !el.googleSignInSlot.dataset.rendered) {
+          window.google.accounts.id.renderButton(el.googleSignInSlot, {
+            theme: "outline",
+            size: "large",
+            shape: "pill",
+            text: "continue_with",
+            width: 260,
+          });
+          el.googleSignInSlot.dataset.rendered = "true";
+        }
       }
 
       function setAuthMode(mode) {
@@ -9271,6 +9449,7 @@
         setAuthMode("signup"),
       );
       el.authSubmitBtn.addEventListener("click", saveAuth);
+      el.googleAuthBtn.addEventListener("click", startGoogleLogin);
       el.logoutBtn.addEventListener("click", logout);
       el.profilePdfLoginBtn.addEventListener("click", () =>
         openAuthModal("Sign up or login to unlock the PDF material.", "signup"),
