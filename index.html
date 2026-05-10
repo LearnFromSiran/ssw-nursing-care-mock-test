@@ -2171,11 +2171,57 @@
         place-items: center;
         min-height: 300px;
         margin: 18px;
-        padding: 24px;
+        padding: 0;
         border-radius: 22px;
         background: linear-gradient(145deg, #ffffff, #ecfdf5);
         border: 1px solid var(--line);
         text-align: center;
+        perspective: 1100px;
+        cursor: pointer;
+        overflow: hidden;
+        user-select: none;
+        touch-action: manipulation;
+      }
+
+      .flashcard:focus-visible {
+        outline: 3px solid rgba(37, 99, 235, 0.28);
+        outline-offset: 4px;
+      }
+
+      .flashcard-inner {
+        position: relative;
+        width: 100%;
+        min-height: inherit;
+        transform-style: preserve-3d;
+        transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+
+      .flashcard.flipped .flashcard-inner {
+        transform: rotateY(180deg);
+      }
+
+      .flash-face {
+        display: grid;
+        place-items: center;
+        align-content: center;
+        gap: 12px;
+        min-height: inherit;
+        padding: 24px;
+        border-radius: inherit;
+        backface-visibility: hidden;
+      }
+
+      .flash-face-back {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(145deg, #eff6ff, #ffffff);
+        transform: rotateY(180deg);
+      }
+
+      .flash-hint {
+        color: var(--muted);
+        font-size: 0.88rem;
+        font-weight: 800;
       }
 
       .flashcard-panel {
@@ -2189,6 +2235,16 @@
 
       #flashcards .flashcard {
         min-height: min(62vh, 420px);
+      }
+
+      #flashcards .actions {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      #flashcards .actions .button {
+        min-width: 0;
+        padding-inline: 10px;
       }
 
       .flash-front {
@@ -2206,10 +2262,9 @@
       }
 
       .flash-answer {
-        display: none;
         margin-top: 18px;
         color: #334155;
-        font-size: 1.15rem;
+        font-size: clamp(1.2rem, 5vw, 2rem);
         line-height: 1.5;
         font-weight: 850;
       }
@@ -2218,6 +2273,17 @@
         display: block;
       }
 
+      @media (max-width: 420px) {
+        #flashcards .actions {
+          gap: 8px;
+        }
+
+        #flashcards .actions .button {
+          min-height: 46px;
+          padding-inline: 7px;
+          font-size: 0.82rem;
+        }
+      }
       .np-line {
         color: var(--teal-dark);
         font-weight: 850;
@@ -7183,17 +7249,30 @@
               ></span
             >
           </div>
-          <div class="flashcard" id="flashcard">
-            <div>
-              <div class="tag" id="flashCategory">Core care</div>
-              <div class="flash-front" id="flashFront">介護</div>
-              <div class="flash-kana" id="flashKana">かいご · kaigo</div>
-              <div class="flash-answer" id="flashAnswer">nursing care</div>
+          <div
+            class="flashcard"
+            id="flashcard"
+            role="button"
+            tabindex="0"
+            aria-label="Tap card to show meaning"
+          >
+            <div class="flashcard-inner">
+              <div class="flash-face flash-face-front">
+                <div class="tag" id="flashCategory">Core care</div>
+                <div class="flash-front" id="flashFront">介護</div>
+                <div class="flash-kana" id="flashKana">かいご · kaigo</div>
+                <div class="flash-hint">Tap card to show meaning</div>
+              </div>
+              <div class="flash-face flash-face-back">
+                <div class="tag">Meaning</div>
+                <div class="flash-answer" id="flashAnswer">nursing care</div>
+                <div class="flash-hint">Tap card to return</div>
+              </div>
             </div>
           </div>
           <div class="actions" style="padding: 0 18px 18px; margin-top: 0">
-            <button class="button" id="flipCardBtn" type="button">
-              Show Meaning
+            <button class="button" id="nextFlashBtn" type="button">
+              Next
             </button>
             <button class="button" id="hardCardBtn" type="button">
               Still Learning
@@ -8884,8 +8963,8 @@
           showAnswer: "",
           next: "Next",
           finish: "Finish",
-          flipShow: "Show Meaning",
-          flipHide: "Hide Meaning",
+          flipShow: "Tap Card",
+          flipHide: "Flip Back",
           hard: "Still Learning",
           know: "Know It",
           noMistakesYet: "No Mistakes Yet",
@@ -8953,8 +9032,8 @@
           showAnswer: "",
           next: "Next",
           finish: "Finish",
-          flipShow: "Show Meaning",
-          flipHide: "Hide Meaning",
+          flipShow: "Tap Card",
+          flipHide: "Flip Back",
           hard: "Still Learning",
           know: "Know It",
           noMistakesYet: "No Mistakes Yet",
@@ -9842,7 +9921,8 @@
         flashFront: document.getElementById("flashFront"),
         flashKana: document.getElementById("flashKana"),
         flashAnswer: document.getElementById("flashAnswer"),
-        flipCardBtn: document.getElementById("flipCardBtn"),
+        flashcard: document.getElementById("flashcard"),
+        nextFlashBtn: document.getElementById("nextFlashBtn"),
         hardCardBtn: document.getElementById("hardCardBtn"),
         knowCardBtn: document.getElementById("knowCardBtn"),
         readinessScore: document.getElementById("readinessScore"),
@@ -10802,8 +10882,15 @@
           currentLang === "np"
             ? `${item.en}<br><span class="np-line">${toNepaliMeaning(item)}</span>`
             : item.en;
-        el.flashAnswer.classList.toggle("show", showAnswer);
-        el.flipCardBtn.textContent = showAnswer ? t("flipHide") : t("flipShow");
+        el.flashcard.classList.toggle("flipped", showAnswer);
+        el.flashcard.setAttribute("aria-pressed", String(showAnswer));
+        el.flashcard.setAttribute(
+          "aria-label",
+          showAnswer ? "Tap card to hide meaning" : "Tap card to show meaning",
+        );
+        el.flashcard.title = showAnswer
+          ? "Tap card to hide meaning"
+          : "Tap card to show meaning";
       }
 
       function nextFlashcard() {
@@ -10903,6 +10990,7 @@
         el.restartBtn.textContent = t("restart");
         el.fullExamBtn.textContent = t("fullExam");
         if (el.showAnswerBtn) el.showAnswerBtn.textContent = t("showAnswer");
+        el.nextFlashBtn.textContent = t("next");
         el.hardCardBtn.textContent = t("hard");
         el.knowCardBtn.textContent = t("know");
         updateMistakeButtons();
@@ -11011,9 +11099,15 @@
           .getElementById("vocabList")
           .scrollIntoView({ behavior: "smooth", block: "start" });
       });
-      el.flipCardBtn.addEventListener("click", () =>
+      el.flashcard.addEventListener("click", () =>
         renderFlashcard(!vocabState.answerVisible),
       );
+      el.flashcard.addEventListener("keydown", (event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        renderFlashcard(!vocabState.answerVisible);
+      });
+      el.nextFlashBtn.addEventListener("click", nextFlashcard);
       el.hardCardBtn.addEventListener("click", nextFlashcard);
       el.knowCardBtn.addEventListener("click", () => {
         knownVocabulary.add(vocabulary[vocabState.flashIndex].id);
