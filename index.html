@@ -6399,6 +6399,30 @@
         }
       }
 
+      /* Mock question return home action */
+      .question-wrap .actions {
+        display: grid;
+        grid-template-columns: minmax(92px, 0.85fr) minmax(0, 1.15fr);
+        justify-content: stretch;
+      }
+
+      #mockReturnHomeBtn,
+      #nextBtn {
+        width: 100%;
+        min-width: 0;
+      }
+
+      #mockReturnHomeBtn {
+        white-space: nowrap;
+      }
+
+      @media (max-width: 620px) {
+        #mockReturnHomeBtn,
+        #nextBtn {
+          padding-inline: 10px;
+          font-size: 0.86rem;
+        }
+      }
       /* Focus one mock set while testing */
       .mock-set-list.focused {
         gap: 0;
@@ -7011,6 +7035,14 @@
               <div class="options" id="options"></div>
               <div class="feedback" id="feedback"></div>
               <div class="actions">
+                <button
+                  class="button secondary"
+                  id="mockReturnHomeBtn"
+                  type="button"
+                >
+                  ↩ Home
+                </button>
+
                 <button class="button primary" id="nextBtn" type="button">
                   Next →
                 </button>
@@ -9781,6 +9813,7 @@
         options: document.getElementById("options"),
         feedback: document.getElementById("feedback"),
         showAnswerBtn: document.getElementById("showAnswerBtn"),
+        mockReturnHomeBtn: document.getElementById("mockReturnHomeBtn"),
         nextBtn: document.getElementById("nextBtn"),
         finalScore: document.getElementById("finalScore"),
         resultMessage: document.getElementById("resultMessage"),
@@ -10536,6 +10569,16 @@
         showPage("test", { targetId: "mockChapterPanel" });
       }
 
+      function returnHomeFromMock() {
+        stopTimer();
+        setMockFocus(false);
+        el.quizPanel.style.display = "none";
+        el.quizView.style.display = "block";
+        el.resultsView.classList.remove("show");
+        document.getElementById("practice")?.append(el.quizPanel);
+        renderSetList();
+        showPage("home", { targetId: "home" });
+      }
       function placeQuizPanel(index = state.setIndex) {
         if (!el.quizPanel || !el.mockChapterList) return;
         const card =
@@ -10905,6 +10948,7 @@
           }),
         );
       el.nextBtn.addEventListener("click", nextQuestion);
+      el.mockReturnHomeBtn.addEventListener("click", returnHomeFromMock);
       if (el.showAnswerBtn) el.showAnswerBtn.addEventListener("click", showAnswer);
       el.mistakeOnlyBtn.addEventListener("click", () => {
         if (state.lastMistakes.length)
