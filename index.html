@@ -1368,6 +1368,45 @@
         gap: 10px;
       }
 
+      .auth-mode-switch {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        margin: 0 0 14px;
+        padding: 5px;
+        border: 1px solid #dbe7f5;
+        border-radius: 16px;
+        background: #f5f8fc;
+      }
+
+      .auth-mode-switch button {
+        min-height: 38px;
+        border: 0;
+        border-radius: 12px;
+        background: transparent;
+        color: #64748b;
+        font: inherit;
+        font-size: 0.9rem;
+        font-weight: 900;
+      }
+
+      .auth-mode-switch button.active {
+        background: #075bd8;
+        color: #fff;
+        box-shadow: 0 8px 18px rgba(7, 91, 216, 0.2);
+      }
+
+      .auth-note {
+        margin: 10px 0 0;
+        color: #64748b;
+        font-size: 0.78rem;
+        line-height: 1.4;
+      }
+
+      .auth-field-hidden {
+        display: none;
+      }
+
       .auth-close {
         position: absolute;
         top: 14px;
@@ -6611,9 +6650,28 @@
         </button>
         <h2 id="authTitle">Login or sign up</h2>
         <p id="authCopy">
-          Create a quick profile on this device to unlock the full 60-minute
-          exam.
+          Use your email and password to unlock protected study material on this
+          device.
         </p>
+        <div class="auth-mode-switch" role="tablist" aria-label="Account mode">
+          <button
+            class="active"
+            id="authLoginModeBtn"
+            type="button"
+            role="tab"
+            aria-selected="true"
+          >
+            Login
+          </button>
+          <button
+            id="authSignupModeBtn"
+            type="button"
+            role="tab"
+            aria-selected="false"
+          >
+            Sign up
+          </button>
+        </div>
         <div class="auth-fields">
           <input
             class="input"
@@ -6626,13 +6684,32 @@
             class="input"
             id="authEmail"
             type="email"
-            autocomplete="email"
+            autocomplete="username"
+            inputmode="email"
             placeholder="Email address"
           />
+          <input
+            class="input"
+            id="authPassword"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Password"
+          />
+          <input
+            class="input auth-field-hidden"
+            id="authConfirmPassword"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Confirm password"
+          />
           <button class="button primary" id="authSubmitBtn" type="button">
-            Continue
+            Login
           </button>
         </div>
+        <p class="auth-note">
+          Your account is saved securely on this device. Use the same email and
+          password next time.
+        </p>
         <button class="button logout-button" id="logoutBtn" type="button">
           Log out
         </button>
@@ -7838,6 +7915,7 @@
       };
       let currentLang = localStorage.getItem("sswLanguageMode") || "en";
       let currentPage = "home";
+      let authMode = "login";
       const authState = {
         user: JSON.parse(localStorage.getItem("sswCareproUser") || "null"),
       };
@@ -8200,8 +8278,12 @@
         authCloseBtn: document.getElementById("authCloseBtn"),
         authTitle: document.getElementById("authTitle"),
         authCopy: document.getElementById("authCopy"),
+        authLoginModeBtn: document.getElementById("authLoginModeBtn"),
+        authSignupModeBtn: document.getElementById("authSignupModeBtn"),
         authName: document.getElementById("authName"),
         authEmail: document.getElementById("authEmail"),
+        authPassword: document.getElementById("authPassword"),
+        authConfirmPassword: document.getElementById("authConfirmPassword"),
         authSubmitBtn: document.getElementById("authSubmitBtn"),
         logoutBtn: document.getElementById("logoutBtn"),
         authMessage: document.getElementById("authMessage"),
@@ -8311,19 +8393,79 @@
         el.profilePdfCard.classList.toggle("locked", !unlocked);
         el.profilePdfText.textContent = unlocked
           ? "Unlocked. You can open the PDF material from this profile."
-          : "Sign up or login to unlock the PDF material in your profile.";
+          : "Login or sign up with your email to unlock the PDF material.";
         el.profilePdfLoginBtn.hidden = unlocked;
         el.profilePdfLink.hidden = !unlocked;
       }
 
-      function openAuthModal(message = "") {
+      function getStoredAccounts() {
+        try {
+          return JSON.parse(localStorage.getItem("sswCareproAccounts") || "{}");
+        } catch {
+          return {};
+        }
+      }
+
+      function saveStoredAccounts(accounts) {
+        localStorage.setItem("sswCareproAccounts", JSON.stringify(accounts));
+      }
+
+      function normalizeEmail(email) {
+        return email.trim().toLowerCase();
+      }
+
+      function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      }
+
+      async function hashPassword(email, password) {
+        const input = `${normalizeEmail(email)}:${password}`;
+        if (window.crypto?.subtle) {
+          const data = new TextEncoder().encode(input);
+          const digest = await crypto.subtle.digest("SHA-256", data);
+          return [...new Uint8Array(digest)]
+            .map((byte) => byte.toString(16).padStart(2, "0"))
+            .join("");
+        }
+        return btoa(unescape(encodeURIComponent(input)));
+      }
+
+      function setAuthMode(mode) {
+        authMode = mode;
+        const isSignup = mode === "signup";
+        el.authLoginModeBtn.classList.toggle("active", !isSignup);
+        el.authSignupModeBtn.classList.toggle("active", isSignup);
+        el.authLoginModeBtn.setAttribute("aria-selected", String(!isSignup));
+        el.authSignupModeBtn.setAttribute("aria-selected", String(isSignup));
+        el.authName.classList.toggle("auth-field-hidden", !isSignup);
+        el.authConfirmPassword.classList.toggle("auth-field-hidden", !isSignup);
+        el.authPassword.autocomplete = isSignup
+          ? "new-password"
+          : "current-password";
+        el.authTitle.textContent = isSignup
+          ? "Create your account"
+          : "Login to your account";
+        el.authSubmitBtn.textContent = isSignup ? "Create account" : "Login";
+        el.authCopy.textContent = isSignup
+          ? "Sign up with a valid email and password to unlock your protected material."
+          : "Login with your saved email and password to continue learning.";
+        el.authMessage.textContent = "";
+      }
+
+      function openAuthModal(message = "", mode = "login") {
+        setAuthMode(mode);
         el.authModal.classList.remove("hidden");
         el.authMessage.textContent = message;
         if (isLoggedIn()) {
           el.authName.value = authState.user.name || "";
           el.authEmail.value = authState.user.email || "";
         }
-        setTimeout(() => el.authName.focus(), 0);
+        el.authPassword.value = "";
+        el.authConfirmPassword.value = "";
+        setTimeout(() => {
+          const target = authMode === "signup" ? el.authName : el.authEmail;
+          target.focus();
+        }, 0);
       }
 
       function closeAuthModal() {
@@ -8331,15 +8473,75 @@
         el.authMessage.textContent = "";
       }
 
-      function saveAuth() {
+      async function saveAuth() {
         const name = el.authName.value.trim();
-        const email = el.authEmail.value.trim();
-        if (!name) {
-          el.authMessage.textContent = "Please enter your name.";
+        const email = normalizeEmail(el.authEmail.value);
+        const password = el.authPassword.value;
+        const confirmPassword = el.authConfirmPassword.value;
+        const accounts = getStoredAccounts();
+
+        if (authMode === "signup" && !name) {
+          el.authMessage.textContent = "Please enter your full name.";
           el.authName.focus();
           return;
         }
-        authState.user = { name, email };
+
+        if (!isValidEmail(email)) {
+          el.authMessage.textContent = "Please enter a valid email address.";
+          el.authEmail.focus();
+          return;
+        }
+
+        if (password.length < 6) {
+          el.authMessage.textContent =
+            "Password must be at least 6 characters.";
+          el.authPassword.focus();
+          return;
+        }
+
+        if (authMode === "signup") {
+          if (password !== confirmPassword) {
+            el.authMessage.textContent = "Passwords do not match.";
+            el.authConfirmPassword.focus();
+            return;
+          }
+
+          if (accounts[email]) {
+            setAuthMode("login");
+            el.authMessage.textContent =
+              "This email already has an account. Please login.";
+            return;
+          }
+
+          accounts[email] = {
+            name,
+            email,
+            passwordHash: await hashPassword(email, password),
+            createdAt: new Date().toISOString(),
+          };
+          saveStoredAccounts(accounts);
+          authState.user = { name, email };
+        } else {
+          const account = accounts[email];
+          if (!account) {
+            setAuthMode("signup");
+            el.authMessage.textContent =
+              "No account found for this email. Please sign up first.";
+            el.authName.focus();
+            return;
+          }
+
+          const passwordHash = await hashPassword(email, password);
+          if (passwordHash !== account.passwordHash) {
+            el.authMessage.textContent =
+              "Incorrect password. Please try again.";
+            el.authPassword.focus();
+            return;
+          }
+
+          authState.user = { name: account.name, email };
+        }
+
         localStorage.setItem("sswCareproUser", JSON.stringify(authState.user));
         updateAuthUI();
         closeAuthModal();
@@ -8350,6 +8552,8 @@
         localStorage.removeItem("sswCareproUser");
         el.authName.value = "";
         el.authEmail.value = "";
+        el.authPassword.value = "";
+        el.authConfirmPassword.value = "";
         updateAuthUI();
         closeAuthModal();
       }
@@ -9062,14 +9266,22 @@
       el.authModal.addEventListener("click", (event) => {
         if (event.target === el.authModal) closeAuthModal();
       });
+      el.authLoginModeBtn.addEventListener("click", () => setAuthMode("login"));
+      el.authSignupModeBtn.addEventListener("click", () =>
+        setAuthMode("signup"),
+      );
       el.authSubmitBtn.addEventListener("click", saveAuth);
       el.logoutBtn.addEventListener("click", logout);
       el.profilePdfLoginBtn.addEventListener("click", () =>
-        openAuthModal("Login or sign up to unlock the PDF material."),
+        openAuthModal("Sign up or login to unlock the PDF material.", "signup"),
       );
-      el.authEmail.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") saveAuth();
-      });
+      [el.authName, el.authEmail, el.authPassword, el.authConfirmPassword]
+        .filter(Boolean)
+        .forEach((field) =>
+          field.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") saveAuth();
+          }),
+        );
       el.nextBtn.addEventListener("click", nextQuestion);
       el.showAnswerBtn.addEventListener("click", showAnswer);
       el.mistakeOnlyBtn.addEventListener("click", () => {
