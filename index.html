@@ -6346,6 +6346,58 @@
         }
       }
 
+      /* Focus one mock set while testing */
+      .mock-set-list.focused {
+        gap: 0;
+      }
+
+      .mock-set-list.focused .mock-set-card:not(.active) {
+        display: none;
+      }
+
+      .mock-set-list.focused .mock-set-card.active {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        align-items: stretch;
+      }
+
+      .mock-card-top {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .mock-change-set {
+        display: none;
+        min-height: 38px;
+        padding: 0 12px;
+      }
+
+      .mock-set-list.focused .mock-change-set {
+        display: inline-flex;
+      }
+
+      .mock-set-list.focused .chapter-start {
+        display: none;
+      }
+
+      .mock-set-list.focused .chapter-quiz-slot {
+        display: grid;
+      }
+
+      @media (max-width: 620px) {
+        .mock-card-top {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
+
+        .mock-change-set {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
       /* Practical learn section polish */
       #studyMaterialsPanel {
         background:
@@ -9610,6 +9662,7 @@
         answers: [],
         lastAnswers: [],
         examMode: false,
+        mockFocusActive: false,
         quizTitle: "",
         timerId: null,
         timeRemaining: 0,
@@ -10082,11 +10135,13 @@
         state.selectedIndex = null;
         state.mistakes = [];
         state.answers = [];
+        state.mockFocusActive = options.focusMock !== false;
         el.quizPanel.style.display = "block";
         el.quizView.style.display = "block";
         el.resultsView.classList.remove("show");
         renderQuestion();
         renderSetList();
+        setMockFocus(state.mockFocusActive);
         placeQuizPanel(state.setIndex);
         updateMistakeButtons();
         if (state.examMode) startTimer(options.durationSeconds || 60 * 60);
@@ -10366,16 +10421,20 @@
       function renderSetList() {
         const list = el.mockChapterList || el.setList;
         if (!list) return;
+        setMockFocus(state.mockFocusActive);
         list.replaceChildren();
         mockSets.forEach((set, index) => {
           const card = document.createElement("article");
           card.className = `mock-set-card${index === state.setIndex ? " active" : ""}`;
           const validQuestions = validQuestionsFor(set);
           card.innerHTML = `
-              <span>
-                <span class="mock-set-title">${set.name}</span>
-                <span class="mock-set-meta">${validQuestions.length} questions - 60 minutes - answers after finish</span>
-              </span>
+              <div class="mock-card-top">
+                <span>
+                  <span class="mock-set-title">${set.name}</span>
+                  <span class="mock-set-meta">${validQuestions.length} questions - 60 minutes - answers after finish</span>
+                </span>
+                <button class="button secondary mock-change-set" type="button">All sets</button>
+              </div>
               <button class="button primary chapter-start" type="button">Start test</button>
               <div class="chapter-quiz-slot" data-quiz-slot="${index}"></div>
           `;
@@ -10387,8 +10446,33 @@
               el.setSelect.value = String(index);
               startCurrentMockSet();
             });
+          card
+            .querySelector(".mock-change-set")
+            .addEventListener("click", (event) => {
+              event.preventDefault();
+              showAllMockSets();
+            });
           list.append(card);
         });
+      }
+
+      function setMockFocus(active) {
+        state.mockFocusActive = Boolean(active);
+        el.mockChapterList?.classList.toggle("focused", state.mockFocusActive);
+        document
+          .getElementById("mockChapterPanel")
+          ?.classList.toggle("mock-test-focused", state.mockFocusActive);
+      }
+
+      function showAllMockSets() {
+        stopTimer();
+        setMockFocus(false);
+        el.quizPanel.style.display = "none";
+        el.quizView.style.display = "block";
+        el.resultsView.classList.remove("show");
+        document.getElementById("practice")?.append(el.quizPanel);
+        renderSetList();
+        showPage("test", { targetId: "mockChapterPanel" });
       }
 
       function placeQuizPanel(index = state.setIndex) {
