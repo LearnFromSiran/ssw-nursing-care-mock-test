@@ -2323,6 +2323,11 @@
       .part-group {
         display: grid;
         gap: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(191, 219, 254, 0.9);
+        border-radius: 18px;
+        background: #fff;
+        box-shadow: 0 12px 26px rgba(15, 23, 42, 0.07);
       }
 
       .part-heading {
@@ -2335,6 +2340,12 @@
         background: linear-gradient(135deg, #073a82, #075bd8);
         color: #fff;
         box-shadow: 0 8px 18px rgba(7, 91, 216, 0.16);
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .part-heading::-webkit-details-marker {
+        display: none;
       }
 
       .part-heading strong {
@@ -2346,6 +2357,44 @@
         color: rgba(255, 255, 255, 0.82);
         font-size: 0.82rem;
         font-weight: 850;
+      }
+
+      .part-heading-main {
+        display: grid;
+        gap: 3px;
+      }
+
+      .part-heading-main small {
+        color: rgba(255, 255, 255, 0.78);
+        font-size: 0.76rem;
+        font-weight: 800;
+      }
+
+      .part-chevron {
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        font-size: 1.3rem;
+        font-weight: 950;
+        transition: transform 180ms ease;
+      }
+
+      .part-group[open] .part-chevron {
+        transform: rotate(90deg);
+      }
+
+      .part-chapter-list {
+        display: grid;
+        gap: 10px;
+        padding: 0 12px 12px;
+      }
+
+      .part-group:not([open]) .part-chapter-list {
+        display: none;
       }
 
       .chapter-item {
@@ -2413,6 +2462,10 @@
         display: grid;
         gap: 12px;
         padding: 0 16px 16px;
+      }
+
+      .chapter-item:not([open]) .chapter-content {
+        display: none;
       }
 
       .chapter-quiz-slot {
@@ -6511,6 +6564,14 @@
       }
 
       @media (max-width: 620px) {
+        .part-heading {
+          padding: 12px;
+        }
+
+        .part-chapter-list {
+          padding: 0 10px 10px;
+        }
+
         .chapter-title {
           font-size: 0.98rem;
         }
@@ -10522,14 +10583,20 @@
           return groups;
         }, new Map());
         grouped.forEach((materials, part) => {
-          const group = document.createElement("section");
+          const group = document.createElement("details");
           group.className = "part-group";
           group.innerHTML = `
-            <div class="part-heading">
-              <strong>${part}</strong>
+            <summary class="part-heading">
+              <span class="part-heading-main">
+                <strong>${part}</strong>
+                <small>Tap to see chapters</small>
+              </span>
               <span>${materials.length} chapters</span>
-            </div>
+              <span class="part-chevron" aria-hidden="true">›</span>
+            </summary>
+            <div class="part-chapter-list"></div>
           `;
+          const chapterList = group.querySelector(".part-chapter-list");
           materials.forEach((material) => {
             const details = document.createElement("details");
             details.className = "chapter-item";
@@ -10557,7 +10624,20 @@
                   if (item !== details) item.open = false;
                 });
             });
-            group.append(details);
+            chapterList.append(details);
+          });
+          group.addEventListener("toggle", () => {
+            if (!group.open) {
+              group
+                .querySelectorAll(".chapter-item")
+                .forEach((item) => (item.open = false));
+              return;
+            }
+            el.studyChapterList
+              .querySelectorAll(".part-group")
+              .forEach((item) => {
+                if (item !== group) item.open = false;
+              });
           });
           el.studyChapterList.append(group);
         });
