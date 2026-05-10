@@ -6345,6 +6345,136 @@
           padding: 13px 14px;
         }
       }
+
+      /* Practical learn section polish */
+      #studyMaterialsPanel {
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.98), #f8fbff), #ffffff;
+      }
+
+      #studyMaterialsPanel .section-head {
+        align-items: flex-start;
+      }
+
+      .chapter-content {
+        padding: 0 14px 14px;
+      }
+
+      .subchapter-card {
+        border-radius: 18px;
+        background: #ffffff;
+      }
+
+      .learn-card {
+        gap: 10px;
+      }
+
+      .learn-section {
+        position: relative;
+        overflow: hidden;
+        border-color: rgba(219, 226, 239, 0.95);
+        border-radius: 16px;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.98), #ffffff), #ffffff;
+      }
+
+      .learn-section h4 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        letter-spacing: 0;
+      }
+
+      .learn-section h4::before {
+        content: "";
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #075bd8;
+        box-shadow: 0 0 0 4px rgba(7, 91, 216, 0.12);
+      }
+
+      .learn-section ol,
+      .learn-section ul {
+        margin: 8px 0 0;
+        padding-left: 22px;
+      }
+
+      .learn-section li + li {
+        margin-top: 6px;
+      }
+
+      .learn-focus {
+        border-color: #bfdbfe;
+        background:
+          radial-gradient(
+            circle at 100% 0%,
+            rgba(7, 91, 216, 0.1),
+            transparent 32%
+          ),
+          linear-gradient(135deg, #eff6ff, #ffffff);
+      }
+
+      .practical-method {
+        border-color: #99f6e4;
+        background: linear-gradient(135deg, #ecfeff, #ffffff);
+      }
+
+      .practical-method h4::before {
+        background: #0f766e;
+        box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+      }
+
+      .avoid-box {
+        border-color: #fecaca;
+        background: linear-gradient(135deg, #fff1f2, #ffffff);
+      }
+
+      .avoid-box h4::before {
+        background: #e11d48;
+        box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.1);
+      }
+
+      .drill-box {
+        border-color: #fde68a;
+        background: linear-gradient(135deg, #fffbeb, #ffffff);
+      }
+
+      .drill-box h4::before {
+        background: #d97706;
+        box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.12);
+      }
+
+      @media (min-width: 720px) {
+        .learn-card {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .learn-focus,
+        .remember-box,
+        .term-grid {
+          grid-column: 1 / -1;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .chapter-title {
+          font-size: 0.98rem;
+        }
+
+        .chapter-meta {
+          font-size: 0.76rem;
+        }
+
+        .subchapter-card {
+          padding: 10px;
+        }
+
+        .learn-section {
+          padding: 12px;
+        }
+      }
     </style>
     <meta name="google-signin-client_id" content="" />
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -7140,12 +7270,273 @@
         `;
       }
 
+      function getPracticalStudyPlan(chapter) {
+        const title = (chapter.title || "").toLowerCase();
+        const defaultPlan = {
+          scenario:
+            "A resident needs help in daily life. You must observe, explain, protect privacy, support independence, and report changes.",
+          method: [
+            "Check the resident's condition and the environment first.",
+            "Explain the care in simple words and confirm consent.",
+            "Support only the part the resident cannot do safely.",
+            "Record or report pain, refusal, risk, accidents, or unusual changes.",
+          ],
+          avoid: [
+            "Doing care quickly without explanation.",
+            "Ignoring the resident's choice or privacy.",
+            "Keeping important changes to yourself.",
+          ],
+          drill:
+            "Before choosing an answer, ask whether it protects dignity, safety, independence, privacy, and reporting.",
+        };
+        const plans = [
+          {
+            keys: ["dignity", "independence"],
+            scenario:
+              "A resident can wash slowly but needs help opening the towel package.",
+            method: [
+              "Let the resident do the parts they can do.",
+              "Prepare tools within easy reach.",
+              "Help only with the difficult step.",
+              "Respect the resident's pace and usual routine.",
+            ],
+            avoid: [
+              "Taking over because it is faster.",
+              "Changing the resident's routine without asking.",
+              "Speaking as if the resident is a child.",
+            ],
+            drill:
+              "Practice saying: 'Please do what you can. I will help with the difficult part.'",
+          },
+          {
+            keys: ["ethics", "professional"],
+            scenario:
+              "A visitor asks about another resident's diagnosis in the hallway.",
+            method: [
+              "Do not share private information.",
+              "Move necessary conversations to a private place.",
+              "Consult a supervisor when the request is outside your role.",
+              "Use respectful words even when busy.",
+            ],
+            avoid: [
+              "Talking about residents in public areas.",
+              "Posting photos or stories online.",
+              "Doing medical work outside your role.",
+            ],
+            drill:
+              "Practice refusing politely: 'I cannot discuss another resident's personal information.'",
+          },
+          {
+            keys: ["safety", "risk"],
+            scenario:
+              "You see a wet floor while a resident with a walker is approaching.",
+            method: [
+              "Stop the resident before the hazard.",
+              "Remove or report the hazard immediately.",
+              "Check footwear, brakes, lighting, and walking route.",
+              "Record near misses so the team can prevent accidents.",
+            ],
+            avoid: [
+              "Waiting until someone falls.",
+              "Blaming the resident instead of fixing the risk.",
+              "Ignoring near misses because no injury happened.",
+            ],
+            drill:
+              "Scan each scene in this order: floor, footwear, brakes, posture, resident condition.",
+          },
+          {
+            keys: ["mind and body", "mechanism"],
+            scenario:
+              "A resident who usually talks clearly is suddenly sleepy and confused.",
+            method: [
+              "Compare with the resident's usual condition.",
+              "Observe temperature, pain, breathing, appetite, sleep, and consciousness.",
+              "Report sudden changes promptly.",
+              "Do not give medicine by your own decision.",
+            ],
+            avoid: [
+              "Calling every change normal aging.",
+              "Ignoring pain, fever, or unusual breathing.",
+              "Moving the resident roughly when condition is unclear.",
+            ],
+            drill:
+              "Use the phrase 'different from usual' when reporting sudden changes.",
+          },
+          {
+            keys: ["dementia", "people in need"],
+            scenario:
+              "A resident with dementia repeatedly asks to go home and looks anxious.",
+            method: [
+              "Accept the feeling before correcting facts.",
+              "Speak calmly with short, clear words.",
+              "Look for pain, toilet need, hunger, fear, or loneliness.",
+              "Guide to a safe activity or familiar routine.",
+            ],
+            avoid: [
+              "Arguing that the resident is wrong.",
+              "Laughing at memory mistakes.",
+              "Stopping walking without checking the reason.",
+            ],
+            drill:
+              "Practice responding to emotion: 'You are worried. I am here with you.'",
+          },
+          {
+            keys: ["communication"],
+            scenario:
+              "A resident refuses care and turns away when you approach.",
+            method: [
+              "Stop and listen before continuing.",
+              "Check pain, fear, shame, fatigue, timing, and preference.",
+              "Use eye contact, calm tone, and simple explanation.",
+              "Confirm understanding and consent.",
+            ],
+            avoid: [
+              "Forcing care immediately.",
+              "Using fast or complicated instructions.",
+              "Ignoring facial expression, posture, or silence.",
+            ],
+            drill:
+              "Use three steps: explain, ask, wait. Repeat with simpler words if needed.",
+          },
+          {
+            keys: ["team members", "team"],
+            scenario:
+              "During handover, you need to report coughing during drinking.",
+            method: [
+              "Separate facts from your judgment.",
+              "Report when, where, what happened, response, and current condition.",
+              "Consult the nurse or supervisor when risk is possible.",
+              "Record only objective information.",
+            ],
+            avoid: [
+              "Writing emotional labels like 'troublesome'.",
+              "Leaving out time or situation.",
+              "Keeping concerns until the end of the shift.",
+            ],
+            drill:
+              "Practice one factual sentence: 'At 10:15, Ms. A coughed three times while drinking tea.'",
+          },
+          {
+            keys: ["walking", "lifting", "transferring"],
+            scenario:
+              "A resident wants to move from bed to wheelchair after breakfast.",
+            method: [
+              "Explain the transfer and confirm readiness.",
+              "Check brakes, footrests, footwear, dizziness, and floor condition.",
+              "Use body mechanics: wide base, bend knees, keep close.",
+              "Move at the resident's pace and watch facial expression.",
+            ],
+            avoid: [
+              "Pulling the arms suddenly.",
+              "Forgetting wheelchair brakes.",
+              "Twisting your waist while lifting.",
+            ],
+            drill:
+              "Before transfer, say the checklist aloud: brakes, feet, shoes, dizziness, path.",
+          },
+          {
+            keys: ["mealtime", "meal"],
+            scenario:
+              "A resident coughs while drinking and keeps food in the mouth.",
+            method: [
+              "Stop feeding and check condition.",
+              "Keep safe posture and avoid talking while chewing.",
+              "Report repeated coughing or swallowing difficulty.",
+              "Follow diet, allergy, and thickened-liquid instructions.",
+            ],
+            avoid: [
+              "Feeding faster to finish the meal.",
+              "Laying the resident flat.",
+              "Ignoring coughing because the resident wants to continue.",
+            ],
+            drill:
+              "Watch for three signs: cough, wet voice, food remaining in mouth.",
+          },
+          {
+            keys: ["elimination"],
+            scenario: "A resident needs toilet support and looks embarrassed.",
+            method: [
+              "Close curtain or door and cover the body.",
+              "Support the resident's ability instead of using diapers unnecessarily.",
+              "Observe urine, stool, pain, constipation, diarrhea, and skin.",
+              "Clean from front to back when appropriate to prevent infection.",
+            ],
+            avoid: [
+              "Leaving the door open.",
+              "Talking loudly about toileting.",
+              "Ignoring constipation or pain.",
+            ],
+            drill:
+              "For exam questions, choose privacy plus observation plus reporting.",
+          },
+          {
+            keys: ["grooming"],
+            scenario:
+              "A resident wants to choose clothes but needs help with buttons and dentures.",
+            method: [
+              "Respect clothing preference and weather.",
+              "Support only difficult parts of dressing.",
+              "Clean dentures after meals and store correctly.",
+              "Use oral care to prevent infection and aspiration pneumonia risk.",
+            ],
+            avoid: [
+              "Choosing clothes only for staff convenience.",
+              "Leaving dentures wrapped in tissue.",
+              "Skipping mouth care because the resident is tired.",
+            ],
+            drill:
+              "Connect grooming with dignity: appearance affects mood and self-image.",
+          },
+          {
+            keys: ["bathing", "keeping clean"],
+            scenario:
+              "A resident refuses bathing and says the bathroom feels cold.",
+            method: [
+              "Listen to the reason for refusal.",
+              "Check condition, consent, privacy, room temperature, and water temperature.",
+              "Offer partial bath or another time if appropriate.",
+              "Observe skin redness, wounds, swelling, and pain.",
+            ],
+            avoid: [
+              "Forcing bathing immediately.",
+              "Ignoring water temperature.",
+              "Scrubbing red skin strongly.",
+            ],
+            drill:
+              "For bathing questions, choose consent, warmth, privacy, skin observation, and safety.",
+          },
+          {
+            keys: ["housework", "environment"],
+            scenario:
+              "A room has loose cords, poor lighting, and laundry on the floor.",
+            method: [
+              "Clear walking paths and reduce fall risks.",
+              "Use lighting, handrails, non-slip items, and ventilation as needed.",
+              "Handle dirty laundry by infection prevention rules.",
+              "Keep the room comfortable while respecting personal belongings.",
+            ],
+            avoid: [
+              "Moving personal items without asking.",
+              "Leaving cords across the walking path.",
+              "Mixing contaminated laundry with regular laundry.",
+            ],
+            drill:
+              "Look at the environment like a safety map: path, light, floor, air, tools.",
+          },
+        ];
+        return (
+          plans.find((plan) => plan.keys.some((key) => title.includes(key))) ||
+          defaultPlan
+        );
+      }
+
       function chapterToStudyMaterial(chapter) {
         const nihongoTitle = chapter.nihongo?.title || "";
         const nihongoFocus = chapter.nihongo?.focus || "";
         const expandedTerms = expandStudyTerms(chapter.terms);
         const firstGuide = chapter.bullets[0] || chapter.focus;
         const secondGuide = chapter.bullets[1] || chapter.focus;
+        const practical = getPracticalStudyPlan(chapter);
         return {
           title: `${chapter.chapter}: ${chapter.title}`,
           part: chapter.part,
@@ -7169,8 +7560,20 @@
             </section>
             <section class="learn-section">
               <h4>Care workplace example</h4>
-              <p>Imagine you are helping a user in a real facility. Before acting, check the user's condition, explain what you will do, protect privacy, and report important changes to staff.</p>
-              <p>Practical point: ${secondGuide}</p>
+              <p>${practical.scenario}</p>
+              <p><strong>Practical point:</strong> ${secondGuide}</p>
+            </section>
+            <section class="learn-section practical-method">
+              <h4>Practical method</h4>
+              <ol>${practical.method.map((item) => `<li>${item}</li>`).join("")}</ol>
+            </section>
+            <section class="learn-section avoid-box">
+              <h4>Common mistakes to avoid</h4>
+              <ul>${practical.avoid.map((item) => `<li>${item}</li>`).join("")}</ul>
+            </section>
+            <section class="learn-section drill-box">
+              <h4>Practice in real life</h4>
+              <p>${practical.drill}</p>
             </section>
             <section class="learn-section">
               <h4>What to learn</h4>
