@@ -6878,7 +6878,7 @@
             </span>
             <strong id="homeTabVocab">Vocabulary</strong>
             <span
-              ><span id="vocabTotal">499</span>
+              ><span id="vocabTotal">0</span>
               <span id="homeTabVocabSub">Words to Master</span></span
             >
           </a>
@@ -7031,7 +7031,7 @@
               <span>Study chapters</span><strong>14</strong>
             </div>
             <div class="stat">
-              <span>Vocabulary cards</span><strong>499</strong>
+              <span>Vocabulary cards</span><strong id="profileVocabCount">0</strong>
             </div>
             <div class="stat"><span>Mock sets</span><strong>5</strong></div>
             <div class="stat"><span>Full exam</span><strong>45Q</strong></div>
@@ -7158,8 +7158,7 @@
               become correct.
             </div>
             <div class="check-item">
-              <span>3</span>Study at least 300 vocabulary cards, then mark known
-              words honestly.
+              <span>3</span>Study the curated vocabulary cards, then mark known words honestly.
             </div>
             <div class="check-item">
               <span>4</span>Take Full Exam 45Q mode and aim for 80%+ before
@@ -7172,8 +7171,8 @@
       <section class="learning-grid app-page" id="vocabulary" data-page="vocab">
         <section class="panel">
           <div class="section-head">
-            <h2>499 SSW Care Vocabulary</h2>
-            <span class="muted"><span id="vocabShown">499</span> shown</span>
+            <h2>Curated SSW Care Vocabulary</h2>
+            <span class="muted"><span id="vocabShown">0</span> shown</span>
           </div>
           <div class="vocab-tools">
             <input
@@ -7245,7 +7244,7 @@
             <h2>Flashcard Practice</h2>
             <span class="muted"
               ><span id="flashIndex">1</span>/<span id="flashTotal"
-                >499</span
+                >0</span
               ></span
             >
           </div>
@@ -7330,7 +7329,7 @@
               </li>
               <li>
                 <strong>Vocabulary:</strong> ケア日本語 (Kea Nihongo) - Care
-                Japanese (499 terms)
+                Care Japanese vocabulary
               </li>
             </ul>
           </div>
@@ -7855,35 +7854,35 @@
           questions: [
             q(
               "Fundamentals",
-              "What is the basic idea of nursing care in this chapter?",
+              "Which principle is the foundation of nursing care?",
               [
                 "Caregiver convenience",
                 "Human dignity and respect for rights",
                 "Doing every task for the user",
-                "Finishing work silently",
+                "Finishing tasks without communication",
               ],
               1,
-              "The PDF presents dignity and human rights as the foundation of support.",
+              "Dignity and respect for rights are the foundation of care.",
             ),
             q(
               "Fundamentals",
-              "Self-independence support means:",
+              "Independence support means:",
               [
-                "The user makes choices and does possible tasks",
+                "The user chooses and does tasks they can safely do",
                 "The caregiver decides everything",
                 "The family is ignored",
                 "Safety is not considered",
               ],
               0,
-              "Independence includes physical ability and the person's own will.",
+              "Independence support includes ability, safety, and the person's own will.",
             ),
             q(
               "Fundamentals",
-              "User-centric daily lifestyle asks caregivers to:",
+              "Person-centered daily life support asks care workers to:",
               [
                 "Use one routine for everyone",
-                "Respect the user's habits, wishes, and usual life",
-                "Only focus on speed",
+                "Respect the user's habits, wishes, and usual daily life",
+                "Focus only on speed",
                 "Avoid asking preferences",
               ],
               1,
@@ -8451,7 +8450,7 @@
               "A wide base of support helps:",
               ["Stability", "Confusion", "Fever", "Privacy loss"],
               0,
-              "Base of support supports body stability.",
+              "A wide base of support improves stability.",
             ),
             q(
               "Care Japanese",
@@ -8573,7 +8572,7 @@
               "Infection control",
               "For female genital cleaning, wipe:",
               [
-                "From urethra toward anus",
+                "From front to back",
                 "From anus toward urethra",
                 "In repeated circles",
                 "With a dry rough towel only",
@@ -8586,7 +8585,7 @@
               "Haisetsu means:",
               ["Elimination/toileting", "Meal", "Bath", "Transfer"],
               0,
-              "Haisetsu means elimination.",
+              "Haisetsu means elimination or toileting.",
             ),
           ],
         },
@@ -9117,20 +9116,6 @@
           });
         });
 
-        studyChapters.forEach((chapter) => {
-          chapter.terms.forEach(([jp, romaji, en]) => {
-            baseTerms.push(
-              vt(
-                jp,
-                romaji,
-                romaji,
-                en,
-                `${chapter.chapter}: ${chapter.title}`,
-              ),
-            );
-          });
-        });
-
         const careActions = [
           vt("介助", "かいじょ", "kaijo", "assistance", "Care action"),
           vt("観察", "かんさつ", "kansatsu", "observation", "Care action"),
@@ -9148,30 +9133,171 @@
           vt("管理", "かんり", "kanri", "management", "Care action"),
         ];
 
-        const generated = [];
-        baseTerms.forEach((term) => {
-          careActions.forEach((action) => {
-            generated.push(
-              vt(
-                `${term.jp} ${action.jp}`,
-                `${term.kana} ${action.kana}`,
-                `${term.romaji} ${action.romaji}`,
-                `${term.en} ${action.en}`,
-                term.category,
-              ),
-            );
-          });
-        });
+        const essentialTerms = [
+          ["介護", "かいご", "kaigo", "caregiving / nursing care", "Core care"],
+          ["介護職", "かいごしょく", "kaigoshoku", "care worker", "Core care"],
+          ["利用者", "りようしゃ", "riyosha", "service user / resident", "Core care"],
+          ["高齢者", "こうれいしゃ", "koreisha", "older adult", "Core care"],
+          ["家族", "かぞく", "kazoku", "family", "Core care"],
+          ["尊厳", "そんげん", "songen", "dignity", "Core care"],
+          ["人権", "じんけん", "jinken", "human rights", "Core care"],
+          ["自立", "じりつ", "jiritsu", "independence", "Core care"],
+          ["自立支援", "じりつしえん", "jiritsu shien", "independence support", "Core care"],
+          ["同意", "どうい", "doi", "consent", "Core care"],
+          ["プライバシー", "ぷらいばしー", "puraibashi", "privacy", "Core care"],
+          ["秘密保持", "ひみつほじ", "himitsu hoji", "confidentiality", "Core care"],
+          ["個人情報", "こじんじょうほう", "kojin joho", "personal information", "Core care"],
+          ["虐待", "ぎゃくたい", "gyakutai", "abuse", "Core care"],
+          ["安全", "あんぜん", "anzen", "safety", "Safety"],
+          ["危険", "きけん", "kiken", "danger", "Safety"],
+          ["ヒヤリハット", "ひやりはっと", "hiyari hatto", "near miss", "Safety"],
+          ["転倒", "てんとう", "tento", "fall", "Safety"],
+          ["転落", "てんらく", "tenraku", "fall from height", "Safety"],
+          ["感染", "かんせん", "kansen", "infection", "Infection control"],
+          ["手洗い", "てあらい", "tearai", "handwashing", "Infection control"],
+          ["手指消毒", "しゅししょうどく", "shushi shodoku", "hand disinfection", "Infection control"],
+          ["マスク", "ますく", "masuku", "mask", "Infection control"],
+          ["手袋", "てぶくろ", "tebukuro", "gloves", "Infection control"],
+          ["換気", "かんき", "kanki", "ventilation", "Infection control"],
+          ["消毒", "しょうどく", "shodoku", "disinfection", "Infection control"],
+          ["痛み", "いたみ", "itami", "pain", "Body condition"],
+          ["咳", "せき", "seki", "cough", "Body condition"],
+          ["痰", "たん", "tan", "sputum", "Body condition"],
+          ["吐き気", "はきけ", "hakike", "nausea", "Body condition"],
+          ["嘔吐", "おうと", "oto", "vomiting", "Body condition"],
+          ["食欲", "しょくよく", "shokuyoku", "appetite", "Body condition"],
+          ["睡眠", "すいみん", "suimin", "sleep", "Body condition"],
+          ["不眠", "ふみん", "fumin", "insomnia", "Body condition"],
+          ["意識", "いしき", "ishiki", "consciousness", "Body condition"],
+          ["呼吸", "こきゅう", "kokyu", "breathing", "Body condition"],
+          ["脈拍", "みゃくはく", "myakuhaku", "pulse", "Body condition"],
+          ["血圧", "けつあつ", "ketsuatsu", "blood pressure", "Body condition"],
+          ["体温", "たいおん", "taion", "body temperature", "Body condition"],
+          ["体調", "たいちょう", "taicho", "physical condition", "Body condition"],
+          ["褥瘡", "じょくそう", "jokuso", "pressure ulcer", "Body condition"],
+          ["麻痺", "まひ", "mahi", "paralysis", "Body condition"],
+          ["めまい", "めまい", "memai", "dizziness", "Body condition"],
+          ["嚥下", "えんげ", "enge", "swallowing", "Mealtime care"],
+          ["誤嚥", "ごえん", "goen", "aspiration", "Mealtime care"],
+          ["窒息", "ちっそく", "chissoku", "choking", "Mealtime care"],
+          ["水分", "すいぶん", "suibun", "fluid", "Mealtime care"],
+          ["水分補給", "すいぶんほきゅう", "suibun hokyu", "hydration", "Mealtime care"],
+          ["栄養", "えいよう", "eiyo", "nutrition", "Mealtime care"],
+          ["主食", "しゅしょく", "shushoku", "staple food", "Mealtime care"],
+          ["副食", "ふくしょく", "fukushoku", "side dish", "Mealtime care"],
+          ["服薬", "ふくやく", "fukuyaku", "taking medicine", "Mealtime care"],
+          ["薬", "くすり", "kusuri", "medicine", "Mealtime care"],
+          ["アレルギー", "あれるぎー", "arerugi", "allergy", "Mealtime care"],
+          ["刻み食", "きざみしょく", "kizami shoku", "minced food", "Mealtime care"],
+          ["ミキサー食", "みきさーしょく", "mikisa shoku", "pureed food", "Mealtime care"],
+          ["歩行", "ほこう", "hoko", "walking", "Mobility"],
+          ["姿勢", "しせい", "shisei", "posture", "Mobility"],
+          ["座位", "ざい", "zai", "sitting position", "Mobility"],
+          ["立位", "りつい", "ritsui", "standing position", "Mobility"],
+          ["体位変換", "たいいへんかん", "taii henkan", "repositioning", "Mobility"],
+          ["ベッド", "べっど", "beddo", "bed", "Mobility"],
+          ["歩行器", "ほこうき", "hokoki", "walker", "Mobility"],
+          ["手すり", "てすり", "tesuri", "handrail", "Mobility"],
+          ["ブレーキ", "ぶれーき", "bureki", "brake", "Mobility"],
+          ["段差", "だんさ", "dansa", "step / level difference", "Mobility"],
+          ["見守り", "みまもり", "mimamori", "monitoring / supervision", "Mobility"],
+          ["尿", "にょう", "nyo", "urine", "Toileting and hygiene"],
+          ["便", "べん", "ben", "stool", "Toileting and hygiene"],
+          ["おむつ", "おむつ", "omutsu", "diaper", "Toileting and hygiene"],
+          ["パッド", "ぱっど", "paddo", "pad", "Toileting and hygiene"],
+          ["陰部", "いんぶ", "inbu", "genital area", "Toileting and hygiene"],
+          ["清潔", "せいけつ", "seiketsu", "cleanliness", "Toileting and hygiene"],
+          ["更衣", "こうい", "koi", "changing clothes", "Toileting and hygiene"],
+          ["整容", "せいよう", "seiyo", "grooming", "Toileting and hygiene"],
+          ["口腔ケア", "こうくうけあ", "koko kea", "oral care", "Toileting and hygiene"],
+          ["入れ歯", "いれば", "ireba", "dentures", "Toileting and hygiene"],
+          ["シャワー", "しゃわー", "shawa", "shower", "Toileting and hygiene"],
+          ["浴槽", "よくそう", "yokuso", "bathtub", "Toileting and hygiene"],
+          ["タオル", "たおる", "taoru", "towel", "Toileting and hygiene"],
+          ["石けん", "せっけん", "sekken", "soap", "Toileting and hygiene"],
+          ["衣類", "いるい", "irui", "clothing", "Toileting and hygiene"],
+          ["挨拶", "あいさつ", "aisatsu", "greeting", "Communication"],
+          ["声かけ", "こえかけ", "koekake", "verbal prompting", "Communication"],
+          ["傾聴", "けいちょう", "keicho", "active listening", "Communication"],
+          ["共感", "きょうかん", "kyokan", "empathy", "Communication"],
+          ["信頼", "しんらい", "shinrai", "trust", "Communication"],
+          ["説明", "せつめい", "setsumei", "explanation", "Communication"],
+          ["拒否", "きょひ", "kyohi", "refusal", "Communication"],
+          ["不安", "ふあん", "fuan", "anxiety", "Communication"],
+          ["安心", "あんしん", "anshin", "reassurance", "Communication"],
+          ["認知症", "にんちしょう", "ninchisho", "dementia", "Dementia care"],
+          ["せん妄", "せんもう", "senmo", "delirium", "Dementia care"],
+          ["徘徊", "はいかい", "haikai", "wandering", "Dementia care"],
+          ["妄想", "もうそう", "moso", "delusion", "Dementia care"],
+          ["連絡", "れんらく", "renraku", "contact", "Records and teamwork"],
+          ["申し送り", "もうしおくり", "moshiokuri", "handover", "Records and teamwork"],
+          ["看護師", "かんごし", "kangoshi", "nurse", "Records and teamwork"],
+          ["医師", "いし", "ishi", "doctor", "Records and teamwork"],
+          ["ケアプラン", "けあぷらん", "kea puran", "care plan", "Records and teamwork"],
+          ["緊急", "きんきゅう", "kinkyu", "emergency", "Emergency"],
+          ["救急車", "きゅうきゅうしゃ", "kyukyusha", "ambulance", "Emergency"],
+          ["避難", "ひなん", "hinan", "evacuation", "Emergency"],
+        ];
+
+        const carePhrases = [
+          ["食事介助", "しょくじかいじょ", "shokuji kaijo", "meal assistance", "Care phrases"],
+          ["排泄介助", "はいせつかいじょ", "haisetsu kaijo", "toileting assistance", "Care phrases"],
+          ["入浴介助", "にゅうよくかいじょ", "nyuyoku kaijo", "bathing assistance", "Care phrases"],
+          ["歩行介助", "ほこうかいじょ", "hoko kaijo", "walking assistance", "Care phrases"],
+          ["移乗介助", "いじょうかいじょ", "ijo kaijo", "transfer assistance", "Care phrases"],
+          ["更衣介助", "こういかいじょ", "koi kaijo", "dressing assistance", "Care phrases"],
+          ["服薬確認", "ふくやくかくにん", "fukuyaku kakunin", "medication confirmation", "Care phrases"],
+          ["安全確認", "あんぜんかくにん", "anzen kakunin", "safety check", "Care phrases"],
+          ["プライバシー保護", "ぷらいばしーほご", "puraibashi hogo", "privacy protection", "Care phrases"],
+          ["同意確認", "どういかくにん", "doi kakunin", "consent confirmation", "Care phrases"],
+          ["説明と同意", "せつめいとどうい", "setsumei to doi", "explanation and consent", "Care phrases"],
+          ["意思確認", "いしかくにん", "ishi kakunin", "confirming wishes", "Care phrases"],
+          ["感染予防", "かんせんよぼう", "kansen yobo", "infection prevention", "Care phrases"],
+          ["転倒予防", "てんとうよぼう", "tento yobo", "fall prevention", "Care phrases"],
+          ["誤嚥予防", "ごえんよぼう", "goen yobo", "aspiration prevention", "Care phrases"],
+          ["褥瘡予防", "じょくそうよぼう", "jokuso yobo", "pressure ulcer prevention", "Care phrases"],
+          ["清潔保持", "せいけつほじ", "seiketsu hoji", "maintaining cleanliness", "Care phrases"],
+          ["皮膚観察", "ひふかんさつ", "hifu kansatsu", "skin observation", "Care phrases"],
+          ["便の観察", "べんのかんさつ", "ben no kansatsu", "stool observation", "Care phrases"],
+          ["おむつ交換", "おむつこうかん", "omutsu kokan", "diaper change", "Care phrases"],
+          ["衣類交換", "いるいこうかん", "irui kokan", "clothing change", "Care phrases"],
+          ["浴室清掃", "よくしつせいそう", "yokushitsu seiso", "bathroom cleaning", "Care phrases"],
+          ["介護記録", "かいごきろく", "kaigo kiroku", "care record", "Care phrases"],
+          ["観察記録", "かんさつきろく", "kansatsu kiroku", "observation record", "Care phrases"],
+          ["事故報告", "じこほうこく", "jiko hokoku", "accident report", "Care phrases"],
+          ["緊急対応", "きんきゅうたいおう", "kinkyu taio", "emergency response", "Care phrases"],
+          ["家族連絡", "かぞくれんらく", "kazoku renraku", "family contact", "Care phrases"],
+          ["チーム連携", "ちーむれんけい", "chimu renkei", "team cooperation", "Care phrases"],
+          ["相談支援", "そうだんしえん", "sodan shien", "consultation support", "Care phrases"],
+          ["認知症ケア", "にんちしょうけあ", "ninchisho kea", "dementia care", "Care phrases"],
+          ["睡眠支援", "すいみんしえん", "suimin shien", "sleep support", "Care phrases"],
+          ["見守り支援", "みまもりしえん", "mimamori shien", "supervision support", "Care phrases"],
+          ["環境整備", "かんきょうせいび", "kankyo seibi", "environment preparation", "Care phrases"],
+          ["危険予測", "きけんよそく", "kiken yosoku", "risk prediction", "Care phrases"],
+          ["避難誘導", "ひなんゆうどう", "hinan yudo", "evacuation guidance", "Care phrases"],
+          ["バイタル測定", "ばいたるそくてい", "baitaru sokutei", "vital sign measurement", "Care phrases"],
+          ["体温測定", "たいおんそくてい", "taion sokutei", "body temperature measurement", "Care phrases"],
+          ["血圧測定", "けつあつそくてい", "ketsuatsu sokutei", "blood pressure measurement", "Care phrases"],
+          ["嚥下確認", "えんげかくにん", "enge kakunin", "swallowing check", "Care phrases"],
+        ];
 
         const seen = new Set();
-        return [...baseTerms, ...careActions, ...generated]
+        return [
+          ...baseTerms,
+          ...essentialTerms.map(([jp, kana, romaji, en, category]) =>
+            vt(jp, kana, romaji, en, category),
+          ),
+          ...careActions,
+          ...carePhrases.map(([jp, kana, romaji, en, category]) =>
+            vt(jp, kana, romaji, en, category),
+          ),
+        ]
           .filter((item) => {
-            const key = `${item.jp}-${item.en}`;
+            const key = item.jp + "-" + item.en;
             if (seen.has(key)) return false;
             seen.add(key);
             return true;
           })
-          .slice(0, 499)
           .map((item, index) => ({ ...item, id: index + 1 }));
       }
       function q(domain, text, options, answer, explanation) {
@@ -9915,6 +10041,7 @@
         vocabPageInfoBottom: document.getElementById("vocabPageInfoBottom"),
         vocabList: document.getElementById("vocabList"),
         knownCount: document.getElementById("knownCount"),
+        profileVocabCount: document.getElementById("profileVocabCount"),
         flashIndex: document.getElementById("flashIndex"),
         flashTotal: document.getElementById("flashTotal"),
         flashCategory: document.getElementById("flashCategory"),
@@ -10796,6 +10923,8 @@
         });
         el.vocabTotal.textContent = String(vocabulary.length);
         el.flashTotal.textContent = String(vocabulary.length);
+        if (el.profileVocabCount)
+          el.profileVocabCount.textContent = String(vocabulary.length);
         updateKnownCount();
       }
 
