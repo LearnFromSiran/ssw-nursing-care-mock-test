@@ -5836,6 +5836,27 @@
         color: #0f3b74;
       }
 
+      .bottom-nav {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .bottom-nav a:nth-child(4) {
+        --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M4 5h13a3 3 0 0 1 3 3v11H7a3 3 0 0 0-3-3zm4 4h8v2H8zm0 4h6v2H8z'/%3E%3Cpath fill='black' d='M17 4h3v12h-3z'/%3E%3C/svg%3E");
+      }
+
+      .bottom-nav a:nth-child(5) {
+        --nav-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10m-8 9a8 8 0 0 1 16 0z'/%3E%3C/svg%3E");
+      }
+
+      #news .news-grid {
+        display: grid;
+      }
+
+      #news .panel {
+        display: grid;
+        gap: 14px;
+      }
+
       @media (max-width: 620px) {
         .home-top {
           gap: 10px;
@@ -6027,6 +6048,9 @@
           title="Study Materials"
           >Study</a
         >
+        <a href="#news" id="quickNews" data-page-link="news" title="Flash News"
+          >News</a
+        >
       </nav>
 
       <nav class="bottom-nav" aria-label="Mobile navigation">
@@ -6038,6 +6062,9 @@
         >
         <a href="#practice" id="bottomTest" data-page-link="test" title="Test"
           >Progress</a
+        >
+        <a href="#news" id="bottomNews" data-page-link="news" title="News"
+          >News</a
         >
         <a
           href="#profile"
@@ -6142,9 +6169,9 @@
           </a>
           <a
             class="menu-tile"
-            href="#newsFlash"
-            data-page-link="home"
-            data-scroll-target="newsFlash"
+            href="#news"
+            data-page-link="news"
+            data-scroll-target="news"
           >
             <span class="menu-icon icon-news" aria-hidden="true">
               <svg viewBox="0 0 64 64" focusable="false">
@@ -6155,77 +6182,6 @@
             </span>
             <strong>Flash news</strong>
             <span>Stay updated with daily healthcare news</span>
-          </a>
-        </section>
-
-        <div class="home-section-title">
-          <span>Flash News</span>
-          <a
-            href="#newsFlash"
-            data-page-link="home"
-            data-scroll-target="newsFlash"
-            >View all</a
-          >
-        </div>
-        <section
-          class="news-grid"
-          id="newsFlash"
-          aria-label="Latest news flash"
-        >
-          <a
-            class="news-card"
-            href="https://www.prometric-jp.com/en/ssw/test_list/archives/2"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="news-icon" aria-hidden="true">SSW</span>
-            <span
-              ><strong
-                >Prometric: Long-term Care SSW Skill Evaluation Test</strong
-              ><span
-                >Official exam list, schedule, fees, and test rules</span
-              ></span
-            >
-          </a>
-          <a
-            class="news-card"
-            href="https://www.prometric-jp.com/en/ssw/news/"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="news-icon" aria-hidden="true">News</span>
-            <span
-              ><strong>Prometric SSW notices and reservation updates</strong
-              ><span
-                >Check latest official announcements before booking</span
-              ></span
-            >
-          </a>
-          <a
-            class="news-card"
-            href="https://www.ssw.go.jp/en/about/visa/nursing_care_1/"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="news-icon" aria-hidden="true">Visa</span>
-            <span
-              ><strong>SSW Nursing Care field overview</strong
-              ><span>Immigration Services Agency support website</span></span
-            >
-          </a>
-          <a
-            class="news-card"
-            href="https://www.mofa.go.jp/mofaj/ca/fna/ssw/us/overview/index.html"
-            target="_blank"
-            rel="noopener"
-          >
-            <span class="news-icon" aria-hidden="true">JP</span>
-            <span
-              ><strong>Japan SSW program overview</strong
-              ><span
-                >Official Ministry of Foreign Affairs information</span
-              ></span
-            >
           </a>
         </section>
         <span class="data-count" id="knownCount">0</span>
@@ -6240,6 +6196,80 @@
           data-scroll-target="study"
           >Review</a
         >
+      </section>
+
+      <section
+        class="materials app-page"
+        id="news"
+        data-page="news"
+        aria-label="Flash News"
+      >
+        <section class="panel">
+          <div class="home-section-title">
+            <span>Flash News</span>
+          </div>
+          <section
+            class="news-grid"
+            id="newsFlash"
+            aria-label="Latest news flash"
+          >
+            <a
+              class="news-card"
+              href="https://www.prometric-jp.com/en/ssw/test_list/archives/2"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="news-icon" aria-hidden="true">SSW</span>
+              <span
+                ><strong
+                  >Prometric: Long-term Care SSW Skill Evaluation Test</strong
+                ><span
+                  >Official exam list, schedule, fees, and test rules</span
+                ></span
+              >
+            </a>
+            <a
+              class="news-card"
+              href="https://www.prometric-jp.com/en/ssw/news/"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="news-icon" aria-hidden="true">News</span>
+              <span
+                ><strong>Prometric SSW notices and reservation updates</strong
+                ><span
+                  >Check latest official announcements before booking</span
+                ></span
+              >
+            </a>
+            <a
+              class="news-card"
+              href="https://www.ssw.go.jp/en/about/visa/nursing_care_1/"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="news-icon" aria-hidden="true">Visa</span>
+              <span
+                ><strong>SSW Nursing Care field overview</strong
+                ><span>Immigration Services Agency support website</span></span
+              >
+            </a>
+            <a
+              class="news-card"
+              href="https://www.mofa.go.jp/mofaj/ca/fna/ssw/us/overview/index.html"
+              target="_blank"
+              rel="noopener"
+            >
+              <span class="news-icon" aria-hidden="true">JP</span>
+              <span
+                ><strong>Japan SSW program overview</strong
+                ><span
+                  >Official Ministry of Foreign Affairs information</span
+                ></span
+              >
+            </a>
+          </section>
+        </section>
       </section>
 
       <section
@@ -8351,6 +8381,7 @@
             vocab: "vocabulary",
             cards: "flashcards",
             study: "studyMaterialsPanel",
+            news: "news",
             profile: "profile",
           }[page];
         const target = targetId ? document.getElementById(targetId) : null;
