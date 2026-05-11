@@ -4654,7 +4654,7 @@
         }
 
         .app-page.active-page:not(.home-screen) {
-          width: min(100% - 18px, 540px);
+          width: min(540px, calc(100% - 18px));
           margin-bottom: 10px;
         }
 
@@ -6678,6 +6678,460 @@
           padding: 12px;
         }
       }
+      /* Professional app refresh */
+      :root {
+        --ux-bg: #f6f8fb;
+        --ux-card: #ffffff;
+        --ux-ink: #172033;
+        --ux-muted: #64748b;
+        --ux-line: #d9e3ef;
+        --ux-blue: #075bd8;
+        --ux-teal: #0f766e;
+        --ux-shadow: 0 14px 34px rgba(15, 23, 42, 0.08);
+      }
+
+      body {
+        background: var(--ux-bg);
+      }
+
+      .app {
+        background: var(--ux-bg);
+      }
+
+      .app-page.active-page:not(.home-screen) {
+        width: min(540px, calc(100% - 18px));
+        margin: 0 auto 12px;
+        border: 1px solid var(--ux-line);
+        border-radius: 24px;
+        background: var(--ux-card);
+        box-shadow: var(--ux-shadow);
+        overflow: hidden;
+      }
+
+      .home-screen {
+        max-width: 560px !important;
+        min-height: 100svh !important;
+        padding: 0 18px calc(94px + env(safe-area-inset-bottom)) !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: var(--ux-bg) !important;
+        box-shadow: none !important;
+      }
+
+      .home-screen::before,
+      .home-top::after,
+      .phone-status {
+        display: none !important;
+      }
+
+      .home-top {
+        min-height: auto !important;
+        margin: 0 -18px 14px !important;
+        padding: calc(18px + env(safe-area-inset-top)) 18px 22px !important;
+        border-radius: 0 0 28px 28px !important;
+        background:
+          radial-gradient(circle at 86% 16%, rgba(255, 255, 255, 0.2), transparent 28%),
+          linear-gradient(135deg, #0b3f88 0%, #075bd8 58%, #0f766e 100%) !important;
+        box-shadow: 0 18px 38px rgba(7, 91, 216, 0.18);
+      }
+
+      .home-brand {
+        gap: 12px !important;
+        font-size: clamp(1.28rem, 7vw, 1.72rem) !important;
+      }
+
+      .care-logo {
+        width: 52px !important;
+        height: 52px !important;
+      }
+
+      .home-top .auth-button {
+        flex: 0 0 52px !important;
+        width: 52px !important;
+        height: 52px !important;
+        min-height: 52px !important;
+      }
+
+      .home-greeting {
+        margin: 0 0 12px !important;
+      }
+
+      .home-greeting h2 {
+        color: var(--ux-ink) !important;
+        font-size: clamp(1.42rem, 7vw, 1.82rem) !important;
+        font-weight: 920 !important;
+      }
+
+      .home-greeting p {
+        display: block !important;
+        max-width: 32rem !important;
+        color: var(--ux-muted) !important;
+        font-size: 0.9rem !important;
+        line-height: 1.45 !important;
+      }
+
+      .home-action-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin: 12px 0;
+      }
+
+      .home-action {
+        display: grid;
+        gap: 3px;
+        min-height: 72px;
+        padding: 13px;
+        border: 1px solid var(--ux-line);
+        border-radius: 18px;
+        background: #fff;
+        color: var(--ux-ink);
+        text-decoration: none;
+        box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+      }
+
+      .home-action.primary {
+        border-color: rgba(7, 91, 216, 0.24);
+        background: linear-gradient(135deg, #eff6ff, #ffffff);
+      }
+
+      .home-action span {
+        color: var(--ux-muted);
+        font-size: 0.72rem;
+        font-weight: 850;
+      }
+
+      .home-action strong {
+        color: #0b2b62;
+        font-size: 0.92rem;
+        line-height: 1.16;
+      }
+
+      .home-status-pill {
+        grid-column: 1 / -1;
+        display: inline-flex;
+        justify-content: center;
+        min-height: 34px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: #ecfdf5;
+        color: #047857;
+        font-size: 0.78rem;
+        font-weight: 900;
+      }
+
+      .home-menu-grid {
+        gap: 10px !important;
+        margin: 10px 0 0 !important;
+      }
+
+      .menu-tile {
+        min-height: 136px !important;
+        grid-template-rows: 52px auto auto 20px !important;
+        gap: 6px !important;
+        padding: 13px 10px 11px !important;
+        border-radius: 18px !important;
+        box-shadow: 0 10px 26px rgba(15, 23, 42, 0.07) !important;
+      }
+
+      .menu-icon {
+        width: 52px !important;
+        height: 52px !important;
+      }
+
+      .menu-tile strong {
+        font-size: 0.98rem !important;
+        line-height: 1.13 !important;
+      }
+
+      .menu-tile > span:last-child {
+        font-size: 0.72rem !important;
+        line-height: 1.22 !important;
+      }
+
+      .menu-tile::after {
+        width: 22px !important;
+        height: 22px !important;
+      }
+
+      .bottom-nav {
+        width: min(540px, calc(100% - 12px)) !important;
+        min-height: 66px !important;
+        padding: 7px !important;
+        border: 1px solid rgba(217, 227, 239, 0.95) !important;
+        border-radius: 24px !important;
+        background: rgba(255, 255, 255, 0.94) !important;
+        backdrop-filter: blur(18px);
+      }
+
+      .bottom-nav a {
+        min-height: 50px !important;
+        border-radius: 17px !important;
+        font-size: 0.66rem !important;
+      }
+
+      .bottom-nav a.active {
+        background: linear-gradient(180deg, #eff6ff, #ffffff) !important;
+        color: var(--ux-blue) !important;
+        box-shadow: inset 0 0 0 1px rgba(7, 91, 216, 0.14);
+      }
+
+      #studyMaterialsPanel > .section-head {
+        padding: 18px 18px 10px;
+        border-bottom: 0;
+      }
+
+      #studyMaterialsPanel > .section-head h2 {
+        font-size: 1.28rem;
+      }
+
+      #studyMaterialsPanel > .section-head .muted,
+      .study-intro {
+        display: none !important;
+      }
+
+      .chapter-list {
+        display: grid;
+        gap: 10px;
+        padding: 12px 14px calc(92px + env(safe-area-inset-bottom));
+      }
+
+      .part-heading {
+        padding: 13px 14px !important;
+        border-radius: 16px !important;
+        background: linear-gradient(135deg, #073a82, #0f766e) !important;
+        box-shadow: 0 10px 22px rgba(7, 91, 216, 0.16) !important;
+      }
+
+      .part-heading strong {
+        font-size: 0.98rem !important;
+      }
+
+      .part-heading-main small,
+      .part-heading span {
+        font-size: 0.74rem !important;
+      }
+
+      .part-chapter-list {
+        gap: 8px !important;
+        padding: 10px 0 0 !important;
+      }
+
+      .chapter-item {
+        border-radius: 16px !important;
+        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06) !important;
+      }
+
+      .chapter-summary {
+        min-height: 58px !important;
+        padding: 12px 14px !important;
+      }
+
+      .chapter-title {
+        font-size: 0.94rem !important;
+      }
+
+      .chapter-meta {
+        font-size: 0.72rem !important;
+        line-height: 1.25;
+      }
+
+      .chapter-content {
+        padding: 0 12px 12px !important;
+      }
+
+      .subchapter-card,
+      .learn-section {
+        border-radius: 14px !important;
+      }
+
+      #mockChapterPanel .section-head {
+        padding: 18px 18px 10px;
+      }
+
+      #mockChapterPanel .section-head h2 {
+        font-size: 1.28rem;
+      }
+
+      .mock-set-list {
+        gap: 10px !important;
+        padding: 12px 14px calc(92px + env(safe-area-inset-bottom)) !important;
+      }
+
+      .mock-set-card {
+        grid-template-columns: minmax(0, 1fr) 112px !important;
+        align-items: center !important;
+        min-height: 0 !important;
+        padding: 16px !important;
+        border-radius: 18px !important;
+      }
+
+      .mock-set-title {
+        font-size: 1rem !important;
+      }
+
+      .mock-set-meta {
+        margin-top: 4px;
+        font-size: 0.76rem !important;
+        line-height: 1.25;
+      }
+
+      .chapter-start {
+        justify-self: end !important;
+        width: 112px !important;
+        min-height: 42px !important;
+        padding: 0 12px !important;
+        font-size: 0.86rem !important;
+        white-space: nowrap;
+      }
+
+      #vocabulary .section-head,
+      #flashcards .section-head {
+        padding: 18px 18px 10px;
+      }
+
+      #vocabulary .section-head h2,
+      #flashcards .section-head h2 {
+        font-size: 1.25rem;
+      }
+
+      .vocab-tools,
+      .vocab-pager {
+        padding: 12px 18px !important;
+      }
+
+      .vocab-list {
+        gap: 10px !important;
+        padding: 12px 18px calc(92px + env(safe-area-inset-bottom)) !important;
+      }
+
+      .vocab-card {
+        padding: 14px 16px !important;
+        border-radius: 16px !important;
+      }
+
+      #flashcards .flashcard {
+        min-height: min(50vh, 370px) !important;
+        margin: 12px 18px !important;
+      }
+
+      .flash-face {
+        padding: 22px !important;
+      }
+
+      .flash-front {
+        font-size: clamp(3.2rem, 17vw, 5.2rem) !important;
+      }
+
+      #flashcards .actions {
+        grid-template-columns: 0.78fr 1fr 0.9fr !important;
+        gap: 8px !important;
+        padding: 0 18px 18px !important;
+      }
+
+      #flashcards .actions .button {
+        min-height: 48px !important;
+        padding-inline: 8px !important;
+        font-size: 0.82rem !important;
+        line-height: 1.08 !important;
+        white-space: nowrap;
+      }
+
+      .profile-hero {
+        margin: 12px !important;
+        padding: 22px !important;
+        border-radius: 24px !important;
+        color: #fff !important;
+      }
+
+      .profile-title {
+        color: #fff !important;
+        font-size: clamp(1.35rem, 5vw, 1.75rem) !important;
+      }
+
+      .profile-copy {
+        color: rgba(255, 255, 255, 0.92) !important;
+        font-size: 0.96rem !important;
+      }
+
+      .profile-badge {
+        color: #fff !important;
+        background: rgba(255, 255, 255, 0.14) !important;
+      }
+
+      .stats-grid {
+        gap: 10px !important;
+        padding: 0 12px 12px !important;
+      }
+
+      .stat {
+        padding: 16px !important;
+        border-radius: 18px !important;
+      }
+
+      .pdf-unlock-card {
+        margin: 0 12px 12px !important;
+        border-radius: 20px !important;
+      }
+
+      @media (max-width: 360px) {
+        .home-action-row,
+        .home-menu-grid {
+          gap: 8px !important;
+        }
+
+        .menu-tile {
+          min-height: 126px !important;
+          padding-inline: 8px !important;
+        }
+
+        .menu-tile strong {
+          font-size: 0.88rem !important;
+        }
+
+        .mock-set-card {
+          grid-template-columns: 1fr !important;
+        }
+
+        .chapter-start {
+          justify-self: stretch !important;
+          width: 100% !important;
+        }
+
+        #flashcards .actions .button {
+          font-size: 0.76rem !important;
+        }
+      }
+      /* Design refresh corrections */
+      .home-screen .home-menu-grid .menu-tile {
+        min-height: 128px !important;
+        grid-template-rows: 46px auto auto 18px !important;
+        padding: 12px 8px 10px !important;
+      }
+
+      .home-screen .home-menu-grid .menu-icon {
+        width: 46px !important;
+        height: 46px !important;
+      }
+
+      .home-screen .home-menu-grid .menu-tile strong {
+        max-width: 100%;
+        font-size: 0.84rem !important;
+        line-height: 1.14 !important;
+        overflow-wrap: normal;
+        word-break: normal;
+      }
+
+      .home-screen .home-menu-grid .menu-tile > span:last-child {
+        max-width: 100%;
+        font-size: 0.64rem !important;
+        line-height: 1.18 !important;
+      }
+
+      .home-screen .home-menu-grid .menu-tile::after {
+        width: 20px !important;
+        height: 20px !important;
+      }
     </style>
     <meta name="google-signin-client_id" content="" />
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -6793,7 +7247,7 @@
           >Learn</a
         >
         <a href="#practice" id="bottomTest" data-page-link="test" title="Test"
-          >Progress</a
+          >Test</a
         >
         <a href="#news" id="bottomNews" data-page-link="news" title="News"
           >News</a
@@ -6838,12 +7292,33 @@
         </div>
 
         <div class="home-greeting">
-          <h2 id="homeTitle">Hi! User</h2>
+          <h2 id="homeTitle">Hi, User</h2>
           <p id="homeCopy">
-            Study from the official SSW nursing care text, chapter by chapter.
+            Follow a simple daily path: learn, practice, test, and review.
           </p>
         </div>
 
+        <div class="home-action-row" aria-label="Recommended study actions">
+          <a
+            class="home-action primary"
+            href="#study"
+            data-page-link="study"
+            data-scroll-target="study"
+          >
+            <span>Continue Learning</span>
+            <strong>Open study plan</strong>
+          </a>
+          <a
+            class="home-action"
+            href="#flashcards"
+            data-page-link="cards"
+            data-scroll-target="flashcards"
+          >
+            <span>Flashcards</span>
+            <strong>Practice 10 words</strong>
+          </a>
+          <span class="home-status-pill">Ready offline</span>
+        </div>
         <section class="home-menu-grid" aria-label="Main learning sections">
           <a
             class="menu-tile"
@@ -7021,7 +7496,7 @@
                 </h2>
                 <p class="profile-copy" id="profileCopy">
                   Sign up to unlock protected study material and keep your
-                  learning space ready.
+                  study plan ready.
                 </p>
               </div>
             </div>
@@ -7274,7 +7749,7 @@
               Next
             </button>
             <button class="button" id="hardCardBtn" type="button">
-              Still Learning
+              Learning
             </button>
             <button class="button primary" id="knowCardBtn" type="button">
               Know It
@@ -7286,7 +7761,7 @@
       <section class="materials app-page" id="study" data-page="study">
         <section class="panel" id="studyMaterialsPanel">
           <div class="section-head">
-            <h2>Learn: Chapterwise Notes & Guides</h2>
+            <h2>Study Plan</h2>
             <span class="muted"
               >学習: 章ごとノート・ガイド (Gakushū: Shōgo toni Nōto ·
               Gaido)</span
@@ -8915,14 +9390,14 @@
           quickCards: "Cards",
           quickStudy: "Study",
           bottomHome: "Home",
-          bottomTest: "Progress",
+          bottomTest: "Test",
           bottomVocab: "Vocab",
           bottomCards: "Cards",
           bottomStudy: "Learn",
           homeKicker: "SSW CAREPRO",
-          homeTitle: "Hi! User 👋",
+          homeTitle: "Hi, User",
           homeCopy:
-            "Study from the official SSW nursing care text, chapter by chapter.",
+            "Follow a simple daily path: learn, practice, test, and review.",
           homeTabSets: "Mock Test",
           homeTabSetsSub: "5 real exam sets",
           homeTabExam: "Full Exam",
@@ -8964,7 +9439,7 @@
           finish: "Finish",
           flipShow: "Tap Card",
           flipHide: "Flip Back",
-          hard: "Still Learning",
+          hard: "Learning",
           know: "Know It",
           noMistakesYet: "No Mistakes Yet",
           noMistakes: "No Mistakes",
@@ -8984,14 +9459,14 @@
           quickCards: "Cards",
           quickStudy: "Study",
           bottomHome: "Home",
-          bottomTest: "Progress",
+          bottomTest: "Test",
           bottomVocab: "Vocab",
           bottomCards: "Cards",
           bottomStudy: "Learn",
           homeKicker: "SSW CAREPRO",
-          homeTitle: "Hi! User 👋",
+          homeTitle: "Hi, User",
           homeCopy:
-            "Study from the official SSW nursing care text, chapter by chapter.",
+            "Follow a simple daily path: learn, practice, test, and review.",
           homeTabSets: "Mock Test",
           homeTabSetsSub: "5 real exam sets",
           homeTabExam: "Full Exam",
@@ -9033,7 +9508,7 @@
           finish: "Finish",
           flipShow: "Tap Card",
           flipHide: "Flip Back",
-          hard: "Still Learning",
+          hard: "Learning",
           know: "Know It",
           noMistakesYet: "No Mistakes Yet",
           noMistakes: "No Mistakes",
@@ -10085,7 +10560,7 @@
             : "Your SSW CarePro Plan";
           el.profileCopy.textContent = name
             ? "Your protected PDF material is ready in this profile."
-            : "Sign up to unlock protected study material and keep your learning space ready.";
+            : "Sign up to save progress, unlock protected material, and keep your study plan ready.";
         }
         updateProfilePdfAccess();
         if (isLoggedIn()) {
@@ -10093,9 +10568,9 @@
           el.homeCopy.textContent =
             "Keep studying the official SSW nursing care chapters step by step.";
         } else {
-          el.homeTitle.textContent = "Hi! User 👋";
+          el.homeTitle.textContent = "Hi, User";
           el.homeCopy.textContent =
-            "Study from the official SSW nursing care text, chapter by chapter.";
+            "Follow a simple daily path: learn, practice, test, and review.";
         }
       }
 
